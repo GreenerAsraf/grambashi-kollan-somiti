@@ -2,8 +2,9 @@ import axios from "axios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
+// Get Events data
 export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
-  const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
+  const res = await axios.get("events.json");
   return res.data;
 });
 

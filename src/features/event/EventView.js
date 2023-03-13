@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEvents } from "../../slices/eventSlice";
+import EventModal from "./EventModal";
+import EventsCard from "./EventsCard";
 
 const EventView = () => {
+  const [event, setEvent] = useState({});
   const { isLoading, events, error } = useSelector(
     (state) => state.eventsReducer
   );
@@ -16,16 +19,16 @@ const EventView = () => {
     <div>
       {isLoading && <h1 className=" text-xl font-bold">Loading..........</h1>}
       {error && <h1 className=" text-xl font-bold">{error}</h1>}
-      {events &&
-        events.map((event) => {
-          return (
+      {events && (
+        <div className="grid grid-cols-3 gap-6">
+          {events.map((event) => (
             <div key={event.id}>
-              <div>
-                <h1>{event.title}</h1>
-              </div>
+              <EventsCard event={event} setEvent={setEvent}></EventsCard>
             </div>
-          );
-        })}
+          ))}
+        </div>
+      )}
+      <EventModal event={event}></EventModal>
     </div>
   );
 };
