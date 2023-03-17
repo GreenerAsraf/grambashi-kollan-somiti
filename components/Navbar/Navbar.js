@@ -1,104 +1,149 @@
+import { useState, useEffect } from "react";
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  IconButton,
+} from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Navbar = () => {
-  const menueItems = (
-    <>
-      <li>
-        <Link href="/event">Event</Link>
-      </li>
-      <li>
-        <Link href="/">Home</Link>
-      </li>
-      <li tabIndex={0}>
-        <a>
-          About
-          <svg
-            className="fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-          >
-            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-          </svg>
-        </a>
-        <ul className="p-2">
-          <li>
-            <a>About 1</a>
-          </li>
-          <li>
-            <a>About 2</a>
-          </li>
-        </ul>
-      </li>
-    </>
+export default function TopBar() {
+  const [openNav, setOpenNav] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
+
+  const navList = (
+    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link href="/event" className="flex items-center">
+          Events
+        </Link>
+      </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link href="#" className="flex items-center">
+          Users
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link href="#" className="flex items-center">
+          Gallery
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link href="#" className="flex items-center">
+          Contact
+        </Link>
+      </Typography>
+    </ul>
   );
+
   return (
-    <div className="bg-base-100">
-      <div className="navbar bg-base-100 max-w-[1240px] mx-auto">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+    <div>
+      <div className="flex justify-between bg-[#009B90] max-w-screen-2xl mx-auto rounded-md pt-1 px-3 text-white">
+        <p>phone</p>
+        <div>
+          <p>social</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-5 justify-center my-4 ">
+        <Image src={`/logo.png`} alt="" width="100" height="100" />
+        <h1 className="text-black font-bold text-3xl text-center py-2">
+          আমরা গ্রামবাসী কল্যাণ সমিতি
+        </h1>
+      </div>
+      <Navbar className="mx-auto py-2 px-4 bg-[#009B90] lg:px-8 lg:py-4">
+        <div className="container mx-auto flex items-center justify-between ">
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            className="mr-4 cursor-pointer py-1.5 font-medium"
+          >
+            <Link href="/">Home</Link>
+          </Typography>
+          <div className="hidden lg:block">{navList}</div>
+          {/* <Button
+            variant="gradient"
+            size="sm"
+            className="hidden lg:inline-block"
+          >
+            <span>Buy Now</span>
+          </Button> */}
+          <IconButton
+            variant="text"
+            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
                 fill="none"
+                className="h-6 w-6"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                strokeWidth={2}
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
+                  d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {menueItems}
-            </ul>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </IconButton>
+        </div>
+        <MobileNav open={openNav}>
+          <div className="container mx-auto">
+            {navList}
+            {/* <Button variant="gradient" size="sm" fullWidth className="mb-2">
+              <span>Buy Now</span>
+            </Button> */}
           </div>
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
-        </div>
-        <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{menueItems}</ul>
-        </div>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <Image
-                src="https://cdn.siasat.com/wp-content/uploads/2019/11/events-in-hyderabad.jpg"
-                alt=""
-                width={100}
-                height={100}
-              />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+        </MobileNav>
+      </Navbar>
     </div>
   );
-};
-
-export default Navbar;
+}
