@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const index = () => {
   return (
-    <div className="max-w-[1240px] mx-auto">
+    <div className="max-w-[1240px] mx-auto my-10 ">
       <Head>
         <title>Event</title>
       </Head>
