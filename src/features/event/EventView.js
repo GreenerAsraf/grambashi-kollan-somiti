@@ -20,7 +20,7 @@ const EventView = () => {
       {isLoading && <h1 className=" text-xl font-bold">Loading..........</h1>}
       {error && <h1 className=" text-xl font-bold">{error}</h1>}
       {events && (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6">
           {events.map((event) => (
             <div key={event.id}>
               <EventsCard event={event} setEvent={setEvent}></EventsCard>
