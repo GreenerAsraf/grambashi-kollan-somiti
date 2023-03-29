@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from "react";
 import {
   Navbar,
@@ -13,10 +14,13 @@ export default function TopBar() {
   const [openNav, setOpenNav] = useState(false);
 
   useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
+    const handleResize = () => {
+      if (window.innerWidth >= 960) {
+        setOpenNav(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const navList = (
@@ -27,8 +31,8 @@ export default function TopBar() {
         color="white"
         className="p-1 font-medium"
       >
-        <Link href="/event" className="flex items-center">
-          Events
+        <Link href="/event" passHref className="flex items-center">
+            Events
         </Link>
       </Typography>
 
@@ -38,7 +42,7 @@ export default function TopBar() {
         color="white"
         className="p-1 font-medium"
       >
-        <Link href="#" className="flex items-center">
+        <Link href="#" passHref className="flex items-center">
           Users
         </Link>
       </Typography>
@@ -48,7 +52,7 @@ export default function TopBar() {
         color="white"
         className="p-1 font-medium"
       >
-        <Link href="#" className="flex items-center">
+        <Link href="#" passHref className="flex items-center">
           Gallery
         </Link>
       </Typography>
@@ -58,7 +62,7 @@ export default function TopBar() {
         color="white"
         className="p-1 font-medium"
       >
-        <Link href="#" className="flex items-center">
+        <Link href="#" passHref className="flex items-center">
           Contact
         </Link>
       </Typography>
