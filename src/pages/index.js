@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import HomePage from './Home/index'
+import Footer from '../../components/Footer/Footer'
+import TopBar from '../../components/Navbar/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +16,9 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className='mx-auto max-w-screen-2xl px-2'>
+        <TopBar />
         <HomePage />
+        <Footer />
       </main>
     </>
   )
