@@ -71,10 +71,10 @@ const EventsCard = ({ event, setEvent }) => {
       <Grid
         item
         xs={12}
-        lg={4}
+        lg={10}
         sx={{
           display: 'flex',
-          alignItems: 'stretch'
+          alignItems: 'center'
         }}>
         <Card
           sx={{
