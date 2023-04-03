@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchEvents } from "../../slices/eventSlice";
-import EventModal from "./EventModal";
-import EventsCard from "./EventsCard";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchEvents } from '../../slices/eventSlice'
+import EventModal from './EventModal'
+import EventsCard from './EventsCard'
 
 const EventView = () => {
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState({})
   const { isLoading, events, error } = useSelector(
     (state) => state.eventsReducer
-  );
-  const dispatch = useDispatch();
+  )
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchEvents());
-  }, [dispatch]);
+    dispatch(fetchEvents())
+  }, [dispatch])
 
   return (
     <div>
-      {isLoading && <h1 className=" text-xl font-bold">Loading..........</h1>}
-      {error && <h1 className=" text-xl font-bold">{error}</h1>}
+      {isLoading && <h1 className=' text-xl font-bold'>Loading..........</h1>}
+      {error && <h1 className=' text-xl font-bold'>{error}</h1>}
       {events && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6">
+        <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
           {events.map((event) => (
             <div key={event.id}>
               <EventsCard event={event} setEvent={setEvent}></EventsCard>
@@ -30,8 +30,8 @@ const EventView = () => {
       )}
       <EventModal event={event}></EventModal>
     </div>
-  );
-};
+  )
+}
 
 // export const getStaticProps = async () => {
 //   const res = await dispatch(fetchEvents());
@@ -44,4 +44,4 @@ const EventView = () => {
 //   };
 // };
 
-export default EventView;
+export default EventView
