@@ -7,7 +7,7 @@ const index = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <HomePage/>
+      <HomePage />
     </div>
   );
 };
