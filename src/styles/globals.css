@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-    background: #D8F2F0;
-    padding: 10px;
-    height: 100vh;
+  background: #d8f2f0;
+  padding: 10px;
 }
