@@ -2,114 +2,68 @@ import {
   Grid,
   Stack,
   TextField,
-  Checkbox,
-  FormGroup,
   FormControlLabel,
   RadioGroup,
   Radio,
   FormLabel,
   FormControl,
-  Button
+  Button,
+  Typography
 } from '@mui/material'
 import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
 
-const addNewEvent = () => {
+const AddNewEvent = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    const image = form.image.files[0]
+    const formData = new FormData()
+    formData.append('image', image)
+    console.log(formData)
+    const formInfo = {
+      name: form.name.value,
+      address: form.address.value,
+      gender: form.gender.value
+    }
+    console.log(formInfo)
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
         <Grid container spacing={0}>
           <Grid item xs={12} lg={12}>
-            <BaseCard title='Form Layout'>
-              <Stack spacing={3}>
-                <TextField
-                  id='name-basic'
-                  label='Name'
-                  variant='outlined'
-                  defaultValue='Nirav Joshi'
-                />
-                <TextField id='email-basic' label='Email' variant='outlined' />
-                <TextField
-                  id='pass-basic'
-                  label='Password'
-                  type='password'
-                  variant='outlined'
-                />
-                <TextField
-                  id='outlined-multiline-static'
-                  label='Text Area'
-                  multiline
-                  rows={4}
-                  defaultValue='Default Value'
-                />
-                <TextField
-                  error
-                  id='er-basic'
-                  label='Error'
-                  defaultValue='ad1avi'
-                  variant='outlined'
-                />
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label='Terms & Condition'
+            <BaseCard title='নতুন ইভেন্ট ফর্ম'>
+              <form onSubmit={(e) => handleSubmit(e)}>
+                <Stack spacing={3}>
+                  <TextField
+                    name='name'
+                    id='name-basic'
+                    label='ইভেন্টের নাম'
+                    variant='outlined'
                   />
-                  <FormControlLabel
-                    disabled
-                    control={<Checkbox />}
-                    label='Disabled'
+                  <TextField
+                    name='address'
+                    id='outlined-multiline-static'
+                    label='ইভেন্টের বিবরণ'
+                    multiline
+                    rows={4}
                   />
-                </FormGroup>
-                <FormControl>
-                  <FormLabel id='demo-radio-buttons-group-label'>
-                    Gender
-                  </FormLabel>
-                  <RadioGroup
-                    aria-labelledby='demo-radio-buttons-group-label'
-                    defaultValue='female'
-                    name='radio-buttons-group'>
-                    <FormControlLabel
-                      value='female'
-                      control={<Radio />}
-                      label='Female'
-                    />
-                    <FormControlLabel
-                      value='male'
-                      control={<Radio />}
-                      label='Male'
-                    />
-                    <FormControlLabel
-                      value='other'
-                      control={<Radio />}
-                      label='Other'
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Stack>
-              <br />
-              <Button variant='contained' mt={2}>
-                Submit
-              </Button>
-            </BaseCard>
-          </Grid>
-
-          <Grid item xs={12} lg={12}>
-            <BaseCard title='Form Design Type'>
-              <Stack spacing={3} direction='row'>
-                <TextField
-                  id='outlined-basic'
-                  label='Outlined'
-                  variant='outlined'
-                />
-                <TextField id='filled-basic' label='Filled' variant='filled' />
-                <TextField
-                  id='standard-basic'
-                  label='Standard'
-                  variant='standard'
-                />
-              </Stack>
+                  <Stack direction='row' spacing={2}>
+                    <Typography> ছবি আপলোড</Typography>
+                    <Button variant='contained' component='label'>
+                      {/* <PhotoCameraIcon /> */}
+                      <input name='image' accept='image/*' type='file' />
+                    </Button>
+                  </Stack>
+                  <Button type='submit' variant='outlined' color='success'>
+                    Submit
+                  </Button>
+                </Stack>
+              </form>
             </BaseCard>
           </Grid>
         </Grid>
@@ -118,4 +72,4 @@ const addNewEvent = () => {
   )
 }
 
-export default addNewEvent
+export default AddNewEvent

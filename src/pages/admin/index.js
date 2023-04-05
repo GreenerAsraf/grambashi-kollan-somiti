@@ -7,12 +7,16 @@ import ProductPerformance from '../../features/admin/components/dashboard/Produc
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
 import Balance from '@/features/admin/components/dashboard/Balance'
+import Welcome from '@/features/admin/components/dashboard/Welcome'
 
 export default function Index() {
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
         <Grid container spacing={0}>
+          <Grid item xs={12} lg={12}>
+            <Welcome />
+          </Grid>
           <Grid item xs={12} lg={12}>
             <Balance />
           </Grid>

@@ -402,6 +402,29 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.11.15.tgz#a85cc60d8c1104bf1963229dea17744f674eb1f3"
   integrity sha512-Q0e2oBsjHyIWWj1wLzl14btunvBYC0yl+px7zL9R69tF87uenj6q72ieS369BJ6jxYpJwvXfR6/f+TC+ZUsKKg==
 
+"@mui/icons-material@^5.11.11":
+  version "5.11.11"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.11.11.tgz#d4e01bd405b0dac779f5e060586277f91f3acb6e"
+  integrity sha512-Eell3ADmQVE8HOpt/LZ3zIma8JSvPh3XgnhwZLT0k5HRqZcd6F/QDHc7xsWtgz09t+UEFvOYJXjtrwKmLdwwpw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+
+"@mui/joy@^5.0.0-alpha.73":
+  version "5.0.0-alpha.73"
+  resolved "https://registry.yarnpkg.com/@mui/joy/-/joy-5.0.0-alpha.73.tgz#9b5cb5d7a87e4eb84ce5d65eb34b72d61bd95496"
+  integrity sha512-6vk5ecxEO4u73xWoGoxmTcBkv7ZaDdTCmCjGBgUFZj6z4mtXF2JCKMJypUqYH/o6GlkVxlExTsQL3e7aOEOs1Q==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+    "@mui/base" "5.0.0-alpha.123"
+    "@mui/core-downloads-tracker" "^5.11.15"
+    "@mui/system" "^5.11.15"
+    "@mui/types" "^7.2.3"
+    "@mui/utils" "^5.11.13"
+    clsx "^1.2.1"
+    csstype "^3.1.1"
+    prop-types "^15.8.1"
+    react-is "^18.2.0"
+
 "@mui/lab@^5.0.0-alpha.65":
   version "5.0.0-alpha.124"
   resolved "https://registry.yarnpkg.com/@mui/lab/-/lab-5.0.0-alpha.124.tgz#89ff2b315305b841efca279057e6997e026e6dc1"
