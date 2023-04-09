@@ -50,7 +50,7 @@ const products = [
   }
 ]
 
-const ProductPerformance = () => {
+const AllUsers = () => {
   return (
     <BaseCard title='Users List'>
       <Table
@@ -151,4 +151,4 @@ const ProductPerformance = () => {
   )
 }
 
-export default ProductPerformance
+export default AllUsers

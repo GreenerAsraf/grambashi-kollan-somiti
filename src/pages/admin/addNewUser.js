@@ -14,21 +14,46 @@ import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 const AddNewUser = () => {
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/all-users')
+      .then((data) => console.log(data))
+      .catch((e) => {
+        console.error('getting res error' + e)
+      })
+  }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target
+    const name = form.name.value
+    const address = form.address.value
+    const gender = form.gender.value
     const image = form.image.files[0]
-    const formData = new FormData()
-    formData.append('image', image)
-    console.log(formData)
+    // const formData = new FormData()
+    // formData.append('image', image)
+    // console.log(formData)
     const formInfo = {
-      name: form.name.value,
-      address: form.address.value,
-      gender: form.gender.value
+      name,
+      address,
+      gender
     }
     console.log(formInfo)
+
+    fetch(`http://localhost:5000/add-user`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ formInfo: formInfo })
+    })
+      // axios
+      //   .post(`http://localhost:5000/add-user`, formInfo)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((e) => console.error('add user failed', e.message))
   }
 
   return (

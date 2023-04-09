@@ -4,7 +4,7 @@ import { Card, CardContent, Box, Typography } from '@mui/material'
 
 const BaseCard = (props) => {
   return (
-    <Card>
+    <Card style={{ backgroundColor: `${props?.cardBg ? props?.cardBg : ''} ` }}>
       <Box p={2} display='flex' alignItems='center'>
         <Typography
           fontWeight={'bold'}
