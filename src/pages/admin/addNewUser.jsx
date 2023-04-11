@@ -1,3 +1,5 @@
+import React from 'react'
+import { useEffect } from 'react'
 import {
   Grid,
   Stack,
@@ -15,9 +17,9 @@ import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
 import axios from 'axios'
-import { useEffect } from 'react'
 
 const AddNewUser = () => {
+  // testing the connection with db
   useEffect(() => {
     axios
       .get('http://localhost:5000/all-users')
@@ -34,26 +36,23 @@ const AddNewUser = () => {
     const address = form.address.value
     const gender = form.gender.value
     const image = form.image.files[0]
-    // const formData = new FormData()
-    // formData.append('image', image)
+    const formData = new FormData()
+    formData.append('image', image)
     // console.log(formData)
     const formInfo = {
-      name,
-      address,
-      gender
+      name: name,
+      address: address,
+      gender: gender
     }
-    console.log(formInfo)
 
-    fetch(`http://localhost:5000/add-user`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ formInfo: formInfo })
-    })
-      // axios
-      //   .post(`http://localhost:5000/add-user`, formInfo)
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((e) => console.error('add user failed', e.message))
+    axios
+      .post(`http://localhost:5000/add-user`, formInfo)
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
   return (
