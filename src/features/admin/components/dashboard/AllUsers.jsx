@@ -10,6 +10,7 @@ import {
   Chip
 } from '@mui/material'
 import BaseCard from '../baseCard/BaseCard'
+import { useGetUsersQuery } from '@/features/api/apiSlice'
 
 const products = [
   {
@@ -51,6 +52,7 @@ const products = [
 ]
 
 const AllUsers = () => {
+  const { data, isLoading } = useGetUsersQuery()
   return (
     <BaseCard title='Users List'>
       <Table
@@ -68,36 +70,36 @@ const AllUsers = () => {
             </TableCell>
             <TableCell>
               <Typography color='textSecondary' variant='h6'>
-                Assigned
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography color='textSecondary' variant='h6'>
                 Name
               </Typography>
             </TableCell>
             <TableCell>
               <Typography color='textSecondary' variant='h6'>
-                Priority
+                Address
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Typography color='textSecondary' variant='h6'>
+                Designation
               </Typography>
             </TableCell>
             <TableCell align='right'>
               <Typography color='textSecondary' variant='h6'>
-                Budget
+                Account
               </Typography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.name}>
+          {data?.map((user) => (
+            <TableRow key={user._id}>
               <TableCell>
                 <Typography
                   sx={{
                     fontSize: '15px',
                     fontWeight: '500'
                   }}>
-                  {product.id}
+                  {user._id}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -112,21 +114,21 @@ const AllUsers = () => {
                       sx={{
                         fontWeight: '600'
                       }}>
-                      {product.name}
+                      {user.name}
                     </Typography>
                     <Typography
                       color='textSecondary'
                       sx={{
                         fontSize: '13px'
                       }}>
-                      {product.post}
+                      {user.gender}
                     </Typography>
                   </Box>
                 </Box>
               </TableCell>
               <TableCell>
                 <Typography color='textSecondary' variant='h6'>
-                  {product.pname}
+                  {user.address}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -134,14 +136,14 @@ const AllUsers = () => {
                   sx={{
                     pl: '4px',
                     pr: '4px',
-                    backgroundColor: product.pbg,
+                    backgroundColor: 'success.main',
                     color: '#fff'
                   }}
                   size='small'
-                  label={product.priority}></Chip>
+                  label='Medium'></Chip>
               </TableCell>
               <TableCell align='right'>
-                <Typography variant='h6'>${product.budget}k</Typography>
+                <Typography variant='h6'>$24.5k</Typography>
               </TableCell>
             </TableRow>
           ))}
