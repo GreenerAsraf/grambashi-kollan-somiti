@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+	reactStrictMode: true,
 };
 
 module.exports = {
-  images: {
-    domains: ["cdn.siasat.com"],
-  },
+	images: {
+		domains: ['cdn.siasat.com', 'i.ibb.co'],
+	},
 };

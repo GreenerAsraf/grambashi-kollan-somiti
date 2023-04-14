@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import HomePage from '../../features/Home/HomePage';
-import Members from '@/features/Members/Members';
+import MembersView from '@/features/Members/MembersVIew';
 
 const index = () => {
 	return (
@@ -9,7 +9,7 @@ const index = () => {
 				<title>আমরা গ্রামবাসী কল্যাণ সমিতি</title>
 			</Head>
 			<HomePage />
-			<Members></Members>
+			<MembersView></MembersView>
 		</div>
 	);
 };
