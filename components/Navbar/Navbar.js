@@ -50,7 +50,7 @@ export default function TopBar() {
         variant='small'
         color='white'
         className='p-1 font-medium'>
-        <Link href='#' passHref className='flex items-center'>
+        <Link href='/gallery' passHref className='flex items-center'>
           Gallery
         </Link>
       </Typography>
@@ -64,7 +64,7 @@ export default function TopBar() {
         </Link>
       </Typography>
     </ul>
-  )
+   )
 
   return (
     <div>
