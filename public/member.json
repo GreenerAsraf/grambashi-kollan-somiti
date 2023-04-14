@@ -3,24 +3,30 @@
 		"id": "640de88c2100121a23814",
 		"name": "Mahfujur Rahman",
 		"title": "সভাপতি",
-		"image": "https://cdn.siasat.com/wp-content/uploads/2019/11/events-in-hyderabad.jpg"
+		"image": "https://i.ibb.co/25FczLf/20200702-202856.jpg"
 	},
 	{
 		"id": "6406e88f04976f8a28f035",
 		"name": "Aam Jayem",
 		"title": "সহ-সভাপতি",
-		"image": "https://cdn.siasat.com/wp-content/uploads/2019/11/events-in-hyderabad.jpg"
+		"image": "https://i.ibb.co/xmGvQ22/instructor4.jpg"
 	},
 	{
 		"id": "640d6e887e95bc21445fa4",
+		"name": "Jhankar Mahbub",
+		"title": "সেক্রেটারি",
+		"image": "https://i.ibb.co/2k7Fxwr/instructor1.jpg"
+	},
+	{
+		"id": "640d6e88795bc2145fa4",
 		"name": "Ashraf Uddin",
-		"title": "সাধারণ সম্পাদক",
-		"image": "https://cdn.siasat.com/wp-content/uploads/2019/11/events-in-hyderabad.jpg"
+		"title": "এ্যাসিস্ট্যান্ট সেক্রেটারি",
+		"image": "https://i.ibb.co/cYK1Xt1/saiful-hasan-g-Kys-Dgh-Aoq0-unsplash.jpg"
 	},
 	{
 		"id": "64d6e888c7bdf7d77b41cd",
 		"name": "Siam khan",
-		"title": "সহ-সাধারণ সম্পাদক",
-		"image": "https://cdn.siasat.com/wp-content/uploads/2019/11/events-in-hyderabad.jpg"
+		"title": "ক্যাশিয়ার",
+		"image": "https://i.ibb.co/1ZJh3rv/images.jpg"
 	}
 ]
