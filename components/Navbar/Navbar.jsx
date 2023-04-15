@@ -91,7 +91,7 @@ export default function TopBar() {
 					আমরা গ্রামবাসী কল্যাণ সমিতি
 				</h1>
 				<img
-					src={'/licensed-image.jfif'}
+					src={'/licensed-image.png'}
 					width={100}
 					height={100}
 				/>
