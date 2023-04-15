@@ -25,10 +25,13 @@ const MembersView = () => {
 
 	return (
 		<div className='text-center'>
+			<h2 className='text-start font-semibold text-2xl mb-3'>
+				<u>কমিটির সদস্যবৃন্দ:-</u>
+			</h2>
 			{isLoading && <h1 className=' text-xl font-bold'>Loading..........</h1>}
 			{error && <h1 className=' text-xl font-bold'>{error}</h1>}
 			{members && (
-				<div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
+				<div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
 					{members.slice(0, visible).map((member) => (
 						<div key={member.id}>
 							<MembersCard member={member}></MembersCard>

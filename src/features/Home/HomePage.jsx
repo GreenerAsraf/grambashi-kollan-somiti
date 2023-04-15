@@ -2,10 +2,11 @@ import React from 'react';
 
 const HomePage = () => {
 	return (
-		<div className='flex flex-col gap-5 mb-5'>
-			<div className='border border-gray-400 py-20 text-center bg-white/75 rounded-md'>
-				<h1>আমরা ফাঁকিবাজ কল্যাণ সমিতি</h1>
-			</div>
+		<div className='mb-10 text-center rounded-lg'>
+			<img
+				src={'/banner-health-care.png'}
+				alt='banner'
+			/>
 		</div>
 	);
 };
