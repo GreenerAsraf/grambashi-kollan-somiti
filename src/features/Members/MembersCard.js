@@ -8,7 +8,9 @@ const MembersCard = ({ member }) => {
 	};
 
 	return (
-		<Grid container>
+		<Grid
+			container
+			className='flex justify-center'>
 			<Grid
 				item
 				xs={12}
@@ -23,7 +25,7 @@ const MembersCard = ({ member }) => {
 						width: '100%',
 					}}>
 					<Image
-						className='w-[400px] h-[250px] rounded-full'
+						className='w-[250px] h-[250px] rounded-full p-5 mx-auto'
 						src={member.image}
 						width={'600'}
 						height={'200'}
@@ -37,10 +39,9 @@ const MembersCard = ({ member }) => {
 							paddingRight: '30px',
 						}}>
 						<Typography
-							fontWeight='bold'
 							sx={{
 								fontSize: '24px',
-								fontWeight: '500',
+								fontWeight: '600',
 							}}>
 							{member.name}
 						</Typography>
@@ -48,7 +49,7 @@ const MembersCard = ({ member }) => {
 							color='textSecondary'
 							sx={{
 								fontSize: '16px',
-								fontWeight: '400',
+								fontWeight: '600',
 								mt: 1,
 							}}>
 							{member.title}
