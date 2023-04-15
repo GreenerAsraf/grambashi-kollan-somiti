@@ -9,8 +9,6 @@ const MembersCard = ({ member }) => {
 
 	return (
 		<Grid container>
-			{/* <membersCards member={member} setMember={setMember} /> */}
-			{/* {blogs.map((member, index) => ( */}
 			<Grid
 				item
 				xs={12}
@@ -24,10 +22,8 @@ const MembersCard = ({ member }) => {
 						p: 0,
 						width: '100%',
 					}}>
-					{/* <Image src={blogs[1].img} alt='img' /> */}
-					{/* <figure> */}
 					<Image
-						className='w-[600px] h-[330px]'
+						className='w-[400px] h-[250px] rounded-full'
 						src={member.image}
 						width={'600'}
 						height={'200'}
@@ -57,23 +53,9 @@ const MembersCard = ({ member }) => {
 							}}>
 							{member.title}
 						</Typography>
-						{/* <Button
-							variant='contained'
-							sx={{
-								mt: '15px',
-							}}
-							color={'primary'}>
-							<label
-								htmlFor='my-modal-3'
-								onClick={() => handleModal(member)}
-								className='btn btn-ghost'>
-								See Details
-							</label>
-						</Button> */}
 					</CardContent>
 				</Card>
 			</Grid>
-			{/* ))} */}
 		</Grid>
 	);
 };

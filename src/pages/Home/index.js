@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import HomePage from '../../features/Home/HomePage';
 import MembersView from '@/features/Members/MembersVIew';
+import Message from '@/features/Message/Message';
 
 const index = () => {
 	return (
@@ -10,6 +11,7 @@ const index = () => {
 			</Head>
 			<HomePage />
 			<MembersView></MembersView>
+			<Message></Message>
 		</div>
 	);
 };

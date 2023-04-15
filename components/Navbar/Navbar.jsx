@@ -80,16 +80,21 @@ export default function TopBar() {
 
 	return (
 		<div>
-			<div className='flex items-center gap-9 justify-center my-4 '>
+			<div className='flex itemsl-center gap-9 justify-around my-4 '>
 				<Image
 					src={`/logo.png`}
 					alt=''
 					width='100'
 					height='100'
 				/>
-				<h1 className='text-black font-bold text-3xl text-center py-2'>
+				<h1 className='text-black font-bold text-3xl text-center py-9'>
 					আমরা গ্রামবাসী কল্যাণ সমিতি
 				</h1>
+				<img
+					src={'/licensed-image.jfif'}
+					width={100}
+					height={100}
+				/>
 			</div>
 			<Navbar className='mx-auto py-2 px-4 bg-[#009B90] lg:px-8 lg:py-4'>
 				<div className='container mx-auto flex items-center justify-between '>
@@ -152,6 +157,12 @@ export default function TopBar() {
 					</div>
 				</MobileNav>
 			</Navbar>
+			<marquee
+				className='mt-2'
+				behavior='scroll'
+				direction='left'>
+				নতুন কোনো নোটিশ আসলে সাথেই সাথেই আপডেট পেয়ে যাবেন।{' '}
+			</marquee>
 		</div>
 	);
 }
