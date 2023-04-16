@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import AllUser from '../../features/admin/components/dashboard/AllUsers'
+import AllUser from '../../features/admin/components/dashboard/AllUsers/AllUsers'
 import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'

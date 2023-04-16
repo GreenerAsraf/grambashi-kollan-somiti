@@ -7,10 +7,12 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Chip
+  Chip,
+  Button
 } from '@mui/material'
-import BaseCard from '../baseCard/BaseCard'
+import BaseCard from '../../baseCard/BaseCard'
 import { useGetUsersQuery } from '@/features/api/apiSlice'
+import DeleteDialogue from './DeleteDialogue'
 
 const products = [
   {
@@ -53,6 +55,8 @@ const products = [
 
 const AllUsers = () => {
   const { data, isLoading } = useGetUsersQuery()
+  const [agree, setAgree] = React.useState(false)
+
   return (
     <BaseCard title='Users List'>
       <Table
@@ -73,11 +77,7 @@ const AllUsers = () => {
                 Name
               </Typography>
             </TableCell>
-            <TableCell>
-              <Typography color='textSecondary' variant='h6'>
-                Address
-              </Typography>
-            </TableCell>
+
             <TableCell>
               <Typography color='textSecondary' variant='h6'>
                 Designation
@@ -86,6 +86,11 @@ const AllUsers = () => {
             <TableCell align='right'>
               <Typography color='textSecondary' variant='h6'>
                 Account
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Typography color='textSecondary' variant='h6'>
+                Action
               </Typography>
             </TableCell>
           </TableRow>
@@ -121,15 +126,10 @@ const AllUsers = () => {
                       sx={{
                         fontSize: '13px'
                       }}>
-                      {user.gender}
+                      {user.address}
                     </Typography>
                   </Box>
                 </Box>
-              </TableCell>
-              <TableCell>
-                <Typography color='textSecondary' variant='h6'>
-                  {user.address}
-                </Typography>
               </TableCell>
               <TableCell>
                 <Chip
@@ -144,6 +144,13 @@ const AllUsers = () => {
               </TableCell>
               <TableCell align='right'>
                 <Typography variant='h6'>$24.5k</Typography>
+              </TableCell>
+              <TableCell>
+                <DeleteDialogue
+                  id={user._id}
+                  agree={agree}
+                  setAgree={setAgree}
+                />
               </TableCell>
             </TableRow>
           ))}
