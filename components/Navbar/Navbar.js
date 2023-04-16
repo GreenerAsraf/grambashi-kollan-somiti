@@ -41,7 +41,7 @@ export default function TopBar() {
         variant='small'
         color='white'
         className='p-1 font-medium'>
-        <Link href='#' passHref className='flex items-center'>
+        <Link href='/user' passHref className='flex items-center'>
           Users
         </Link>
       </Typography>
@@ -53,13 +53,13 @@ export default function TopBar() {
         <Link href='/gallery' passHref className='flex items-center'>
           Gallery
         </Link>
-      </Typography>
+      </Typography>     
       <Typography
         as='li'
         variant='small'
         color='white'
         className='p-1 font-medium'>
-        <Link href='#' passHref className='flex items-center'>
+        <Link href='/' passHref className='flex items-center'>
           Contact
         </Link>
       </Typography>

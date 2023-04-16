@@ -57,7 +57,7 @@ export default function TopBar() {
 				color='white'
 				className='p-1 font-medium'>
 				<Link
-					href='#'
+					href='/gallery'
 					passHref
 					className='flex items-center'>
 					Gallery
