@@ -8,9 +8,9 @@ const MembersCard = ({ member }) => {
 	};
 
 	return (
-		<Grid container>
-			{/* <membersCards member={member} setMember={setMember} /> */}
-			{/* {blogs.map((member, index) => ( */}
+		<Grid
+			container
+			className='flex justify-center'>
 			<Grid
 				item
 				xs={12}
@@ -24,10 +24,8 @@ const MembersCard = ({ member }) => {
 						p: 0,
 						width: '100%',
 					}}>
-					{/* <Image src={blogs[1].img} alt='img' /> */}
-					{/* <figure> */}
 					<Image
-						className='w-[600px] h-[330px]'
+						className='w-[250px] h-[250px] rounded-full p-5 mx-auto'
 						src={member.image}
 						width={'600'}
 						height={'200'}
@@ -41,10 +39,9 @@ const MembersCard = ({ member }) => {
 							paddingRight: '30px',
 						}}>
 						<Typography
-							fontWeight='bold'
 							sx={{
 								fontSize: '24px',
-								fontWeight: '500',
+								fontWeight: '600',
 							}}>
 							{member.name}
 						</Typography>
@@ -52,28 +49,14 @@ const MembersCard = ({ member }) => {
 							color='textSecondary'
 							sx={{
 								fontSize: '16px',
-								fontWeight: '400',
+								fontWeight: '600',
 								mt: 1,
 							}}>
 							{member.title}
 						</Typography>
-						{/* <Button
-							variant='contained'
-							sx={{
-								mt: '15px',
-							}}
-							color={'primary'}>
-							<label
-								htmlFor='my-modal-3'
-								onClick={() => handleModal(member)}
-								className='btn btn-ghost'>
-								See Details
-							</label>
-						</Button> */}
 					</CardContent>
 				</Card>
 			</Grid>
-			{/* ))} */}
 		</Grid>
 	);
 };
