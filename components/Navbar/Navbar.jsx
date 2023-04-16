@@ -161,7 +161,8 @@ export default function TopBar() {
 				className='mt-2'
 				behavior='scroll'
 				direction='left'>
-				নতুন কোনো নোটিশ আসলে সাথেই সাথেই আপডেট পেয়ে যাবেন।{' '}
+				নতুন কোনো নোটিশ আসলে সাথেই সাথেই আপডেট পেয়ে যাবেন। আমদের সাথে থাকার জন্য
+				ধন্যবাদ।{' '}
 			</marquee>
 		</div>
 	);
