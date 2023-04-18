@@ -7,31 +7,33 @@ const Users = () => {
 	const [agree, setAgree] = React.useState(false);
 	// console.log(data);
 
-	const handleSubmit = (event) => {
+	const handleSubmit = (event, id, name) => {
 		event.preventDefault();
 		const amount = event.target.amount.value;
-		console.log(amount);
+		console.log(amount, id, name);
 	};
 
 	return (
 		<div className='grid lg:grid-cols-3 md:grid-cols-2 gap-7'>
 			{data?.map((user) => (
-				<div className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
+				<div
+					key={user._id}
+					className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
 					<div className='card-body'>
 						<div className='flex justify-between'>
 							<img
-								src={user.image}
+								src={user?.image}
 								alt='profile'
 							/>
 							<DeleteDialogue
-								id={user._id}
+								id={user?._id}
 								agree={agree}
 								setAgree={setAgree}></DeleteDialogue>
 						</div>
 						<h2 className='text-start text-lg'>{user.name}</h2>
 						<p>{user.address}</p>
 						<form
-							onSubmit={handleSubmit}
+							onSubmit={(event) => handleSubmit(event, user._id, user.name)}
 							className='flex justify-between mt-3'>
 							<input
 								type='number'
