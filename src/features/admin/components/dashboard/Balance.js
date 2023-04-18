@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BaseCard from '../baseCard/BaseCard'
 import { Box } from '@mui/material'
+import { useGetBalanceQuery } from '@/slices/api/balanceApi'
 
 const Balance = () => {
+  // const { data } = useGetBalanceQuery()
+  // console.log(data) // fetching data by rtk query error occurred
+
+  const [balance, setBalance] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:5000/total-balance')
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        setBalance(data)
+      })
+      .catch((e) => console.error(e))
+  }, [])
+  // console.log(balance)
+  let totalBalance = 0
+  {
+    balance?.map(
+      (blnc) => (totalBalance = totalBalance + parseInt(blnc.amount))
+    )
+  }
   return (
     <BaseCard title={'Wallet'} variant={'h1'}>
       <Box display={'flex'} padding={5} gap={'2rem'} boxShadow={'lg'}>
@@ -22,7 +44,8 @@ const Balance = () => {
           </Box>
           <h1 className='text-xl font-semibold'>Main Balance</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>$400</h1>
+
+          <h1 className='text-3xl font-semibold'>${totalBalance}</h1>
         </Box>
         <Box
           bgcolor={'#87CEEB'}
