@@ -21,7 +21,14 @@ export default function AlertSuccess({ setOpen, message }) {
         open={open}
         onClose={handleClose}
         key={vertical + horizontal}>
-        <Alert severity='success'>{message}</Alert>
+        <Alert
+          sx={{
+            color: '#fff'
+          }}
+          variant='filled'
+          severity='success'>
+          {message}
+        </Alert>
       </Snackbar>
     </div>
   )
