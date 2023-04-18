@@ -14,11 +14,13 @@ export const balanceApi = createApi({
       providesTags: ['Balance']
     }),
     addBalance: builder.mutation({
-      query: (data) => ({
-        url: '/add-balance',
-        method: 'post',
-        body: data
-      }),
+      query: (data) =>
+        // console.log(data),
+        ({
+          url: '/add-balance',
+          method: 'post',
+          body: data
+        }),
       invalidatesTags: ['Balance']
     })
   })
