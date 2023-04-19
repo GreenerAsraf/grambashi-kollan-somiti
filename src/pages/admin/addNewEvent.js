@@ -14,8 +14,16 @@ import BaseCard from "../../features/admin/components/baseCard/BaseCard";
 import { ThemeProvider } from "@mui/material/styles";
 import FullLayout from "@/features/admin/layouts/FullLayout";
 import theme from "../../features/admin/theme/theme";
+import { useAddEventMutation } from "@/slices/api/eventApi";
+import Loading from "../../../components/Loading";
 
 const AddNewEvent = () => {
+  const [addEvent, { isLoading, isSuccess }] = useAddEventMutation();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -24,11 +32,10 @@ const AddNewEvent = () => {
     formData.append("image", image);
     // console.log(formData)
     const formInfo = {
-      name: form.name.value,
-      address: form.address.value,
-      gender: form.gender.value,
+      eventName: form.name.value,
+      description: form.description.value,
     };
-    console.log(formInfo);
+    addEvent(formInfo);
   };
 
   return (
@@ -46,7 +53,7 @@ const AddNewEvent = () => {
                     variant="outlined"
                   />
                   <TextField
-                    name="address"
+                    name="description"
                     id="outlined-multiline-static"
                     label="ইভেন্টের বিবরণ"
                     multiline
