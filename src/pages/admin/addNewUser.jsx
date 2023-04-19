@@ -1,34 +1,46 @@
-import FullLayout from '@/features/admin/layouts/FullLayout'
-import { useAddUserMutation } from '@/slices/api/apiSlice'
+import React from 'react'
 import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
-  Radio,
-  RadioGroup,
   Stack,
   TextField,
-  Typography
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  FormLabel,
+  FormControl,
+  Button,
+  Typography,
+  Alert,
+  Snackbar,
+  Backdrop,
+  CircularProgress
 } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import AlertSuccess from '../../../components/Alert/AlertSuccess'
-import Loading from '../../../components/Loading'
 import BaseCard from '../../features/admin/components/baseCard/BaseCard'
+import { ThemeProvider } from '@mui/material/styles'
+import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
+import { useAddUserMutation } from '@/slices/api/apiSlice'
+
 
 const AddNewUser = () => {
   const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
 
   if (isLoading) {
-    return <Loading />
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}>
+        <CircularProgress color='inherit' />
+      </Backdrop>
+    )
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const form = e.target
+    const form = e.target 
     const name = form.name.value
+    const fatherName = form.fatherName.value
+    const motherName = form.motherName.value
     const address = form.address.value
     const gender = form.gender.value
     const image = form.image.files[0]
@@ -50,7 +62,13 @@ const AddNewUser = () => {
     <ThemeProvider theme={theme}>
       <FullLayout>
         <Grid container spacing={0}>
-          {isSuccess && <AlertSuccess message={'User Added'} setOpen={true} />}
+          {isSuccess && (
+            <Snackbar open={true} message='User added'>
+              <Alert variant='filled' severity='success'>
+                <Typography color={'white'}>User Added</Typography>
+              </Alert>
+            </Snackbar>
+          )}
           <Grid item xs={12} lg={12}>
             <BaseCard title='নতুন সদস্য ফর্ম'>
               <form onSubmit={(e) => handleSubmit(e)}>
@@ -59,6 +77,18 @@ const AddNewUser = () => {
                     name='name'
                     id='name-basic'
                     label='সদস্যের নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='fatherName'
+                    id='name-basic'
+                    label='সদস্যের পিতার নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='motherName'
+                    id='name-basic'
+                    label='সদস্যের মাতার নাম'
                     variant='outlined'
                   />
                   <TextField
@@ -90,7 +120,7 @@ const AddNewUser = () => {
                         value='মহিলা'
                         control={<Radio />}
                         label='মহিলা'
-                      />
+                       />
                       <FormControlLabel
                         value='other'
                         control={<Radio />}
