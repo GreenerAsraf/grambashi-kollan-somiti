@@ -11,7 +11,7 @@ import {
   Button
 } from '@mui/material'
 import BaseCard from '../../baseCard/BaseCard'
-import { useGetUsersQuery } from '@/features/api/apiSlice'
+import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import DeleteDialogue from './DeleteDialogue'
 
 const products = [
@@ -96,7 +96,7 @@ const AllUsers = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((user) => (
+          {data?.map((user, i) => (
             <TableRow key={user._id}>
               <TableCell>
                 <Typography
@@ -104,7 +104,7 @@ const AllUsers = () => {
                     fontSize: '15px',
                     fontWeight: '500'
                   }}>
-                  {user._id}
+                  {i + 1}
                 </Typography>
               </TableCell>
               <TableCell>

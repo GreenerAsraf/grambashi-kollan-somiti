@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
-import { useDeleteUserMutation } from '@/features/api/apiSlice'
+import { useDeleteUserMutation } from '@/slices/api/apiSlice'
 import AlertSuccess from '../../../../../../components/Alert/AlertSuccess'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
