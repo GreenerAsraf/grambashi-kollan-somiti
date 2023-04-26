@@ -38,9 +38,14 @@ const AddNewUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target 
+    const memberId = form.memberId.value
     const name = form.name.value
     const fatherName = form.fatherName.value
     const motherName = form.motherName.value
+    const mobile = form.mobile.value
+    const dateOfBirth = form.dateOfBirth.value
+    const nomineeName = form.nomineeName.value
+    const nomineeMobile = form.nomineeMobile.value
     const address = form.address.value
     const gender = form.gender.value
     const image = form.image.files[0]
@@ -48,8 +53,15 @@ const AddNewUser = () => {
     formData.append('image', image)
     const formInfo = {
       name: name,
+      fatherName: fatherName,
+      motherName: motherName,
       address: address,
-      gender: gender
+      gender: gender,
+      memberId:memberId,
+      mobile: mobile,
+      dateOfBirth: dateOfBirth,
+      nomineeName: nomineeName,
+      nomineeMobile: nomineeMobile,
     }
 
     // console.log(formInfo)
@@ -74,29 +86,28 @@ const AddNewUser = () => {
               <form onSubmit={(e) => handleSubmit(e)}>
                 <Stack spacing={3}>
                   <TextField
+                    name='memberId'
+                    id='name-basic'
+                    label='সদস্য নাম্বার '
+                    variant='outlined'
+                  />
+                  <TextField
                     name='name'
                     id='name-basic'
-                    label='সদস্যের নাম'
+                    label=' নাম'
                     variant='outlined'
                   />
                   <TextField
                     name='fatherName'
                     id='name-basic'
-                    label='সদস্যের পিতার নাম'
+                    label='পিতার নাম'
                     variant='outlined'
                   />
                   <TextField
                     name='motherName'
                     id='name-basic'
-                    label='সদস্যের মাতার নাম'
+                    label='মাতার নাম'
                     variant='outlined'
-                  />
-                  <TextField
-                    name='address'
-                    id='outlined-multiline-static'
-                    label='সদস্যের ঠিকানা'
-                    multiline
-                    rows={4}
                   />
                   <Stack direction='row' spacing={2}>
                     <Typography> ছবি আপলোড</Typography>
@@ -128,6 +139,47 @@ const AddNewUser = () => {
                       />
                     </RadioGroup>
                   </FormControl>
+
+                  <TextField
+                    name='address'
+                    id='outlined-multiline-static'
+                    label='ঠিকানা'
+                    multiline
+                    rows={4}
+                  />
+
+                  <TextField
+                    name='mobile'
+                    id='name-basic'
+                    label='মোবাইল নাম্বার'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='dateOfBirth'
+                    id='name-basic'
+                    label='জন্ম তারিখ'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='nidNumber'
+                    id='name-basic'
+                    label='জাতীয় পরিচয় পত্র/জন্ম সনদ/পাসপোর্ট নং'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='nomineeName'
+                    id='name-basic'
+                    label='নমিনির নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='nomineeMobile'
+                    id='name-basic'
+                    label='নমিনির মোবাইল'
+                    variant='outlined'
+                  />
+
+                  
                   <Button type='submit' variant='outlined' color='success'>
                     Submit
                   </Button>
