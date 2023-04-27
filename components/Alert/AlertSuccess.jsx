@@ -1,6 +1,6 @@
-import { Alert } from '@mui/material'
-import Snackbar from '@mui/material/Snackbar'
 import * as React from 'react'
+import Button from '@mui/material/Button'
+import Snackbar from '@mui/material/Snackbar'
 
 export default function AlertSuccess({ setOpen, message }) {
   const [state, setState] = React.useState({
@@ -20,16 +20,9 @@ export default function AlertSuccess({ setOpen, message }) {
         anchorOrigin={{ vertical, horizontal }}
         open={open}
         onClose={handleClose}
-        key={vertical + horizontal}>
-        <Alert
-          sx={{
-            color: '#fff'
-          }}
-          variant='filled'
-          severity='success'>
-          {message}
-        </Alert>
-      </Snackbar>
+        message={message}
+        key={vertical + horizontal}
+      />
     </div>
   )
 }
