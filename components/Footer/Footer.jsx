@@ -4,7 +4,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <div className='max-w-screen-2xl mx-auto'>
-      <footer className='footer footer-center p-7 bg-[#009B90] text-white rounded-xl shadow-md backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 border border-white/80'>
+      <footer className='footer footer-center p-7 bg-[#009B90] text-white rounded-2xl shadow-md backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 border border-white/80'>
         <div className='grid grid-flow-col gap-4'>
           <Link href='' className='link link-hover'>
             About us
