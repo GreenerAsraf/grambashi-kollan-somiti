@@ -37,7 +37,14 @@ const AddNewUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target
+    const memberId = form.memberId.value
     const name = form.name.value
+    const fatherName = form.fatherName.value
+    const motherName = form.motherName.value
+    const dateOfBirth = form.dateOfBirth.value
+    const mobile = form.mobile.value
+    const nomineeName = form.nomineeName.value
+    const nomineeMobile = form.nomineeMobile.value
     const address = form.address.value
     const gender = form.gender.value
     const image = form.image.files[0]
@@ -71,9 +78,39 @@ const AddNewUser = () => {
               <form onSubmit={(e) => handleSubmit(e)}>
                 <Stack spacing={3}>
                   <TextField
+                    name='memberId'
+                    id='name-basic'
+                    label='সদস্য নাম্বার '
+                    variant='outlined'
+                  />
+                  <TextField
                     name='name'
                     id='name-basic'
                     label='সদস্যের নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='fatherName'
+                    id='name-basic'
+                    label='পিতার নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='motherName'
+                    id='name-basic'
+                    label='মাতার নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='dateOfBirth'
+                    id='name-basic'
+                    label='জন্মতারিখ'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='mobile'
+                    id='name-basic'
+                    label='মোবাইল'
                     variant='outlined'
                   />
                   <TextField
@@ -112,6 +149,18 @@ const AddNewUser = () => {
                         label='Other'
                       />
                     </RadioGroup>
+                    <TextField
+                      name='nomineeName'
+                      id='name-basic'
+                      label='নমিনির নাম '
+                      variant='outlined'
+                    />
+                    <TextField
+                      name='nomineeMobile'
+                      id='name-basic'
+                      label='নমিনির মোবাইল '
+                      variant='outlined'
+                    />
                   </FormControl>
                   <Button type='submit' variant='outlined' color='success'>
                     Submit
