@@ -19,7 +19,7 @@ import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
-import { useAddUserMutation } from '@/features/api/apiSlice'
+import { useAddUserMutation } from '@/slices/api/apiSlice'
 
 const AddNewUser = () => {
   const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
