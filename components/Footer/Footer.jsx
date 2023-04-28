@@ -10,7 +10,7 @@ const Footer = () => {
             About us
           </Link>
           <Link href='' className='link link-hover'>
-            Contact
+            Contact us
           </Link>
           <Link href='' className='link link-hover'>
             Jobs
