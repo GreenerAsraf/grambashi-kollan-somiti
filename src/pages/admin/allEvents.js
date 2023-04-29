@@ -3,7 +3,11 @@ import BaseCard from "../../features/admin/components/baseCard/BaseCard";
 import { ThemeProvider } from "@mui/material/styles";
 import FullLayout from "@/features/admin/layouts/FullLayout";
 import theme from "../../features/admin/theme/theme";
-import { useGetEventsQuery } from "@/slices/api/eventApi";
+import {
+  useDeleteEventMutation,
+  useGetEventsQuery,
+} from "@/slices/api/eventApi";
+import Loading from "../../../components/Loading";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -76,36 +80,48 @@ const itemData = [
 ];
 const AllEvents = () => {
   const { data, isLoading, isError } = useGetEventsQuery();
+  const [deleteEvent, { isSuccess }] = useDeleteEventMutation();
   console.log(data);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const handleEventDelete = (id) => {
+    // console.log(id);
+    deleteEvent(id);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
-        <Grid container spacing={0}>
-          <Grid item xs={12} lg={12}>
-            <BaseCard title="Grid Image">
-              <ImageList
-                sx={{ height: 450 }}
-                variant="quilted"
-                cols={4}
-                rowHeight={121}
-              >
-                {itemData.map((item) => (
-                  <ImageListItem
-                    key={item.img}
-                    cols={item.cols || 1}
-                    rows={item.rows || 1}
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {data.map((event) => (
+            <div key={event._id} className="card w-96 bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                  alt="Shoes"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">
+                  {event.eventName}
+                  <div className="badge badge-secondary">NEW</div>
+                </h2>
+                <p>{event.description}</p>
+                <div className="card-actions justify-end">
+                  <div
+                    onClick={() => handleEventDelete(event._id)}
+                    className="btn btn-sm btn-warning font-normal rounded-full"
                   >
-                    <img
-                      {...srcset(item.img, 121, item.rows, item.cols)}
-                      alt={item.title}
-                      loading="lazy"
-                    />
-                  </ImageListItem>
-                ))}
-              </ImageList>
-            </BaseCard>
-          </Grid>
-        </Grid>
+                    Remove
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </FullLayout>
     </ThemeProvider>
   );

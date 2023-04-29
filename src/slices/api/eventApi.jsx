@@ -21,8 +21,15 @@ export const eventApi=createApi({
                 body:data
             }),
             invalidatesTags:["Events"],
+        }),
+        deleteEvent: builder.mutation({
+          query: (id) => ({
+            url: `/delete-event?id=${id}`,
+            method: 'delete'
+          }),
+          invalidatesTags: ['Events']
         })
     })
 })
 
-export const {useGetEventsQuery, useAddEventMutation}= eventApi;
+export const {useGetEventsQuery, useAddEventMutation, useDeleteEventMutation}= eventApi;
