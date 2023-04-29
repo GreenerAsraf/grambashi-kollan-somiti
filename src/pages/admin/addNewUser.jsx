@@ -51,9 +51,16 @@ const AddNewUser = () => {
     const formData = new FormData()
     formData.append('image', image)
     const formInfo = {
+      memberId: memberId,
       name: name,
+      fatherName: fatherName,
+      motherName: motherName,
+      mobile: mobile,
+      dateOfBirth: dateOfBirth,
       address: address,
-      gender: gender
+      gender: gender,
+      nomineeName: nomineeName,
+      nomineeMobile: nomineeMobile
     }
 
     // console.log(formInfo)
