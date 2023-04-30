@@ -70,6 +70,7 @@ const AllUsersCard = () => {
                 placeholder='amount'
                 name='amount'
                 className='input input-bordered'
+                min={1}
               />
               <input
                 readOnly

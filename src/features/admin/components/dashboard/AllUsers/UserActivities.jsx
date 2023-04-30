@@ -13,42 +13,14 @@ import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
 import TimelineDot from '@mui/lab/TimelineDot'
+import { getDate } from '../../../../../../components/getDate'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-const activities = [
-  {
-    time: '09.50',
-    color: 'success.main',
-    text: 'Meeting with John'
-  },
-  {
-    time: '09.46',
-    color: 'secondary.main',
-    text: 'Payment received from John Doe of $385.90'
-  },
-  {
-    time: '09.47',
-    color: 'primary.main',
-    text: 'Project Meeting'
-  },
-  {
-    time: '09.48',
-    color: 'warning.main',
-    text: 'New Sale recorded #ML-3467'
-  },
-  {
-    time: '09.49',
-    color: 'error.main',
-    text: 'Payment was made of $64.95 to Michael Anderson'
-  }
-]
-
 export default function UserActivities({ name, id }) {
   const [open, setOpen] = React.useState(false)
-
   const [balance, setBalance] = React.useState([])
 
   React.useEffect(() => {
@@ -70,6 +42,10 @@ export default function UserActivities({ name, id }) {
     setOpen(false)
   }
 
+  // paymentInfo will contain if data is found by id matching
+  const paymentInfo = balance?.filter((uid) => uid.id === id)
+  // console.log(paymentInfo.length)
+
   return (
     <div>
       <Button onClick={handleClickOpen}>See Payment Activities</Button>
@@ -82,22 +58,24 @@ export default function UserActivities({ name, id }) {
         <DialogTitle fontWeight={'bold'} color={'green'} fontSize={19}>
           "{name}" Payment activities
         </DialogTitle>
-        <DialogContent>
-          <Timeline
-            sx={{
-              p: 0
-            }}>
-            {balance
-              .filter((uid) => uid.id === id)
-              .map((activity) => (
-                <TimelineItem key={activity.time}>
+        {paymentInfo?.length === 0 && (
+          <DialogContent>No data found</DialogContent>
+        )}
+        {paymentInfo && (
+          <DialogContent>
+            <Timeline
+              sx={{
+                p: 0
+              }}>
+              {paymentInfo.map((activity) => (
+                <TimelineItem key={activity._id}>
                   <TimelineOppositeContent
                     sx={{
                       fontSize: '12px',
                       fontWeight: '700',
                       flex: '0'
                     }}>
-                    {activity.createdAt}
+                    {getDate(activity.createdAt)}
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     {activity.amount > 0 ? (
@@ -126,8 +104,9 @@ export default function UserActivities({ name, id }) {
                   </TimelineContent>
                 </TimelineItem>
               ))}
-          </Timeline>
-        </DialogContent>
+            </Timeline>
+          </DialogContent>
+        )}
         <DialogActions>
           <Button variant='outlined' color='error' onClick={handleClose}>
             Close
