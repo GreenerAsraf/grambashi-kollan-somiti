@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-export default function DeleteDialogue({ id, name, setAgree }) {
+export default function DeleteDialogue({ id, name }) {
   const [open, setOpen] = React.useState(false)
   // const [agree, setAgree] = React.useState(false)
 
@@ -27,11 +27,9 @@ export default function DeleteDialogue({ id, name, setAgree }) {
 
   const handleClose = () => {
     setOpen(false)
-    setAgree(false)
   }
 
   const handleAgree = () => {
-    setAgree(true)
     setOpen(false)
     deleteUser(id)
   }
