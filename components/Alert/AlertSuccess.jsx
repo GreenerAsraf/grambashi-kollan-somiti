@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar'
+import { Alert, Typography } from '@mui/material'
 
 export default function AlertSuccess({ setOpen, message }) {
   const [state, setState] = React.useState({
@@ -18,11 +19,14 @@ export default function AlertSuccess({ setOpen, message }) {
     <div>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
+        autoHideDuration={6000}
         open={open}
         onClose={handleClose}
-        message={message}
-        key={vertical + horizontal}
-      />
+        key={vertical + horizontal}>
+        <Alert variant='filled' severity='success'>
+          <Typography color={'white'}>{message}!</Typography>
+        </Alert>
+      </Snackbar>
     </div>
   )
 }
