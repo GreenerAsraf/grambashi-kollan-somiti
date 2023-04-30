@@ -57,6 +57,7 @@ const AllUsersCard = () => {
               </div>
               <DeleteDialogue
                 id={user._id}
+                name={user.name}
                 agree={agree}
                 setAgree={setAgree}></DeleteDialogue>
             </div>
