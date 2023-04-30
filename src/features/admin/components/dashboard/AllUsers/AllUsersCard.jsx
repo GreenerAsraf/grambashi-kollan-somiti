@@ -4,6 +4,7 @@ import AlertSuccess from '../../../../../../components/Alert/AlertSuccess'
 import Loading from '../../../../../../components/Loading'
 import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import { useAddBalanceMutation } from '@/slices/api/balanceApi'
+import UserActivities from './UserActivities'
 
 const AllUsersCard = () => {
   const { data } = useGetUsersQuery()
@@ -59,8 +60,10 @@ const AllUsersCard = () => {
                 id={user._id}
                 name={user.name}
                 agree={agree}
-                setAgree={setAgree}></DeleteDialogue>
+                setAgree={setAgree}
+              />
             </div>
+            <UserActivities name={user.name} />
             <form onSubmit={handleSubmit} className='flex justify-between mt-3'>
               <input
                 type='number'
