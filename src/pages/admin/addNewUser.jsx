@@ -20,6 +20,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
 import { useAddUserMutation } from '@/slices/api/apiSlice'
+import AlertSuccess from '../../../components/Alert/AlertSuccess'
 
 const AddNewUser = () => {
   const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
@@ -73,13 +74,7 @@ const AddNewUser = () => {
     <ThemeProvider theme={theme}>
       <FullLayout>
         <Grid container spacing={0}>
-          {isSuccess && (
-            <Snackbar open={true} message='User added'>
-              <Alert variant='filled' severity='success'>
-                <Typography color={'white'}>User Added</Typography>
-              </Alert>
-            </Snackbar>
-          )}
+          {isSuccess && <AlertSuccess message={'User Added'} setOpen={true} />}
           <Grid item xs={12} lg={12}>
             <BaseCard title='নতুন সদস্য ফর্ম'>
               <form onSubmit={(e) => handleSubmit(e)}>
