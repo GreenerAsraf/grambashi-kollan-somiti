@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-export default function DeleteDialogue({ id, agree, setAgree }) {
+export default function DeleteDialogue({ id, name, setAgree }) {
   const [open, setOpen] = React.useState(false)
   // const [agree, setAgree] = React.useState(false)
 
@@ -55,11 +55,12 @@ export default function DeleteDialogue({ id, agree, setAgree }) {
         keepMounted
         onClose={handleClose}
         aria-describedby='alert-dialog-slide-description'>
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle fontWeight={'bold'} color={'red'} fontSize={19}>
+          {'Do you want to delete user?'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-slide-description'>
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            {name}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
