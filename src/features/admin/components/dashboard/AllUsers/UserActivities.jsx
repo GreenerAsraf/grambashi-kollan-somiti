@@ -90,7 +90,7 @@ export default function UserActivities({ name, id }) {
             {balance
               .filter((uid) => uid.id === id)
               .map((activity) => (
-                <TimelineItem key={activity.time}>
+                <TimelineItem key={activity._id}>
                   <TimelineOppositeContent
                     sx={{
                       fontSize: '12px',
