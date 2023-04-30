@@ -1,8 +1,26 @@
 import React from 'react';
 import BaseCard from '../baseCard/BaseCard';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import { useState } from 'react';
+import { useAddBalanceMutation } from '@/slices/api/balanceApi';
 
 const Debit = () => {
+	const [tValue, setTValue] = useState('');
+	const [addBalance] = useAddBalanceMutation();
+
+	// console.log(tValue);
+
+	const handleSubmit = (event) => {
+		console.log(event);
+		const amount = event;
+		const data = {
+			amount,
+		};
+		console.log(data);
+		addBalance(data);
+	};
+
 	return (
 		<BaseCard
 			title={'Debit and Credit'}
@@ -26,12 +44,22 @@ const Debit = () => {
 					<h1 className='text-2xl font-semibold'>আয়</h1>
 					<TextField
 						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+						onChange={(newValue) => setTValue(newValue.target.value)}
 						id='margin-normal'
 						margin='normal'
 						type='number'
 						label='Amount'
 						variant='standard'
+						value={tValue}
 					/>
+					<Button
+						className='text-black font-semibold text-xl mt-3'
+						variant='contained'
+						color='primary'
+						onClick={() => handleSubmit(tValue)}
+						endIcon={<SendIcon />}>
+						Send
+					</Button>
 				</Box>
 				<Box
 					bgcolor={'#bdf294'}
