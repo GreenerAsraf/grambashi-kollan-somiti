@@ -63,7 +63,7 @@ const AllUsersCard = () => {
                 setAgree={setAgree}
               />
             </div>
-            <UserActivities name={user.name} />
+            <UserActivities id={user._id} name={user.name} />
             <form onSubmit={handleSubmit} className='flex justify-between mt-3'>
               <input
                 type='number'
