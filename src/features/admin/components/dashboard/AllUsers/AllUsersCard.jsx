@@ -4,6 +4,7 @@ import AlertSuccess from '../../../../../../components/Alert/AlertSuccess'
 import Loading from '../../../../../../components/Loading'
 import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import { useAddBalanceMutation } from '@/slices/api/balanceApi'
+import UserActivities from './UserActivities'
 
 const AllUsersCard = () => {
   const { data } = useGetUsersQuery()
@@ -22,7 +23,7 @@ const AllUsersCard = () => {
       memberName,
       id
     }
-    console.log(data)
+    // console.log(data)
     addBalance(data)
   }
 
@@ -38,21 +39,38 @@ const AllUsersCard = () => {
           key={user._id}
           className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
           <div className='card-body'>
+            <div>
+              <img
+                className=' rounded-full'
+                width={'100px'}
+                src={
+                  user?.image
+                    ? user.image
+                    : 'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
+                }
+                alt='profile'
+              />
+            </div>
             <div className='flex justify-between'>
-              <img src={user.image} alt='profile' />
+              <div>
+                <h2 className='text-start text-lg'>{user.name}</h2>
+                <p>{user.address}</p>
+              </div>
               <DeleteDialogue
                 id={user._id}
+                name={user.name}
                 agree={agree}
-                setAgree={setAgree}></DeleteDialogue>
+                setAgree={setAgree}
+              />
             </div>
-            <h2 className='text-start text-lg'>{user.name}</h2>
-            <p>{user.address}</p>
+            <UserActivities id={user._id} name={user.name} />
             <form onSubmit={handleSubmit} className='flex justify-between mt-3'>
               <input
                 type='number'
                 placeholder='amount'
                 name='amount'
                 className='input input-bordered'
+                min={1}
               />
               <input
                 readOnly

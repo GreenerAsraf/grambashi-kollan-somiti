@@ -21,7 +21,7 @@ const EventView = () => {
 			{error && <h1 className=' text-xl font-bold'>{error}</h1>}
 			{events && (
 				<div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
-					{events.map((event) => (
+					{events?.map((event) => (
 						<div key={event.id}>
 							<EventsCard
 								event={event}

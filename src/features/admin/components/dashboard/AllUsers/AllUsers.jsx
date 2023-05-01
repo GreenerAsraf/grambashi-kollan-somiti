@@ -104,7 +104,7 @@ const AllUsers = () => {
                     fontSize: '15px',
                     fontWeight: '500'
                   }}>
-                  {user._id}
+                  {user.memberId ? user.memberId : user._id}
                 </Typography>
               </TableCell>
               <TableCell>
