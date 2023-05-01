@@ -96,20 +96,17 @@ const AllEvents = () => {
     <ThemeProvider theme={theme}>
       <FullLayout>
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {data.map((event) => (
+          {data?.map((event) => (
             <div key={event._id} className="card w-96 bg-base-100 shadow-xl">
               <figure>
-                <img
-                  src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
+                <img src={event?.image} alt="/" />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">
                   {event.eventName}
                   <div className="badge badge-secondary">NEW</div>
                 </h2>
-                <p>{event.description}</p>
+                <p>{event.description.slice(0, 200)} ....</p>
                 <div className="card-actions justify-end">
                   <div
                     onClick={() => handleEventDelete(event._id)}
