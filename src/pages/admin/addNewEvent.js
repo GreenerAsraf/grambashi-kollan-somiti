@@ -31,11 +31,25 @@ const AddNewEvent = () => {
     const formData = new FormData();
     formData.append("image", image);
     // console.log(formData)
-    const formInfo = {
-      eventName: form.name.value,
-      description: form.description.value,
-    };
-    addEvent(formInfo);
+    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const formInfo = {
+            eventName: form.name.value,
+            description: form.description.value,
+            image: result.data.url,
+          };
+          addEvent(formInfo);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
