@@ -1,67 +1,89 @@
-import React from 'react';
-import BaseCard from '../baseCard/BaseCard';
-import { Box, TextField } from '@mui/material';
+import React from 'react'
+import BaseCard from '../baseCard/BaseCard'
+import { Box, Button, TextField } from '@mui/material'
 
 const Debit = () => {
-	return (
-		<BaseCard
-			title={'Debit and Credit'}
-			variant={'h1'}>
-			<Box
-				display={'flex'}
-				padding={7}
-				gap={'5rem'}
-				boxShadow={'lg'}>
-				<Box
-					bgcolor={'#e6e6ed'}
-					padding={5}
-					height={245}
-					width={345}
-					display={'flex'}
-					flexDirection={'column'}
-					borderRadius={'10%'}
-					sx={{
-						boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-					}}>
-					<h1 className='text-2xl font-semibold'>আয়</h1>
-					<TextField
-						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-						id='margin-normal'
-						margin='normal'
-						type='number'
-						label='Amount'
-						variant='standard'
-					/>
-				</Box>
-				<Box
-					bgcolor={'#bdf294'}
-					padding={5}
-					width={345}
-					height={245}
-					display={'flex'}
-					flexDirection={'column'}
-					borderRadius={'10%'}
-					sx={{
-						boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-					}}>
-					<h1 className='text-2xl font-semibold'>ব্যয়</h1>
-					<TextField
-						id='standard-basic'
-						label='Expenses Details'
-						variant='standard'
-					/>{' '}
-					<TextField
-						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-						id='margin-normal'
-						margin='normal'
-						type='number'
-						label='Amount'
-						variant='standard'
-					/>{' '}
-				</Box>
-			</Box>
-		</BaseCard>
-	);
-};
+  const handleDebit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    const credit = form.credit.value
+    console.log(credit)
+  }
+  const handleCredit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    const debit = form.debit.value
+    const debitNote = form.debitNote.value
+    const debitInfo = {
+      debit,
+      debitNote
+    }
+    console.log(debitInfo)
+  }
+  return (
+    <BaseCard title={'Debit and Credit'} variant={'h1'}>
+      <Box
+        display={'flex'}
+        justifyContent={'center'}
+        gap={'5rem'}
+        boxShadow={'lg'}>
+        <form onSubmit={handleDebit}>
+          <Box
+            padding={5}
+            height={290}
+            width={345}
+            display={'flex'}
+            flexDirection={'column'}
+            borderRadius={'10%'}
+            sx={{
+              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+            }}>
+            <h1 className='text-2xl font-semibold'>Credit</h1>
+            <TextField
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              type='number'
+              label='Amount'
+              variant='standard'
+              name='credit'
+              margin='normal'
+            />
+            <Button type='submit'>Submit</Button>
+          </Box>
+        </form>
 
-export default Debit;
+        <form onSubmit={handleCredit}>
+          <Box
+            padding={5}
+            width={345}
+            height={290}
+            display={'flex'}
+            flexDirection={'column'}
+            borderRadius={'10%'}
+            sx={{
+              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+            }}>
+            <h1 className='text-2xl font-semibold'>Debit </h1>
+            <TextField
+              label='Expenses Note'
+              variant='standard'
+              name='debitNote'
+              margin='normal'
+              type='text'
+            />
+            <TextField
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              margin='normal'
+              type='number'
+              label='Amount'
+              variant='standard'
+              name='debit'
+            />
+            <Button type='submit'>Submit</Button>
+          </Box>
+        </form>
+      </Box>
+    </BaseCard>
+  )
+}
+
+export default Debit
