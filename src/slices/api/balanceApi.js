@@ -10,8 +10,8 @@ export const balanceApi = createApi({
     getBalance: builder.query({
       query: () => ({
         url: '/total-balance'
-      }),
-      providesTags: ['Balance']
+      })
+      // providesTags: ['Balance']
     }),
     addBalance: builder.mutation({
       query: (data) =>
@@ -20,8 +20,8 @@ export const balanceApi = createApi({
           url: '/add-balance',
           method: 'post',
           body: data
-        }),
-      invalidatesTags: ['Balance']
+        })
+      // invalidatesTags: ['Balance']
     })
   })
 })
