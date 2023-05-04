@@ -26,11 +26,14 @@ export const creditApi = createApi({
   tagTypes: ['credit'],
   endpoints: (builder) => ({
     addCredit: builder.mutation({
-      query: (money) => ({
-        url: '/add-credit',
-        method: 'post',
-        body: money
-      }),
+      query: (money) => (
+        {
+          url: '/add-credit',
+          method: 'post',
+          body: money
+        },
+        console.log(money)
+      ),
       invalidatesTags: ['credit']
     })
   })
