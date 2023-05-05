@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import BaseCard from "../baseCard/BaseCard";
 import { Box } from "@mui/material";
 import {
-  useAddCreditMutation,
   useAddDebitMutation,
+  useGetDebitQuery,
 } from "@/slices/api/debitCreditApi";
+import { useGetBalanceQuery } from "@/slices/api/balanceApi";
+import {
+  useAddCreditMutation,
+  useGetCreditQuery,
+} from "@/slices/api/creditApi";
 
 const Balance = () => {
   const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation();
@@ -44,8 +49,15 @@ const Balance = () => {
       })
       .catch((e) => console.error(e));
   }, []);
+
+  const { data } = useGetCreditQuery();
+
+  // useEffect(() => {
+  //   setCredit(data);
+  // }, []);
+  // console.log(credit);
   {
-    debit.result?.map(
+    debit?.result?.map(
       (dr) => (totalBalance = totalBalance - parseInt(dr.debit))
     );
   }
@@ -60,8 +72,9 @@ const Balance = () => {
       })
       .catch((e) => console.error(e));
   }, []);
+
   {
-    credit.result?.map(
+    credit?.result?.map(
       (cred) => (totalBalance = totalBalance + parseInt(cred.credit))
     );
   }

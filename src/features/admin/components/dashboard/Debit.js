@@ -1,11 +1,9 @@
 import React from "react";
 import BaseCard from "../baseCard/BaseCard";
 import { Box, Button, TextField } from "@mui/material";
-import {
-  useAddCreditMutation,
-  useAddDebitMutation,
-} from "@/slices/api/debitCreditApi";
+import { useAddDebitMutation } from "@/slices/api/debitCreditApi";
 import { toast } from "react-hot-toast";
+import { useAddCreditMutation } from "@/slices/api/creditApi";
 
 const Debit = () => {
   const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation();
