@@ -45,6 +45,7 @@ const Debit = () => {
     <BaseCard title={"Debit and Credit"} variant={"h1"}>
       <Box
         display={"flex"}
+        flexWrap={"wrap"}
         justifyContent={"center"}
         gap={"5rem"}
         boxShadow={"lg"}

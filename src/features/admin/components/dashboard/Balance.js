@@ -81,7 +81,14 @@ const Balance = () => {
 
   return (
     <BaseCard title={"Wallet"} variant={"h1"}>
-      <Box display={"flex"} padding={5} gap={"2rem"} boxShadow={"lg"}>
+      <Box
+        display={"flex"}
+        // flexDirection={{ base: 'column', md: 'row' }}
+        flexWrap="wrap"
+        padding={5}
+        gap={"2rem"}
+        boxShadow={"lg"}
+      >
         <Box
           bgcolor={"#90EE90"}
           padding={5}
