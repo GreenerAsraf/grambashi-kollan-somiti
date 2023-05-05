@@ -15,6 +15,8 @@ const Balance = () => {
   // console.log(addDebit, 'addDebit data')
   const [balance, setBalance] = useState([]);
   const [debit, setDebit] = useState([]);
+  const [credit, setCredit] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:5000/total-balance")
       .then((res) => res.json())
@@ -42,12 +44,26 @@ const Balance = () => {
       })
       .catch((e) => console.error(e));
   }, []);
-  console.log(debit);
-  let debitBalance = 0;
   {
-    debit.result?.map((dr) => {
-      console.log(dr);
-    });
+    debit.result?.map(
+      (dr) => (totalBalance = totalBalance - parseInt(dr.debit))
+    );
+  }
+
+  // get credit balance
+  useEffect(() => {
+    fetch("http://localhost:5000/get-credit")
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        setCredit(data);
+      })
+      .catch((e) => console.error(e));
+  }, []);
+  {
+    credit.result?.map(
+      (cred) => (totalBalance = totalBalance + parseInt(cred.credit))
+    );
   }
 
   return (
