@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import BaseCard from '../baseCard/BaseCard'
 import { Box } from '@mui/material'
+import {
+  useAddCreditMutation,
+  useAddDebitMutation
+} from '@/slices/api/debitCreditApi'
 
 const Balance = () => {
+  const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation()
+  const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation()
   // const { data } = useGetBalanceQuery()
   // console.log(data) // fetching data by rtk query error occurred
-
+  // const { debit } = addDebit
+  // console.log(addDebit, 'addDebit data')
   const [balance, setBalance] = useState([])
+  const [debit, setDebit] = useState([])
+  const [credit, setCredit] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:5000/total-balance')
@@ -24,6 +33,39 @@ const Balance = () => {
       (blnc) => (totalBalance = totalBalance + parseInt(blnc.amount))
     )
   }
+
+  // get debit balance
+  useEffect(() => {
+    fetch('http://localhost:5000/get-debit')
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        setDebit(data)
+      })
+      .catch((e) => console.error(e))
+  }, [])
+  {
+    debit.result?.map(
+      (dr) => (totalBalance = totalBalance - parseInt(dr.debit))
+    )
+  }
+
+  // get credit balance
+  useEffect(() => {
+    fetch('http://localhost:5000/get-credit')
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        setCredit(data)
+      })
+      .catch((e) => console.error(e))
+  }, [])
+  {
+    credit.result?.map(
+      (cred) => (totalBalance = totalBalance + parseInt(cred.credit))
+    )
+  }
+
   return (
     <BaseCard title={'Wallet'} variant={'h1'}>
       <Box

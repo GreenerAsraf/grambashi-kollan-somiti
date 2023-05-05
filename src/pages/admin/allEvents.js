@@ -97,7 +97,10 @@ const AllEvents = () => {
       <FullLayout>
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {data?.map((event) => (
-            <div key={event._id} className="card w-96 bg-base-100 shadow-xl">
+            <div
+              key={event._id}
+              className="card w-80 lg:w-96 bg-base-100 shadow-xl"
+            >
               <figure>
                 <img src={event?.image} alt="/" />
               </figure>

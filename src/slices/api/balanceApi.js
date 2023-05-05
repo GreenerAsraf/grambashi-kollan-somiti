@@ -1,29 +1,29 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const balanceApi = createApi({
-  reducerPath: 'userApi',
+  reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000'
+    baseUrl: "http://localhost:5000",
   }),
-  tagTypes: ['Balance'],
+  tagTypes: ["Balance"],
   endpoints: (builder) => ({
     getBalance: builder.query({
       query: () => ({
-        url: '/total-balance'
-      })
-      // providesTags: ['Balance']
+        url: "/total-balance",
+      }),
+      providesTags: ["Balance"],
     }),
     addBalance: builder.mutation({
       query: (data) =>
         // console.log(data),
         ({
-          url: '/add-balance',
-          method: 'post',
-          body: data
-        })
-      // invalidatesTags: ['Balance']
-    })
-  })
-})
+          url: "/add-balance",
+          method: "post",
+          body: data,
+        }),
+      invalidatesTags: ["Balance"],
+    }),
+  }),
+});
 
-export const { useAddBalanceMutation, useGetBalanceQuery } = balanceApi
+export const { useAddBalanceMutation, useGetBalanceQuery } = balanceApi;
