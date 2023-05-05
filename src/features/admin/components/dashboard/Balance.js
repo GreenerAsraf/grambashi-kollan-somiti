@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import BaseCard from '../baseCard/BaseCard'
 import { Box } from '@mui/material'
+import {
+  useAddCreditMutation,
+  useAddDebitMutation
+} from '@/slices/api/debitCreditApi'
 
 const Balance = () => {
+  const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation()
+  const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation()
   // const { data } = useGetBalanceQuery()
   // console.log(data) // fetching data by rtk query error occurred
-
+  // const { debit } = addDebit
+  // console.log(addDebit, 'addDebit data')
   const [balance, setBalance] = useState([])
-
+  const [debit, setDebit] = useState([])
   useEffect(() => {
     fetch('http://localhost:5000/total-balance')
       .then((res) => res.json())
@@ -24,6 +31,25 @@ const Balance = () => {
       (blnc) => (totalBalance = totalBalance + parseInt(blnc.amount))
     )
   }
+
+  // get debit balance
+  useEffect(() => {
+    fetch('http://localhost:5000/get-debit')
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        setDebit(data)
+      })
+      .catch((e) => console.error(e))
+  }, [])
+  console.log(debit)
+  let debitBalance = 0
+  {
+    debit.result?.map((dr) => {
+      console.log(dr)
+    })
+  }
+
   return (
     <BaseCard title={'Wallet'} variant={'h1'}>
       <Box display={'flex'} padding={5} gap={'2rem'} boxShadow={'lg'}>

@@ -1,25 +1,47 @@
 import React from 'react';
 import BaseCard from '../baseCard/BaseCard';
 import { Box, Button, TextField } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import { useState } from 'react';
-import { useAddBalanceMutation } from '@/slices/api/balanceApi';
+import {
+	useAddCreditMutation,
+	useAddDebitMutation,
+} from '@/slices/api/debitCreditApi';
+import { toast } from 'react-hot-toast';
 
 const Debit = () => {
-	const [pValue, setTValue] = useState('');
-	const [addBalance] = useAddBalanceMutation();
+	const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation();
+	const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation();
 
-	// console.log(pValue);
-
-	const handleProfitSubmit = (event) => {
-		// console.log(event);
-		const amount = event;
-		const data = {
-			amount,
-		};
-		console.log(data);
-		// addBalance(data);
+	const handleCredit = (e) => {
+		e.preventDefault();
+		const form = e.target;
+		const credit = form.credit.value;
+		const creditNote = form.creditNote.value;
+		const creditInfo = { credit, creditNote };
+		console.log(creditInfo);
+		addCredit(creditInfo);
 	};
+
+	const handleDebit = (e) => {
+		e.preventDefault();
+		const form = e.target;
+		const debit = form.debit.value;
+		const debitNote = form.debitNote.value;
+		const debitInfo = {
+			debit,
+			debitNote,
+		};
+		console.log(debitInfo);
+		addDebit(debitInfo);
+	};
+
+	// console.log(creditSuccess, debitSuccess)
+
+	if (creditSuccess) {
+		toast.success('Credit Added!');
+	}
+	if (debitSuccess) {
+		toast.success('Debit Added!');
+	}
 
 	return (
 		<BaseCard
@@ -27,66 +49,75 @@ const Debit = () => {
 			variant={'h1'}>
 			<Box
 				display={'flex'}
-				padding={7}
+				justifyContent={'center'}
 				gap={'5rem'}
 				boxShadow={'lg'}>
-				<Box
-					bgcolor={'#e6e6ed'}
-					padding={5}
-					height={245}
-					width={345}
-					display={'flex'}
-					flexDirection={'column'}
-					borderRadius={'10%'}
-					sx={{
-						boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-					}}>
-					<h1 className='text-2xl font-semibold'>আয়</h1>
-					<TextField
-						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-						onChange={(newValue) => setTValue(newValue.target.value)}
-						id='margin-normal'
-						margin='normal'
-						type='number'
-						label='Amount'
-						variant='standard'
-						value={pValue}
-					/>
-					<Button
-						className='text-black font-semibold text-xl mt-3'
-						variant='contained'
-						color='primary'
-						onClick={() => handleProfitSubmit(pValue)}
-						endIcon={<SendIcon />}>
-						Send
-					</Button>
-				</Box>
-				<Box
-					bgcolor={'#bdf294'}
-					padding={5}
-					width={345}
-					height={245}
-					display={'flex'}
-					flexDirection={'column'}
-					borderRadius={'10%'}
-					sx={{
-						boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-					}}>
-					<h1 className='text-2xl font-semibold'>ব্যয়</h1>
-					<TextField
-						id='standard-basic'
-						label='Expenses Details'
-						variant='standard'
-					/>{' '}
-					<TextField
-						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-						id='margin-normal'
-						margin='normal'
-						type='number'
-						label='Amount'
-						variant='standard'
-					/>{' '}
-				</Box>
+				<div>
+					<form onSubmit={handleCredit}>
+						<Box
+							padding={5}
+							height={290}
+							width={345}
+							display={'flex'}
+							flexDirection={'column'}
+							borderRadius={'10%'}
+							sx={{
+								boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+							}}>
+							<h1 className='text-2xl font-semibold'>Credit</h1>
+
+							<TextField
+								label='Credit Note'
+								variant='standard'
+								name='creditNote'
+								margin='normal'
+								type='text'
+							/>
+							<TextField
+								inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+								type='number'
+								label='Amount'
+								variant='standard'
+								name='credit'
+								margin='normal'
+							/>
+							<Button type='submit'>Submit</Button>
+						</Box>
+					</form>
+				</div>
+
+				<div>
+					<form onSubmit={handleDebit}>
+						<Box
+							padding={5}
+							width={345}
+							height={290}
+							display={'flex'}
+							flexDirection={'column'}
+							borderRadius={'10%'}
+							sx={{
+								boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+							}}>
+							<h1 className='text-2xl font-semibold'>Debit </h1>
+							<TextField
+								label='Expenses Note'
+								variant='standard'
+								name='debitNote'
+								margin='normal'
+								type='text'
+							/>
+							<TextField
+								inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+								margin='normal'
+								type='number'
+								label='Amount'
+								variant='standard'
+								name='debit'
+							/>
+							<Button type='submit'>Submit</Button>
+						</Box>
+					</form>
+				</div>
 			</Box>
 		</BaseCard>
 	);

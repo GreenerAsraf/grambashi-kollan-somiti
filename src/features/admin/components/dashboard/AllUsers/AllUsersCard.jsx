@@ -5,6 +5,7 @@ import Loading from '../../../../../../components/Loading'
 import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import { useAddBalanceMutation } from '@/slices/api/balanceApi'
 import UserActivities from './UserActivities'
+import { toast } from 'react-hot-toast'
 
 const AllUsersCard = () => {
   const { data } = useGetUsersQuery()
@@ -30,10 +31,12 @@ const AllUsersCard = () => {
   if (isLoading) {
     return <Loading />
   }
+  if (isSuccess === true) {
+    toast.success('Money added!')
+  }
 
   return (
     <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-7'>
-      {isSuccess && <AlertSuccess message={'Money Added'} setOpen={true} />}
       {data?.map((user) => (
         <div
           key={user._id}
