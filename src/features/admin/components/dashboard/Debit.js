@@ -6,19 +6,19 @@ import { useState } from 'react';
 import { useAddBalanceMutation } from '@/slices/api/balanceApi';
 
 const Debit = () => {
-	const [tValue, setTValue] = useState('');
+	const [pValue, setTValue] = useState('');
 	const [addBalance] = useAddBalanceMutation();
 
-	// console.log(tValue);
+	// console.log(pValue);
 
-	const handleSubmit = (event) => {
-		console.log(event);
+	const handleProfitSubmit = (event) => {
+		// console.log(event);
 		const amount = event;
 		const data = {
 			amount,
 		};
 		console.log(data);
-		addBalance(data);
+		// addBalance(data);
 	};
 
 	return (
@@ -50,13 +50,13 @@ const Debit = () => {
 						type='number'
 						label='Amount'
 						variant='standard'
-						value={tValue}
+						value={pValue}
 					/>
 					<Button
 						className='text-black font-semibold text-xl mt-3'
 						variant='contained'
 						color='primary'
-						onClick={() => handleSubmit(tValue)}
+						onClick={() => handleProfitSubmit(pValue)}
 						endIcon={<SendIcon />}>
 						Send
 					</Button>
