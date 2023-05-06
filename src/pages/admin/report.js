@@ -3,49 +3,29 @@ import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
+import CreditHistory from '@/features/admin/components/dashboard/report/CreditHistory'
+import DebitHistory from '@/features/admin/components/dashboard/report/DebitHistory'
 
 const Report = () => {
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
-        <Grid container spacing={0}>
-          <Grid item xs={12} lg={12}>
-            <BaseCard title='Alerts'>
+        <Grid container spacing={0} columns={{ xs: 4, sm: 8, md: 16 }}>
+          <Grid item lg={12}>
+            <BaseCard title='Credit History'>
               <Stack spacing={2}>
-                <Alert severity='error'>
-                  This is an error alert — check it out!
-                </Alert>
-                <Alert severity='warning'>
-                  This is a warning alert — check it out!
-                </Alert>
-                <Alert severity='info'>
-                  This is an info alert — check it out!
-                </Alert>
-                <Alert severity='success'>
-                  This is a success alert — check it out!
-                </Alert>
+                <CreditHistory />
               </Stack>
             </BaseCard>
           </Grid>
-          <Grid item xs={12} lg={12}>
-            <BaseCard title='Alerts Outline'>
+          <Grid item>
+            <BaseCard title='Debit History'>
               <Stack spacing={2}>
-                <Alert severity='error' variant='outlined'>
-                  This is an error alert — check it out!
-                </Alert>
-                <Alert severity='warning' variant='outlined'>
-                  This is a warning alert — check it out!
-                </Alert>
-                <Alert severity='info' variant='outlined'>
-                  This is an info alert — check it out!
-                </Alert>
-                <Alert severity='success' variant='outlined'>
-                  This is a success alert — check it out!
-                </Alert>
+                <DebitHistory />
               </Stack>
             </BaseCard>
           </Grid>
-          <Grid item xs={12} lg={12}>
+          <Grid item>
             <BaseCard title='Alert with Desc'>
               <Stack spacing={2}>
                 <Alert severity='error'>
