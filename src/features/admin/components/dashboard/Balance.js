@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import BaseCard from "../baseCard/BaseCard";
 import { Box } from "@mui/material";
-import {
-  useAddDebitMutation,
-  useGetDebitQuery,
-} from "@/slices/api/debitCreditApi";
 import { useGetBalanceQuery } from "@/slices/api/balanceApi";
 import {
   useAddCreditMutation,
   useGetCreditQuery,
 } from "@/slices/api/creditApi";
+import {
+  useAddDebitMutation,
+  useGetDebitQuery,
+} from "@/slices/api/debitCreditApi";
 
 const Balance = () => {
   const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation();
   const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation();
-  // const { data } = useGetBalanceQuery()
+  // const { data } = useGetBalanceQuery();
   // console.log(data) // fetching data by rtk query error occurred
   // const { debit } = addDebit
   // console.log(addDebit, 'addDebit data')
@@ -31,7 +31,8 @@ const Balance = () => {
       })
       .catch((e) => console.error(e));
   }, []);
-  // console.log(balance)
+  // console.log(balance);
+
   let totalBalance = 0;
   {
     balance?.map(
@@ -50,12 +51,6 @@ const Balance = () => {
       .catch((e) => console.error(e));
   }, []);
 
-  const { data } = useGetCreditQuery();
-
-  // useEffect(() => {
-  //   setCredit(data);
-  // }, []);
-  // console.log(credit);
   {
     debit?.result?.map(
       (dr) => (totalBalance = totalBalance - parseInt(dr.debit))
