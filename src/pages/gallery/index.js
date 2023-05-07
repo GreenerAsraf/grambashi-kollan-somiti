@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaCamera } from 'react-icons/fa'
 import Gallery from 'react-photo-gallery'
+import TopBar from '../../../components/Navbar/Navbar'
 
 const index = () => {
   const photos = [
@@ -45,8 +46,7 @@ const index = () => {
 
   return (
     <div>
-      {/* <h2>This is gallery</h2> */}
-
+      <TopBar />
       <h1>
         <FaCamera /> গ্রামবাসী কল্যাণ সমিতির স্মৃতিময় ছবি
       </h1>
