@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import TopBar from '../../../components/Navbar/Navbar'
 
 const FORM_ENDPOINT = '' // TODO - fill on the later step
 
@@ -20,9 +21,10 @@ const index = () => {
   }
   return (
     <div>
-      <h1>This is Contact</h1>
+      <TopBar></TopBar>
 
       <form
+        className='bg-gray-400 w-full m-10'
         action={FORM_ENDPOINT}
         onSubmit={handleSubmit}
         method='POST'
