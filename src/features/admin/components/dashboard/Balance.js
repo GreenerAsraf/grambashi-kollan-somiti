@@ -62,7 +62,7 @@ const Balance = () => {
     fetch("http://localhost:5000/get-credit")
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
+        console.log(data);
         setCredit(data);
       })
       .catch((e) => console.error(e));
