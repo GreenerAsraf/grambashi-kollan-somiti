@@ -50,24 +50,39 @@ const AddNewUser = () => {
     const gender = form.gender.value
     const image = form.image.files[0]
     const formData = new FormData()
-    formData.append('image', image)
-    const formInfo = {
-      memberId: memberId,
-      name: name,
-      fatherName: fatherName,
-      motherName: motherName,
-      mobile: mobile,
-      dateOfBirth: dateOfBirth,
-      address: address,
-      gender: gender,
-      nomineeName: nomineeName,
-      nomineeMobile: nomineeMobile
-    }
 
-    // console.log(formInfo)
-    // user added using RTK query
-    addUser(formInfo)
-    form.reset()
+    formData.append('image', image)
+    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const formInfo = {
+            memberId: memberId,
+            name: name,
+            fatherName: fatherName,
+            motherName: motherName,
+            image: result.data.url,
+            mobile: mobile,
+            dateOfBirth: dateOfBirth,
+            address: address,
+            gender: gender,
+            nomineeName: nomineeName,
+            nomineeMobile: nomineeMobile
+          }
+
+          // console.log(formInfo)
+          // user added using RTK query
+          addUser(formInfo)
+          form.reset()
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
   }
 
   return (
