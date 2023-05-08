@@ -38,8 +38,8 @@ const activities = [
 
 const CreditHistory = () => {
   const { data: creditData } = useGetCreditQuery()
-  const creditHist = creditData.result
-  // console.log(creditHistory)
+  const creditHist = creditData?.result
+  // console.log(creditHist)
 
   return (
     <Timeline
