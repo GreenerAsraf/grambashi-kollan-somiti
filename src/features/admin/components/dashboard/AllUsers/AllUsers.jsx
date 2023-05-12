@@ -11,7 +11,7 @@ import {
   Button
 } from '@mui/material'
 import BaseCard from '../../baseCard/BaseCard'
-import { useGetUsersQuery } from '@/features/api/apiSlice'
+import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import DeleteDialogue from './DeleteDialogue'
 
 const products = [
@@ -80,11 +80,6 @@ const AllUsers = () => {
 
             <TableCell>
               <Typography color='textSecondary' variant='h6'>
-                Designation
-              </Typography>
-            </TableCell>
-            <TableCell align='right'>
-              <Typography color='textSecondary' variant='h6'>
                 Account
               </Typography>
             </TableCell>
@@ -104,7 +99,7 @@ const AllUsers = () => {
                     fontSize: '15px',
                     fontWeight: '500'
                   }}>
-                  {user._id}
+                  {user?.memberId}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -132,17 +127,6 @@ const AllUsers = () => {
                 </Box>
               </TableCell>
               <TableCell>
-                <Chip
-                  sx={{
-                    pl: '4px',
-                    pr: '4px',
-                    backgroundColor: 'success.main',
-                    color: '#fff'
-                  }}
-                  size='small'
-                  label='Medium'></Chip>
-              </TableCell>
-              <TableCell align='right'>
                 <Typography variant='h6'>$24.5k</Typography>
               </TableCell>
               <TableCell>

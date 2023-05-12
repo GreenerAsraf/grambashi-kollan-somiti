@@ -19,7 +19,8 @@ import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import { ThemeProvider } from '@mui/material/styles'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import theme from '../../features/admin/theme/theme'
-import { useAddUserMutation } from '@/features/api/apiSlice'
+import { useAddUserMutation } from '@/slices/api/apiSlice'
+import AlertSuccess from '../../../components/Alert/AlertSuccess'
 
 const AddNewUser = () => {
   const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
@@ -37,43 +38,96 @@ const AddNewUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target
+    const memberId = form.memberId.value
     const name = form.name.value
+    const fatherName = form.fatherName.value
+    const motherName = form.motherName.value
+    const dateOfBirth = form.dateOfBirth.value
+    const mobile = form.mobile.value
+    const nomineeName = form.nomineeName.value
+    const nomineeMobile = form.nomineeMobile.value
     const address = form.address.value
     const gender = form.gender.value
     const image = form.image.files[0]
     const formData = new FormData()
-    formData.append('image', image)
-    const formInfo = {
-      name: name,
-      address: address,
-      gender: gender
-    }
 
-    // console.log(formInfo)
-    // user added using RTK query
-    addUser(formInfo)
-    form.reset()
+    formData.append('image', image)
+    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const formInfo = {
+            memberId: memberId,
+            name: name,
+            fatherName: fatherName,
+            motherName: motherName,
+            image: result.data.url,
+            mobile: mobile,
+            dateOfBirth: dateOfBirth,
+            address: address,
+            gender: gender,
+            nomineeName: nomineeName,
+            nomineeMobile: nomineeMobile
+          }
+
+          // console.log(formInfo)
+          // user added using RTK query
+          addUser(formInfo)
+          form.reset()
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
   }
 
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
         <Grid container spacing={0}>
-          {isSuccess && (
-            <Snackbar open={true} message='User added'>
-              <Alert variant='filled' severity='success'>
-                <Typography color={'white'}>User Added</Typography>
-              </Alert>
-            </Snackbar>
-          )}
+          {isSuccess && <AlertSuccess message={'User Added'} setOpen={true} />}
           <Grid item xs={12} lg={12}>
             <BaseCard title='নতুন সদস্য ফর্ম'>
               <form onSubmit={(e) => handleSubmit(e)}>
                 <Stack spacing={3}>
                   <TextField
+                    name='memberId'
+                    id='name-basic'
+                    label='সদস্য নাম্বার '
+                    variant='outlined'
+                  />
+                  <TextField
                     name='name'
                     id='name-basic'
                     label='সদস্যের নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='fatherName'
+                    id='name-basic'
+                    label='পিতার নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='motherName'
+                    id='name-basic'
+                    label='মাতার নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='dateOfBirth'
+                    id='name-basic'
+                    label='জন্মতারিখ'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='mobile'
+                    id='name-basic'
+                    label='মোবাইল'
                     variant='outlined'
                   />
                   <TextField
@@ -112,6 +166,18 @@ const AddNewUser = () => {
                         label='Other'
                       />
                     </RadioGroup>
+                    <TextField
+                      name='nomineeName'
+                      id='name-basic'
+                      label='নমিনির নাম '
+                      variant='outlined'
+                    />
+                    <TextField
+                      name='nomineeMobile'
+                      id='name-basic'
+                      label='নমিনির মোবাইল '
+                      variant='outlined'
+                    />
                   </FormControl>
                   <Button type='submit' variant='outlined' color='success'>
                     Submit
