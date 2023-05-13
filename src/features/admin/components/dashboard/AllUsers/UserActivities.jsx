@@ -14,6 +14,7 @@ import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import { getDate } from '../../../../../../components/getDate'
+import { getDateOnly } from '../../../../../../components/getDateOnly'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
@@ -75,7 +76,8 @@ export default function UserActivities({ name, id }) {
                       fontWeight: '700',
                       flex: '0'
                     }}>
-                    {getDate(activity.createdAt)}
+                    {getDateOnly(activity.createdAt)}
+                    {/* {getDate(activity.createdAt)} */}
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     {activity.amount > 0 ? (
