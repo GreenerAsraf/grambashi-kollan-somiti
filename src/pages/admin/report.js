@@ -15,10 +15,14 @@ import { useState } from 'react';
 
 const Report = () => {
 	const [page, setPage] = useState(1);
+	const [pre, setPre] = useState(0);
+	const [next, setNext] = useState(5);
+	const [btn, setBtn] = useState(false);
 	const { data: creditData } = useGetCreditQuery();
 	const creditHist = creditData?.result;
 	const creditLnt = creditHist?.length;
 	// console.log(creditHist);
+	console.log(pre, next);
 
 	const { data: debitData } = useGetDebitQuery();
 	const debitHist = debitData?.result;
@@ -37,6 +41,12 @@ const Report = () => {
 	}
 	const pagination = (e) => {
 		setPage(e);
+	};
+
+	const disableBtn = () => {
+		if (pre === 1 || next === lnt) {
+			setBtn(true);
+		}
 	};
 
 	const creditCol = [
@@ -109,14 +119,24 @@ const Report = () => {
 					</Grid>
 				</Grid>
 
-				<div className='btn-group'>
-					{arr.map((ar) => (
+				<div className='btn-group gap-3 flex justify-center'>
+					<button
+						className='btn'
+						onClick={() => setPre(pre - 1)(setNext(next - 1))}>
+						previous
+					</button>
+					{arr.slice(pre, next).map((ar) => (
 						<button
 							onClick={() => pagination(ar)}
-							className='btn'>
+							className='btn btn-outline'>
 							{ar}
 						</button>
 					))}
+					<button
+						className='btn'
+						onClick={() => setPre(pre + 1)(setNext(next + 1))}>
+						next
+					</button>
 				</div>
 			</FullLayout>
 		</ThemeProvider>
