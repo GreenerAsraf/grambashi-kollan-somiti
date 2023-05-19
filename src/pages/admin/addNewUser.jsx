@@ -76,7 +76,7 @@ const AddNewUser = () => {
             nomineeMobile: nomineeMobile
           }
 
-          // console.log(formInfo)
+          console.log(formInfo)
           // user added using RTK query
           addUser(formInfo)
           form.reset()
