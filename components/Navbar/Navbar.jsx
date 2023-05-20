@@ -7,12 +7,19 @@ import {
 } from '@material-tailwind/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useGetNoticeQuery } from '@/slices/api/noticeApi'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPhone } from '@fortawesome/free-solid-svg-icons';
 // import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 export default function TopBar() {
   const [openNav, setOpenNav] = useState(false)
+  const { data, isLoading } = useGetNoticeQuery()
+  let notice = ''
+  if (!isLoading) {
+    notice = data[0]
+  }
+  // console.log(notice)
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,11 +76,11 @@ export default function TopBar() {
   return (
     <div>
       <div className='flex itemsl-center gap-9 justify-around my-4 '>
-        <Image src={`/logo.png`} alt='' width='100' height='100' />
+        <Image src={`/logo.png`} alt='logo' width='100' height='100' />
         <h1 className='text-black font-bold text-3xl text-center py-9'>
           আমরা গ্রামবাসী কল্যাণ সমিতি
         </h1>
-        <img src={'/licensed-image.png'} width={100} height={100} />
+        <img src={'/licensed-image.png'} alt='logo' width={100} height={100} />
       </div>
       <Navbar className='mx-auto py-2 px-4 bg-[#009B90] lg:px-8 lg:py-4'>
         <div className='container mx-auto flex items-center justify-between '>
@@ -137,8 +144,9 @@ export default function TopBar() {
         </MobileNav>
       </Navbar>
       <marquee className='mt-2' behavior='scroll' direction='left'>
-        নতুন কোনো নোটিশ আসলে সাথেই সাথেই আপডেট পেয়ে যাবেন। আমদের সাথে থাকার জন্য
-        ধন্যবাদ।{' '}
+        {notice?.notice ||
+          `নতুন কোনো নোটিশ আসলে সাথেই সাথেই আপডেট পেয়ে যাবেন। আমদের সাথে থাকার জন্য
+        ধন্যবাদ।`}
       </marquee>
     </div>
   )
