@@ -3,19 +3,19 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from '../../features/admin/theme/theme'
 
 import BaseCard from '@/features/admin/components/baseCard/BaseCard'
-import { useAddNoticeMutation } from '@/slices/api/noticeApi'
-import { Button, Stack, TextField } from '@mui/material'
+import { useAddNoticeMutation, useGetNoticeQuery } from '@/slices/api/noticeApi'
+import { Button, Stack, TextField, Typography } from '@mui/material'
 import { toast } from 'react-hot-toast'
 
 const Expenses = () => {
-  // const { data } = useGetNoticeQuery()
+  const { data, isLoading } = useGetNoticeQuery()
   const [addNotice, { isSuccess }] = useAddNoticeMutation()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target
     const notice = form.notice.value
-    // console.log(notice)
+
     addNotice({ notice })
   }
   if (isSuccess) {
@@ -26,10 +26,18 @@ const Expenses = () => {
       <FullLayout>
         <BaseCard title={'Add notice here'}>
           <form onSubmit={handleSubmit}>
-            <Stack>
-              <TextField name='notice' label='Notice' variant='outlined' />
-
-              <Button type='submit'>Save</Button>
+            <Stack mt={3}>
+              Notice preview
+              <Typography mb={3} textAlign={'center'} color={'green'}>
+                {!isLoading && `${data[0]?.notice}`}
+              </Typography>
+              <TextField
+                name='notice'
+                label='New Notice'
+                placeholder='Write here new Notice'
+                variant='outlined'
+              />
+              <Button type='submit'>Update</Button>
             </Stack>
           </form>
         </BaseCard>
