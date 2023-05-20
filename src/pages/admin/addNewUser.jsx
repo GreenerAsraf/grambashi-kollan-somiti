@@ -39,6 +39,7 @@ const AddNewUser = () => {
     e.preventDefault()
     const form = e.target
     const memberId = form.memberId.value
+    const memberRule = form.memberRule.value
     const name = form.name.value
     const fatherName = form.fatherName.value
     const motherName = form.motherName.value
@@ -62,6 +63,7 @@ const AddNewUser = () => {
         if (result.success) {
           const formInfo = {
             memberId: memberId,
+            memberRule: memberRule,
             name: name,
             fatherName: fatherName,
             motherName: motherName,
@@ -74,7 +76,7 @@ const AddNewUser = () => {
             nomineeMobile: nomineeMobile
           }
 
-          // console.log(formInfo)
+          console.log(formInfo)
           // user added using RTK query
           addUser(formInfo)
           form.reset()
@@ -94,6 +96,13 @@ const AddNewUser = () => {
             <BaseCard title='নতুন সদস্য ফর্ম'>
               <form onSubmit={(e) => handleSubmit(e)}>
                 <Stack spacing={3}>
+                  <TextField
+                    name='memberRule'
+                    id='name-basic'
+                    label='সদস্যের ধরন '
+                    variant='outlined'
+                  />
+
                   <TextField
                     name='memberId'
                     id='name-basic'
