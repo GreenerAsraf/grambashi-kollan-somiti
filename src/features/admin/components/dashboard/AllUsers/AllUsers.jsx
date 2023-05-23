@@ -55,6 +55,7 @@ const products = [
 
 const AllUsers = () => {
   const { data, isLoading } = useGetUsersQuery()
+  console.log(data)
   const [agree, setAgree] = React.useState(false)
 
   return (
