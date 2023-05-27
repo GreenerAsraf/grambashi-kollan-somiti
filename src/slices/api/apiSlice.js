@@ -16,14 +16,11 @@ export const userApi = createApi({
       providesTags: ['Users']
     }),
     addUser: builder.mutation({
-      query: (data) => (
-        {
-          url: '/add-user',
-          method: 'post',
-          body: data
-        },
-        console.log(data)
-      ),
+      query: (data) => ({
+        url: '/add-user',
+        method: 'POST',
+        body: data
+      }),
       invalidatesTags: ['Users']
     }),
     deleteUser: builder.mutation({
