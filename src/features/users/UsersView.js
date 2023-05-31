@@ -2,17 +2,21 @@ import React from "react";
 import { useGetUsersQuery } from "../../slices/api/apiSlice";
 // import Image from "next/image";
 
-const UsersView = () => {
+const UsersView = ({ searchUser }) => {
   const { data, error, isLoading } = useGetUsersQuery();
   // console.log(data);
+
   return (
     <div>
       {isLoading && <h1 className=" text-xl font-bold">Loading..........</h1>}
       {error && <h1 className=" text-xl font-bold">{error.message}</h1>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data?.map((user) => (
-          <div className="max-w-md p-6 lg:flex lg:space-x-4 bg-teal-125 border-2 shadow-lg text-black">
+        {searchUser?.map((user) => (
+          <div
+            key={user._id}
+            className="max-w-md p-6 lg:flex lg:space-x-4 bg-teal-125 border-2 shadow-lg text-black"
+          >
             <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
               <img
                 src={user?.image}
