@@ -37,7 +37,7 @@ const Balance = () => {
 
   // Total Spent
   const { data: debit } = useGetDebitQuery();
-  console.log(debit.result);
+  // console.log(debit.result);
   let totalSpent = 0;
   {
     debit?.result?.map((dev) => {
