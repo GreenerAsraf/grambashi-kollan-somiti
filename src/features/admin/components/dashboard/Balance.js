@@ -51,10 +51,16 @@ const Balance = () => {
     );
   }
 
-  // get credit balance
+  // Total Profit
 
   const { data: credit } = useGetCreditQuery();
   // console.log(credit)
+  let totalProfit = 0;
+  {
+    credit?.result?.map((cred) => {
+      totalProfit = totalProfit + cred.credit;
+    });
+  }
 
   {
     credit?.result?.map(
@@ -75,9 +81,9 @@ const Balance = () => {
         {/* Main Balance */}
         <Box
           bgcolor={"#90EE90"}
-          padding={5}
-          width={345}
-          height={345}
+          padding={4}
+          width={255}
+          height={255}
           display={"flex"}
           flexDirection={"column"}
           borderRadius={"5%"}
@@ -95,10 +101,10 @@ const Balance = () => {
         </Box>
         {/* Remaining Balance */}
         <Box
-          bgcolor={"#87CEEB"}
-          padding={5}
-          height={345}
-          width={345}
+          bgcolor={"#FFA500"}
+          padding={4}
+          width={255}
+          height={255}
           display={"flex"}
           flexDirection={"column"}
           borderRadius={"5%"}
@@ -113,12 +119,36 @@ const Balance = () => {
           <br />
           <h1 className="text-3xl font-semibold">${totalBalance}</h1>
         </Box>
+        {/* Total Profit */}
+        <Box
+          bgcolor={"#87CEEB"}
+          padding={4}
+          width={255}
+          height={255}
+          display={"flex"}
+          flexDirection={"column"}
+          borderRadius={"5%"}
+          sx={{
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <Box>
+            <img
+              height={65}
+              width={65}
+              src="https://cdn-icons-png.flaticon.com/512/4149/4149714.png"
+            />
+          </Box>
+          <h1 className="text-xl font-semibold">Total Profit</h1>
+          <br />
+          <h1 className="text-3xl font-semibold">${totalProfit}</h1>
+        </Box>
         {/* Total Spent */}
         <Box
-          bgcolor={"#FFA500"}
-          padding={5}
-          height={345}
-          width={345}
+          bgcolor={"#fa667d"}
+          padding={4}
+          width={255}
+          height={255}
           display={"flex"}
           flexDirection={"column"}
           borderRadius={"5%"}
