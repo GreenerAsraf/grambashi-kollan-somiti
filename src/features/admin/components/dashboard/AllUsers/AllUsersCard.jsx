@@ -8,7 +8,7 @@ import UserActivities from './UserActivities'
 import { toast } from 'react-hot-toast'
 import { Box } from '@mui/material'
 
-const AllUsersCard = () => {
+const AllUsersCard = ({searchUser} ) => {
   const { data } = useGetUsersQuery()
   const [addBalance, { isSuccess, isLoading }] = useAddBalanceMutation()
   const [agree, setAgree] = React.useState(false)
@@ -38,10 +38,10 @@ const AllUsersCard = () => {
 
   return (
     <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-7'>
-      {data?.length === 0 ? (
+      {searchUser?.length === 0 ? (
         <Box>No user found. Please add an user</Box>
       ) : (
-        data?.map((user) => (
+        searchUser?.map((user) => (
           <div
             key={user._id}
             className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
