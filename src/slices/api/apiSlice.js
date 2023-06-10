@@ -4,7 +4,9 @@ export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     // baseUrl: "users.json",
-    baseUrl: 'http://localhost:5000'
+    baseUrl:
+      'http://localhost:5000' ||
+      'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
@@ -17,7 +19,7 @@ export const userApi = createApi({
     addUser: builder.mutation({
       query: (data) => ({
         url: '/add-user',
-        method: 'post',
+        method: 'POST',
         body: data
       }),
       invalidatesTags: ['Users']

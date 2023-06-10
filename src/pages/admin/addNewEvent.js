@@ -14,11 +14,15 @@ import BaseCard from "../../features/admin/components/baseCard/BaseCard";
 import { ThemeProvider } from "@mui/material/styles";
 import FullLayout from "@/features/admin/layouts/FullLayout";
 import theme from "../../features/admin/theme/theme";
-import { useDispatch } from "react-redux";
-import { addEvent } from "@/slices/eventSlice";
+import { useAddEventMutation } from "@/slices/api/eventApi";
+import Loading from "../../../components/Loading";
 
 const AddNewEvent = () => {
-  const dispatch = useDispatch();
+  const [addEvent, { isLoading, isSuccess }] = useAddEventMutation();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,13 +30,26 @@ const AddNewEvent = () => {
     const image = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image);
-    // console.log(formData);
-    const formInfo = {
-      eventName: form.name.value,
-      description: form.description.value,
-    };
-    console.log(formInfo);
-    dispatch(addEvent(formInfo));
+    // console.log(formData)
+    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const formInfo = {
+            eventName: form.name.value,
+            description: form.description.value,
+            image: result.data.url,
+          };
+          addEvent(formInfo);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (

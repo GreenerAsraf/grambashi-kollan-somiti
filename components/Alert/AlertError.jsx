@@ -1,9 +1,8 @@
-import * as React from 'react'
-import Button from '@mui/material/Button'
-import Snackbar from '@mui/material/Snackbar'
 import { Alert, Typography } from '@mui/material'
+import Snackbar from '@mui/material/Snackbar'
+import * as React from 'react'
 
-export default function AlertSuccess({ setOpen, message }) {
+export default function AlertError({ setOpen, message }) {
   const [state, setState] = React.useState({
     open: { setOpen },
     vertical: 'top',
@@ -23,7 +22,7 @@ export default function AlertSuccess({ setOpen, message }) {
         open={open}
         onClose={handleClose}
         key={vertical + horizontal}>
-        <Alert variant='filled' severity='success'>
+        <Alert variant='filled' severity='error'>
           <Typography color={'white'}>{message}!</Typography>
         </Alert>
       </Snackbar>
