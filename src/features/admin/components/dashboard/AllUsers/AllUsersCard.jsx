@@ -10,24 +10,27 @@ import { Box } from '@mui/material'
 
 const AllUsersCard = () => {
   const { data } = useGetUsersQuery()
-  const [addBalance, { isSuccess, isLoading }] = useAddBalanceMutation()
+  // console.log(typeof data[0].memberId)
+  const [addBalance, { isSuccess, isLoading, data: response }] =
+    useAddBalanceMutation()
   const [agree, setAgree] = React.useState(false)
-  console.log(data)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const form = event.target
-    const amount = form.amount.value
+    const amount = +form.amount.value
     const memberName = form.name.value
-    const id = form.id.value
+    const memberId = +form.id.value
     const data = {
       amount,
       memberName,
-      id
+      memberId
     }
     // console.log(data)
     addBalance(data)
   }
+  // add balance api response
+  // console.log(response)
 
   if (isLoading) {
     return <Loading />
@@ -60,17 +63,17 @@ const AllUsersCard = () => {
               </div>
               <div className='flex justify-between'>
                 <div>
-                  <h2 className='text-start text-lg'>{user.name}</h2>
-                  <p>{user.address}</p>
+                  <h2 className='text-start text-lg'>{user?.name}</h2>
+                  <p>{user?.address}</p>
                 </div>
                 <DeleteDialogue
-                  id={user._id}
-                  name={user.name}
+                  id={user?._id}
+                  name={user?.name}
                   agree={agree}
                   setAgree={setAgree}
                 />
               </div>
-              <UserActivities id={user._id} name={user.name} />
+              <UserActivities memberId={user?.memberId} name={user?.name} />
               <form
                 onSubmit={handleSubmit}
                 className='flex justify-between mt-3'>
@@ -86,9 +89,15 @@ const AllUsersCard = () => {
                   hidden
                   type='text'
                   name='name'
-                  value={user.name}
+                  value={user?.name}
                 />
-                <input readOnly hidden type='text' name='id' value={user._id} />
+                <input
+                  readOnly
+                  hidden
+                  type='number'
+                  name='id'
+                  value={user?.memberId}
+                />
                 <button type='submit' className='btn btn-info btn-outline'>
                   add
                 </button>
