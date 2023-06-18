@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Grid,
   Stack,
@@ -13,7 +12,9 @@ import {
   Alert,
   Snackbar,
   Backdrop,
-  CircularProgress
+  CircularProgress,
+  Select,
+  MenuItem
 } from '@mui/material'
 import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import { ThemeProvider } from '@mui/material/styles'
@@ -96,12 +97,39 @@ const AddNewUser = () => {
             <BaseCard title='নতুন সদস্য ফর্ম'>
               <form onSubmit={(e) => handleSubmit(e)}>
                 <Stack spacing={3}>
-                  <TextField
+                  {/* <TextField
                     name='memberRule'
                     id='name-basic'
                     label='সদস্যের ধরন '
                     variant='outlined'
-                  />
+                  /> */}
+
+                  {/* <InputLabel id='demo-simple-select-label'>Age</InputLabel> */}
+                  <Select
+                    // labelId='demo-simple-select-label'
+                    name='memberRule'
+                    label='সদস্যের ধরন '
+                    id='name-basic'
+                    // value={age}
+                    // label='Age'
+                    // onChange={handleChange}
+                  >
+                    <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
+                    <MenuItem value={`সহ সভাপতি`}>সহ-সভাপতি</MenuItem>
+                    <MenuItem value={`সাধারণ - সম্পাদক`}>
+                      সাধারণ সম্পাদক
+                    </MenuItem>
+                    <MenuItem label={`সহ সাধারণ সম্পাদক`}>
+                      সহ সাধারণ সম্পাদক
+                    </MenuItem>
+                    <MenuItem label={60}>অর্থ সম্পাদক</MenuItem>
+                    <MenuItem label={70}>সহ অর্থ সম্পাদক</MenuItem>
+                    <MenuItem label={80}>সাংগঠনিক সম্পাদক</MenuItem>
+                    <MenuItem label={90}>প্রবাসী কল্যাণ সম্পাদক</MenuItem>
+                    <MenuItem label={100}>প্রচার সম্পাদক</MenuItem>
+                    <MenuItem label={110}>সদস্য (কার্যকরী কমিটি)</MenuItem>
+                    <MenuItem></MenuItem>
+                  </Select>
 
                   <TextField
                     name='memberId'

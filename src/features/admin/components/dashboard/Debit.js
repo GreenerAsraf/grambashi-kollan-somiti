@@ -1,13 +1,47 @@
 import React from "react";
 import BaseCard from "../baseCard/BaseCard";
 import { Box, Button, TextField } from "@mui/material";
-import { useAddDebitMutation } from "@/slices/api/debitCreditApi";
+import {
+  useAddDebitMutation,
+  useGetDebitQuery,
+} from "@/slices/api/debitCreditApi";
 import { toast } from "react-hot-toast";
 import { useAddCreditMutation } from "@/slices/api/creditApi";
+import { useGetBalanceQuery } from "@/slices/api/balanceApi";
+import { useGetCreditQuery } from "@/slices/api/creditApi";
 
 const Debit = () => {
   const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation();
   const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation();
+
+  const { data } = useGetBalanceQuery();
+  const balance = data;
+  // console.log(balance);
+
+  // Remaining Balance
+  let totalBalance = 0;
+  {
+    balance?.map(
+      (blnc) => (totalBalance = totalBalance + parseInt(blnc.amount))
+    );
+  }
+
+  // Total Spent
+  const { data: debit } = useGetDebitQuery();
+  {
+    debit?.result?.map(
+      (dr) => (totalBalance = totalBalance - parseInt(dr.debit))
+    );
+  }
+
+  // Total Profit
+  const { data: credit } = useGetCreditQuery();
+  {
+    credit?.result?.map(
+      (cred) => (totalBalance = totalBalance + parseInt(cred.credit))
+    );
+  }
+  // console.log(totalBalance);
 
   const handleCredit = (e) => {
     e.preventDefault();
@@ -18,8 +52,9 @@ const Debit = () => {
     // console.log(creditInfo);
     if (credit > 0) {
       addCredit(creditInfo);
+      toast.success("Credit Added!");
     } else {
-      toast.error("Enter Positive Amount");
+      toast.error("Amount should be positive or minimum 1");
     }
   };
 
@@ -34,20 +69,16 @@ const Debit = () => {
     };
     // console.log(debitInfo);
     if (debit > 0) {
-      addDebit(debitInfo);
+      if (debit <= totalBalance) {
+        addDebit(debitInfo);
+        toast.success("Congrats! Your withdraw is successfull.");
+      } else {
+        toast.error("Balance not Availabe");
+      }
     } else {
       toast.error("Enter Positive Amount");
     }
   };
-
-  // console.log(creditSuccess, debitSuccess)
-
-  if (creditSuccess) {
-    toast.success("Credit Added!");
-  }
-  if (debitSuccess) {
-    toast.success("Debit Added!");
-  }
 
   return (
     <BaseCard title={"Debit and Credit"} variant={"h1"}>

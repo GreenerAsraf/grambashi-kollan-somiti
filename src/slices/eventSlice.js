@@ -7,11 +7,20 @@ export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
   const res = await axios.get("events.json");
   return res.data;
 });
+// Add Event data
+export const addEvent = createAsyncThunk(
+  "events/addEvent",
+  async (eventData) => {
+    const res = await axios.post("http://localhost:5000/add-event", eventData);
+    return res;
+  }
+);
 
 const eventSlice = createSlice({
   name: "events",
   initialState: {
     isLoading: false,
+    postSuccess: false,
     events: [],
     error: null,
   },
@@ -26,6 +35,19 @@ const eventSlice = createSlice({
     });
     builder.addCase(fetchEvents.rejected, (state, action) => {
       state.isLoading = false;
+      state.events = [];
+      state.error = action.error.message;
+    });
+    builder.addCase(addEvent.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addEvent.fulfilled, (state) => {
+      state.isLoading = false;
+      state.postSuccess = true;
+    });
+    builder.addCase(addEvent.rejected, (state, action) => {
+      state.isLoading = false;
+      state.postSuccess = false;
       state.events = [];
       state.error = action.error.message;
     });
