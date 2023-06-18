@@ -26,6 +26,8 @@ import {
   HiChevronDoubleRight,
   IconName
 } from 'react-icons/hi2'
+import CreditModalPdf from '@/features/admin/components/dashboard/report/CreditModalPdf'
+import AllUserBalance from '@/features/admin/components/dashboard/report/AllUserBalance'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#99E2C2',
@@ -136,24 +138,9 @@ const Report = () => {
     'December'
   ]
 
-  const date = new Date()
-  const currentMonth = date.getMonth() + 1
-  const [month, setMonth] = useState()
-  console.log(month)
-
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
-        <FormControl fullWidth>
-          <InputLabel>Months</InputLabel>
-          <Select
-            // defaultChecked={currentMonth}
-            onChange={(e) => setMonth(e.target.value)}>
-            {months.map((month, i) => (
-              <MenuItem value={i + 1}>{month}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <br />
         <br />
         <Stack
@@ -170,10 +157,10 @@ const Report = () => {
               Download Credit History
             </Button>
             {/* open modal */}
-            {/* <CreditModalPdf /> */}
+            <CreditModalPdf />
             <BaseCard title='Credit History'>
               <Stack spacing={2}>
-                <CreditHistory page={page} month={month} />
+                <CreditHistory page={page} />
               </Stack>
             </BaseCard>
           </Item>
@@ -191,7 +178,9 @@ const Report = () => {
             </BaseCard>
           </Item>
         </Stack>
-
+        <BaseCard title='User Balance' variant='h3'>
+          <AllUserBalance />
+        </BaseCard>
         <div className='btn-group gap-3 flex justify-center'>
           <button
             className=' btn-outline btn-success'
