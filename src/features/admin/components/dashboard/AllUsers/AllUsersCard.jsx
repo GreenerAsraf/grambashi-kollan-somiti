@@ -7,8 +7,9 @@ import { useAddBalanceMutation } from '@/slices/api/balanceApi'
 import UserActivities from './UserActivities'
 import { toast } from 'react-hot-toast'
 import { Box } from '@mui/material'
+import Image from 'next/image'
 
-const AllUsersCard = ({searchUser} ) => {
+const AllUsersCard = ({ searchUser }) => {
   const { data } = useGetUsersQuery()
   // console.log(typeof data[0].memberId)
   const [addBalance, { isSuccess, isLoading, data: response }] =
@@ -51,8 +52,9 @@ const AllUsersCard = ({searchUser} ) => {
             <div className='card-body'>
               <div>
                 <img
-                  className=' rounded-full'
+                  className='rounded-lg'
                   width={'100px'}
+                  height={'100px'}
                   src={
                     user?.image
                       ? user.image
