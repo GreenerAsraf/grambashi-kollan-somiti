@@ -15,37 +15,29 @@ import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import { getDate } from '../../../../../../components/getDate'
 import { getDateOnly } from '../../../../../../components/getDateOnly'
+import { useGetBalanceQuery } from '@/slices/api/balanceApi'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-export default function UserActivities({ name, id }) {
+export default function UserActivities({ name, memberId }) {
   const [open, setOpen] = React.useState(false)
-  const [balance, setBalance] = React.useState([])
 
-  React.useEffect(() => {
-    fetch('http://localhost:5000/total-balance')
-      .then((res) => res.json())
-      .then((data) => {
-        setBalance(data)
-      })
-      .catch((e) => console.error(e))
-  }, [])
-
-  // console.log(balance)
-
+  const { data: balance } = useGetBalanceQuery()
+  // console.log(balance.result)
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpen(false)
   }
 
   // paymentInfo will contain if data is found by id matching
-  const paymentInfo = balance?.filter((uid) => uid.id === id)
-  // console.log(paymentInfo.length)
+  const paymentInfo = balance?.result?.filter(
+    (uid) => uid?.memberId === memberId
+  )
+  // console.log(memberId)
 
   return (
     <div>
