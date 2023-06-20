@@ -18,12 +18,18 @@ import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { getDateOnly } from '../../../../../../components/getDateOnly'
 import { useGetCreditQuery } from '@/slices/api/creditApi'
-import { useGetBalanceQuery } from '@/slices/api/balanceApi'
+import {
+  useGetBalanceQuery,
+  useGetMonthlyBalanceQuery
+} from '@/slices/api/balanceApi'
 
 const AllUserBalance = () => {
   const { data: creditData } = useGetCreditQuery()
   const creditHist = creditData?.result
   const { data: balanceQuery } = useGetBalanceQuery()
+  const { data } = useGetMonthlyBalanceQuery()
+  const monthlyBalance = data?.result
+  // console.log(monthlyBalance)
   const balanceData = balanceQuery?.result
 
   const date = new Date()
@@ -45,17 +51,15 @@ const AllUserBalance = () => {
     'December'
   ]
 
-  // Create an object to store the result
+  // Create an object to store the data and summation for all amount of a user
   const balance = {}
-
   // Iterate over the balanceData array
   if (balanceData) {
     for (const data of balanceData) {
       const memberId = data.memberId
       const amount = data.amount
-      // console.log(data)
 
-      // Check if the memberId already exists in the result object
+      // Check if the memberId already exists in the balance object
       if (balance[memberId]) {
         // If it exists, add the amount to the existing total
         balance[memberId].amount += amount
@@ -70,11 +74,10 @@ const AllUserBalance = () => {
       }
     }
   }
-
+  // converting object to array
   const balanceArray = Object.values(balance)
-  // console.log(balanceArray)
 
-  // show data as month
+  // following code to display data as per month
   const [selectedMonthYear, setSelectedMonthYear] = useState(
     `${year + '-' + months[currentMonth]}`
   )
@@ -82,18 +85,29 @@ const AllUserBalance = () => {
   const handleMonth = (event) => {
     setSelectedMonthYear(event.target.value)
   }
-  // console.log(selectedMonthYear)
 
-  const filteredData = balanceArray.filter((item) => {
-    const createdAt = new Date(item.createdAt)
-    // console.log('createdAt: ', createdAt)
+  let filteredData = monthlyBalance?.filter((item) => {
+    const updatedAt = new Date(item.updatedAt)
+    // console.log('updatedAt: ', updatedAt)
     const selectedMonth = Number(selectedMonthYear.substring(5, 7))
     const selectedYear = Number(selectedMonthYear.substring(0, 4))
     return (
-      createdAt.getMonth() + 1 === selectedMonth &&
-      createdAt.getFullYear() === selectedYear
+      updatedAt.getMonth() + 1 === selectedMonth &&
+      updatedAt.getFullYear() === selectedYear
     )
   })
+
+  const updatedMonthlyBalance = filteredData?.map((balance) => {
+    const matchingBalance = balanceArray?.find(
+      (item) => item?.memberId === balance?.memberId
+    )
+    if (matchingBalance) {
+      return { ...balance, total: matchingBalance?.amount }
+    }
+    return balance
+  })
+
+  // console.log(updatedMonthlyBalance)
 
   // download balance pdf
   const balanceCol = [
@@ -117,9 +131,13 @@ const AllUserBalance = () => {
       columns: balanceCol.map((col) => ({ ...col, dataKey: col.field })),
       body: filteredData
     })
-    doc.save('Balance History.pdf')
+    doc.save(
+      `Balance History -  ${
+        months[Number(selectedMonthYear.substring(5, 7))]
+      } ${year}.pdf`
+    )
   }
-  console.log(filteredData)
+
   return (
     <Box>
       {/* <Typography variant='h3'>Credit History</Typography> */}
@@ -168,38 +186,47 @@ const AllUserBalance = () => {
             </TableCell>
             <TableCell>
               <Typography color='textSecondary' variant='h6'>
+                This Month
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Typography color='textSecondary' variant='h6'>
                 Total Balance
               </Typography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredData
-            ? filteredData?.map((data, i) => (
-                <TableRow key={i}>
-                  <TableCell>
-                    <Typography>{i + 1}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{data?.memberId}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontSize='15px' fontWeight='500'>
-                      {getDateOnly(data?.createdAt)}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant='h6' fontWeight='600'>
-                      {data?.memberName}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant='h6'>{data?.amount}</Typography>
-                  </TableCell>
-                </TableRow>
-              ))
-            : ''}
-          {filteredData.length === 0 && <Typography>No data found</Typography>}
+          {filteredData &&
+            updatedMonthlyBalance?.map((data, i) => (
+              <TableRow key={i}>
+                <TableCell>
+                  <Typography>{i + 1}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>{data?.memberId}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize='15px' fontWeight='500'>
+                    {getDateOnly(data?.updatedAt)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant='h6' fontWeight='600'>
+                    {data?.memberName}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant='h6'>{data?.amount}</Typography>
+                </TableCell>{' '}
+                <TableCell>
+                  <Typography variant='h6'>{data?.total}</Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+          {filteredData?.length === 0 && (
+            <Typography>No data found for {selectedMonthYear} </Typography>
+          )}
         </TableBody>
       </Table>
     </Box>
