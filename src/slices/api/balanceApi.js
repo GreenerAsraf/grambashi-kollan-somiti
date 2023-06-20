@@ -14,6 +14,12 @@ export const balanceApi = createApi({
       }),
       providesTags: ['Balance']
     }),
+    getMonthlyBalance: builder.query({
+      query: () => ({
+        url: '/monthly-balance'
+      }),
+      providesTags: ['Balance']
+    }),
     addBalance: builder.mutation({
       query: (data) =>
         // console.log(data),
@@ -27,4 +33,8 @@ export const balanceApi = createApi({
   })
 })
 
-export const { useAddBalanceMutation, useGetBalanceQuery } = balanceApi
+export const {
+  useAddBalanceMutation,
+  useGetMonthlyBalanceQuery,
+  useGetBalanceQuery
+} = balanceApi
