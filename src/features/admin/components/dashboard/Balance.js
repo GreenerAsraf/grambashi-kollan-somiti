@@ -14,25 +14,20 @@ import {
 const Balance = () => {
   const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation();
   const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation();
-  // const { data } = useGetBalanceQuery();
-  // console.log(data) // fetching data by rtk query error occurred
-  // const { debit } = addDebit
-  // console.log(addDebit, 'addDebit data')
-  const [balance, setBalance] = useState([]);
-  const [debit, setDebit] = useState([]);
-  const [credit, setCredit] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/total-balance")
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data)
-        setBalance(data);
-      })
-      .catch((e) => console.error(e));
-  }, []);
+  const { data } = useGetBalanceQuery();
+  const balance = data;
   // console.log(balance);
 
+  // Main Balance
+  let mainBlanace = 0;
+  {
+    balance?.map((amount) => {
+      mainBlanace = mainBlanace + amount.amount;
+    });
+  }
+
+  // Remaining Balance
   let totalBalance = 0;
   {
     balance?.map(
@@ -40,16 +35,15 @@ const Balance = () => {
     );
   }
 
-  // get debit balance
-  useEffect(() => {
-    fetch("http://localhost:5000/get-debit")
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data)
-        setDebit(data);
-      })
-      .catch((e) => console.error(e));
-  }, []);
+  // Total Spent
+  const { data: debit } = useGetDebitQuery();
+  // console.log(debit.result);
+  let totalSpent = 0;
+  {
+    debit?.result?.map((dev) => {
+      totalSpent = totalSpent + dev.debit;
+    });
+  }
 
   {
     debit?.result?.map(
@@ -57,16 +51,16 @@ const Balance = () => {
     );
   }
 
-  // get credit balance
-  useEffect(() => {
-    fetch("http://localhost:5000/get-credit")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setCredit(data);
-      })
-      .catch((e) => console.error(e));
-  }, []);
+  // Total Profit
+
+  const { data: credit } = useGetCreditQuery();
+  // console.log(credit)
+  let totalProfit = 0;
+  {
+    credit?.result?.map((cred) => {
+      totalProfit = totalProfit + cred.credit;
+    });
+  }
 
   {
     credit?.result?.map(
@@ -84,11 +78,12 @@ const Balance = () => {
         gap={"2rem"}
         boxShadow={"lg"}
       >
+        {/* Main Balance */}
         <Box
           bgcolor={"#90EE90"}
-          padding={5}
-          width={345}
-          height={345}
+          padding={4}
+          width={255}
+          height={255}
           display={"flex"}
           flexDirection={"column"}
           borderRadius={"5%"}
@@ -102,13 +97,14 @@ const Balance = () => {
           <h1 className="text-xl font-semibold">Main Balance</h1>
           <br />
 
-          <h1 className="text-3xl font-semibold">${totalBalance}</h1>
+          <h1 className="text-3xl font-semibold">${mainBlanace}</h1>
         </Box>
+        {/* Remaining Balance */}
         <Box
-          bgcolor={"#87CEEB"}
-          padding={5}
-          height={345}
-          width={345}
+          bgcolor={"#FFA500"}
+          padding={4}
+          width={255}
+          height={255}
           display={"flex"}
           flexDirection={"column"}
           borderRadius={"5%"}
@@ -121,13 +117,38 @@ const Balance = () => {
           </Box>
           <h1 className="text-xl font-semibold">Remaining Balance</h1>
           <br />
-          <h1 className="text-3xl font-semibold">$400</h1>
+          <h1 className="text-3xl font-semibold">${totalBalance}</h1>
         </Box>
+        {/* Total Profit */}
         <Box
-          bgcolor={"#FFA500"}
-          padding={5}
-          height={345}
-          width={345}
+          bgcolor={"#87CEEB"}
+          padding={4}
+          width={255}
+          height={255}
+          display={"flex"}
+          flexDirection={"column"}
+          borderRadius={"5%"}
+          sx={{
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <Box>
+            <img
+              height={65}
+              width={65}
+              src="https://cdn-icons-png.flaticon.com/512/4149/4149714.png"
+            />
+          </Box>
+          <h1 className="text-xl font-semibold">Total Profit</h1>
+          <br />
+          <h1 className="text-3xl font-semibold">${totalProfit}</h1>
+        </Box>
+        {/* Total Spent */}
+        <Box
+          bgcolor={"#fa667d"}
+          padding={4}
+          width={255}
+          height={255}
           display={"flex"}
           flexDirection={"column"}
           borderRadius={"5%"}
@@ -140,7 +161,7 @@ const Balance = () => {
           </Box>
           <h1 className="text-xl font-semibold">Total Spent</h1>
           <br />
-          <h1 className="text-3xl font-semibold">$400</h1>
+          <h1 className="text-3xl font-semibold">${totalSpent}</h1>
         </Box>
       </Box>
     </BaseCard>

@@ -1,27 +1,43 @@
 import CreditHistory from '@/features/admin/components/dashboard/report/CreditHistory';
-import CreditModalPdf from '@/features/admin/components/dashboard/report/CreditModalPdf';
 import DebitHistory from '@/features/admin/components/dashboard/report/DebitHistory';
 import FullLayout from '@/features/admin/layouts/FullLayout';
 import { useGetCreditQuery } from '@/slices/api/creditApi';
 import { useGetDebitQuery } from '@/slices/api/debitCreditApi';
-import { Button, Grid, Stack } from '@mui/material';
+import { Button, Pagination, Paper, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import BaseCard from '../../features/admin/components/baseCard/BaseCard';
-import theme from '../../features/admin/theme/theme';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { button } from '@material-tailwind/react';
 import { useState } from 'react';
+import BaseCard from '../../features/admin/components/baseCard/BaseCard';
+import theme from '../../features/admin/theme/theme';
+import { styled } from '@mui/material/styles';
+import {
+	HiArrowRightCircle,
+	HiChevronDoubleLeft,
+	HiChevronDoubleRight,
+	IconName,
+} from 'react-icons/hi2';
+
+const Item = styled(Paper)(({ theme }) => ({
+	backgroundColor: '#99E2C2',
+	...theme.typography.body2,
+	padding: theme.spacing(1),
+	borderRadius: 20,
+	textAlign: 'center',
+	color: theme.palette.text.secondary,
+	flexGrow: 1,
+}));
 
 const Report = () => {
 	const [page, setPage] = useState(1);
 	const [pre, setPre] = useState(0);
 	const [next, setNext] = useState(5);
+	const [btn, setBtn] = useState(false);
 	const { data: creditData } = useGetCreditQuery();
 	const creditHist = creditData?.result;
 	const creditLnt = creditHist?.length;
 	// console.log(creditHist);
-	// console.log(pre, next);
+	// console.log(pre, next)
 
 	const { data: debitData } = useGetDebitQuery();
 	const debitHist = debitData?.result;
@@ -40,6 +56,23 @@ const Report = () => {
 	}
 	const pagination = (e) => {
 		setPage(e);
+	};
+
+	const disableBtn = () => {
+		if (pre === 1 || next === lnt) {
+			setBtn(true);
+		}
+	};
+
+	const prevBtn = () => {
+		if (pre > 0) {
+			setPre(pre - 1);
+			setNext(next - 1);
+		}
+	};
+	const nextBtn = () => {
+		setPre(pre + 1);
+		setNext(next + 1);
 	};
 
 	const creditCol = [
@@ -82,14 +115,17 @@ const Report = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<FullLayout>
-				<Grid
-					container
-					spacing={0}
-					columns={{ xs: 4, sm: 8, md: 16 }}>
-					<Grid
-						item
-						lg={12}>
-						<Button onClick={() => downloadCreditReport()}>
+				<Stack
+					mb={5}
+					spacing={{ xs: 1, sm: 2 }}
+					direction='row'
+					useFlexGap
+					flexWrap='wrap'>
+					<Item>
+						<Button
+							style={{ background: '#000', color: '#fff', marginTop: '10px' }}
+							variant='outlined'
+							onClick={() => downloadCreditReport()}>
 							Download Credit History
 						</Button>
 						{/* open modal */}
@@ -99,9 +135,12 @@ const Report = () => {
 								<CreditHistory page={page} />
 							</Stack>
 						</BaseCard>
-					</Grid>
-					<Grid item>
-						<Button onClick={() => downloadDebitReport()}>
+					</Item>
+					<Item>
+						<Button
+							style={{ background: '#000', color: '#fff', marginTop: '10px' }}
+							variant='outlined'
+							onClick={() => downloadDebitReport()}>
 							Download Debit History
 						</Button>
 						<BaseCard title='Debit History'>
@@ -109,26 +148,31 @@ const Report = () => {
 								<DebitHistory page={page} />
 							</Stack>
 						</BaseCard>
-					</Grid>
-				</Grid>
+					</Item>
+				</Stack>
 
 				<div className='btn-group gap-3 flex justify-center'>
 					<button
-						className='btn'
-						onClick={() => setPre(pre - 1)(setNext(next - 1))}>
-						previous
+						className='btn btn-outline btn-success'
+						onClick={() => prevBtn()}>
+						<HiChevronDoubleLeft />
 					</button>
-					{arr?.slice(pre, next).map((ar) => (
+					{arr.slice(pre, next).map((ar) => (
 						<button
 							onClick={() => pagination(ar)}
-							className='btn btn-outline'>
+							className={
+								ar === page
+									? ' btn-success btn-circle'
+									: ' btn-outline btn-circle'
+							}>
 							{ar}
 						</button>
 					))}
+					{/* <HiArrowRightCircle onClick={() => nextBtn()} /> */}
 					<button
-						className='btn'
-						onClick={() => setPre(pre + 1)(setNext(next + 1))}>
-						next
+						className='btn btn-outline btn-success'
+						onClick={() => nextBtn()}>
+						<HiChevronDoubleRight />
 					</button>
 				</div>
 			</FullLayout>

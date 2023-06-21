@@ -25,9 +25,9 @@ const Menuitems = [
     href: '/admin/addNewEvent'
   },
   {
-    title: 'Expenses',
+    title: 'Notice',
     icon: 'file-minus',
-    href: '/admin/expenses'
+    href: '/admin/notice'
   },
   {
     title: 'Report',
