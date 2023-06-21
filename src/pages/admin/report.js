@@ -144,32 +144,8 @@ const Report = () => {
         <BaseCard title='User Balance' variant='h3'>
           <AllUserBalance />
         </BaseCard>
-        <div className='btn-group gap-3 flex justify-center'>
-          <button
-            className=' btn-outline btn-success'
-            onClick={() => prevBtn()}>
-            <HiChevronDoubleLeft />
-          </button>
-          {arr.slice(pre, next).map((ar) => (
-            <button
-              onClick={() => pagination(ar)}
-              className={
-                ar === page
-                  ? ' btn-success btn-circle'
-                  : ' btn-outline btn-circle'
-              }>
-              {ar}
-            </button>
-          ))}
-          {/* <HiArrowRightCircle onClick={() => nextBtn()} /> */}
-          <button
-            className=' btn-outline btn-success'
-            onClick={() => nextBtn()}>
-            <HiChevronDoubleRight />
-          </button>
-        </div>
         <Stack
-          mb={5}
+          my={5}
           spacing={{ xs: 1, sm: 2 }}
           direction='row'
           useFlexGap
@@ -203,6 +179,30 @@ const Report = () => {
             </BaseCard>
           </Item>
         </Stack>
+        <div className='btn-group gap-3 flex justify-center'>
+          <button
+            className=' btn-outline btn-success'
+            onClick={() => prevBtn()}>
+            <HiChevronDoubleLeft />
+          </button>
+          {arr.slice(pre, next).map((ar) => (
+            <button
+              onClick={() => pagination(ar)}
+              className={
+                ar === page
+                  ? ' btn-success btn-circle'
+                  : ' btn-outline btn-circle'
+              }>
+              {ar}
+            </button>
+          ))}
+          {/* <HiArrowRightCircle onClick={() => nextBtn()} /> */}
+          <button
+            className=' btn-outline btn-success'
+            onClick={() => nextBtn()}>
+            <HiChevronDoubleRight />
+          </button>
+        </div>
       </FullLayout>
     </ThemeProvider>
   )
