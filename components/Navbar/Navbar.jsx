@@ -8,6 +8,8 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useGetNoticeQuery } from '@/slices/api/noticeApi'
+import LoginIcon from '@mui/icons-material/Login'
+import { Button } from '@mui/material'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPhone } from '@fortawesome/free-solid-svg-icons';
 // import { faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -80,7 +82,19 @@ export default function TopBar() {
         <h1 className='text-black font-bold text-3xl text-center py-9'>
           আমরা গ্রামবাসী কল্যাণ সমিতি
         </h1>
-        <img src={'/licensed-image.png'} alt='logo' width={100} height={100} />
+        {/* <img src={'/licensed-image.png'} alt='logo' width={100} height={100} />
+        <Button className='text-black font-bold text-2xl text-center py-9'>
+           Login as Admin
+        </Button> */}
+        <Link
+          href='/login'
+          variant='gradient'
+          size='sm'
+          className='hidden lg:inline-block font-bold text-3xl text-center py-9'>
+          <span>
+            <LoginIcon></LoginIcon>Login as Admin
+          </span>
+        </Link>
       </div>
       <Navbar className='mx-auto py-2 px-4 bg-[#009B90] lg:px-8 lg:py-4'>
         <div className='container mx-auto flex items-center justify-between '>
