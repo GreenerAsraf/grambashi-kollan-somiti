@@ -115,19 +115,36 @@ const AddNewUser = () => {
                     // onChange={handleChange}
                   >
                     <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
+                    <MenuItem value={`চেয়ারম্যান`}>চেয়ারম্যান</MenuItem>
+                    <MenuItem value={`ভাইস চেয়ারম্যান`}>
+                      ভাইস চেয়ারম্যান
+                    </MenuItem>
                     <MenuItem value={`সহ সভাপতি`}>সহ-সভাপতি</MenuItem>
                     <MenuItem value={`সাধারণ - সম্পাদক`}>
                       সাধারণ সম্পাদক
                     </MenuItem>
-                    <MenuItem label={`সহ সাধারণ সম্পাদক`}>
+                    <MenuItem value={`সহ সাধারণ সম্পাদক`}>
+                      {' '}
                       সহ সাধারণ সম্পাদক
                     </MenuItem>
-                    <MenuItem label={60}>অর্থ সম্পাদক</MenuItem>
-                    <MenuItem label={70}>সহ অর্থ সম্পাদক</MenuItem>
-                    <MenuItem label={80}>সাংগঠনিক সম্পাদক</MenuItem>
-                    <MenuItem label={90}>প্রবাসী কল্যাণ সম্পাদক</MenuItem>
-                    <MenuItem label={100}>প্রচার সম্পাদক</MenuItem>
-                    <MenuItem label={110}>সদস্য (কার্যকরী কমিটি)</MenuItem>
+                    <MenuItem value={`অর্থ সম্পাদক`}>অর্থ সম্পাদক</MenuItem>
+                    <MenuItem value={`সহ অর্থ সম্পাদক`}>
+                      সহ অর্থ সম্পাদক
+                    </MenuItem>
+                    <MenuItem value={`সাংগঠনিক সম্পাদক`}>
+                      সাংগঠনিক সম্পাদক
+                    </MenuItem>
+                    <MenuItem value={`প্রবাসী কল্যাণ সম্পাদক`}>
+                      প্রবাসী কল্যাণ সম্পাদক
+                    </MenuItem>
+                    <MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem>
+                    <MenuItem value={`সদস্য (কার্যকরী কমিটি)`}>
+                      সদস্য (কার্যকরী কমিটি)
+                    </MenuItem>
+                    <MenuItem value={`সদস্য (উপদেষ্টা কমিটি)`}>
+                      সদস্য (উপদেষ্টা কমিটি)
+                    </MenuItem>
+                    <MenuItem value={`সাধারণ সদস্য`}>সাধারণ সদস্য</MenuItem>
                     <MenuItem></MenuItem>
                   </Select>
 
