@@ -37,6 +37,7 @@ const AllUserBalance = () => {
   const year = date.getFullYear()
 
   const months = [
+    '',
     'January',
     'February',
     'March',
@@ -140,16 +141,13 @@ const AllUserBalance = () => {
 
   return (
     <Box>
-      {/* <Typography variant='h3'>Credit History</Typography> */}
       <Stack flexDirection={'row'} gap={3}>
         <Box width={'200px'}>
           <FormControl fullWidth>
             <InputLabel>Select Month</InputLabel>
-            <Select
-              // defaultChecked={months[currentMonth]}
-              onChange={(e) => handleMonth(e)}>
+            <Select onChange={(e) => handleMonth(e)}>
               {months.map((month, i) => (
-                <MenuItem value={year + '-' + `${i + 1}`}>{month}</MenuItem>
+                <MenuItem value={year + '-' + `${i}`}>{month}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -225,7 +223,9 @@ const AllUserBalance = () => {
               </TableRow>
             ))}
           {filteredData?.length === 0 && (
-            <Typography>No data found for {selectedMonthYear} </Typography>
+            <Typography mt={2}>
+              No data found for {selectedMonthYear}{' '}
+            </Typography>
           )}
         </TableBody>
       </Table>
