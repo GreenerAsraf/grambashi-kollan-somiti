@@ -15,7 +15,7 @@ const AllUsers = () => {
   const searchUser = data?.filter((user) => {
     if (search === "") {
       return user;
-    } else if (user.name.toLowerCase().includes(search.toLocaleLowerCase())) {
+    } else if (user.memberId.toLowerCase().includes(search.toLocaleLowerCase())) {
       return user;
     }
   });

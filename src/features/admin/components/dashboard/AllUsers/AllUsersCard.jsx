@@ -62,6 +62,7 @@ const AllUsersCard = ({ searchUser }) => {
                   }
                   alt='profile'
                 />
+                <p className='text-start text-lg'>ID: {user?.memberId}</p>
               </div>
               <div className='flex justify-between'>
                 <div>
