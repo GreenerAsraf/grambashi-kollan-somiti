@@ -11,7 +11,11 @@ export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
 export const addEvent = createAsyncThunk(
   'events/addEvent',
   async (eventData) => {
-    const res = await axios.post('http://localhost:8000/add-event', eventData)
+    const res = await axios.post(
+      // 'http://localhost:8000/add-event'
+      'https://grambasi-kollyan-somiti-server.vercel.app',
+      eventData
+    )
     return res
   }
 )
