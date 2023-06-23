@@ -141,10 +141,11 @@ const Report = () => {
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
-        <br />
-        <br />
+        <BaseCard title='User Balance' variant='h3'>
+          <AllUserBalance />
+        </BaseCard>
         <Stack
-          mb={5}
+          my={5}
           spacing={{ xs: 1, sm: 2 }}
           direction='row'
           useFlexGap
@@ -157,7 +158,7 @@ const Report = () => {
               Download Credit History
             </Button>
             {/* open modal */}
-            <CreditModalPdf />
+            {/* <CreditModalPdf /> */}
             <BaseCard title='Credit History'>
               <Stack spacing={2}>
                 <CreditHistory page={page} />
@@ -178,9 +179,6 @@ const Report = () => {
             </BaseCard>
           </Item>
         </Stack>
-        <BaseCard title='User Balance' variant='h3'>
-          <AllUserBalance />
-        </BaseCard>
         <div className='btn-group gap-3 flex justify-center'>
           <button
             className=' btn-outline btn-success'
