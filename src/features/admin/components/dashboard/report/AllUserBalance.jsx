@@ -70,14 +70,13 @@ const AllUserBalance = () => {
           memberName: data.memberName,
           amount: amount,
           memberId: memberId,
-          createdAt: getDateOnly(data.createdAt)
+          updatedAt: getDateOnly(data.updatedAt)
         }
       }
     }
   }
   // converting object to array
   const balanceArray = Object.values(balance)
-
   // following code to display data as per month
   const [selectedMonthYear, setSelectedMonthYear] = useState(
     `${year + '-' + months[currentMonth]}`
@@ -103,19 +102,25 @@ const AllUserBalance = () => {
       (item) => item?.memberId === balance?.memberId
     )
     if (matchingBalance) {
-      return { ...balance, total: matchingBalance?.amount }
+      return {
+        ...balance,
+        date: getDateOnly(balance.updatedAt),
+        total: matchingBalance?.amount
+      }
     }
     return balance
   })
-
+  // console.log(balanceArray)
+  // console.log(filteredData)
   // console.log(updatedMonthlyBalance)
 
   // download balance pdf
   const balanceCol = [
     { title: 'Member ID', field: 'memberId' },
-    { title: 'Date', field: 'createdAt' },
+    { title: 'Date', field: 'date' },
     { title: 'Name', field: 'memberName' },
-    { title: 'Total Balance', field: 'amount' }
+    { title: 'This month', field: 'amount' },
+    { title: 'Total Balance', field: 'total' }
   ]
 
   const downloadBalanceReport = () => {
@@ -130,7 +135,7 @@ const AllUserBalance = () => {
     doc.autoTable({
       theme: 'grid',
       columns: balanceCol.map((col) => ({ ...col, dataKey: col.field })),
-      body: filteredData
+      body: updatedMonthlyBalance
     })
     doc.save(
       `Balance History -  ${
@@ -138,7 +143,7 @@ const AllUserBalance = () => {
       } ${year}.pdf`
     )
   }
-
+  // console.log(filteredData)
   return (
     <Box>
       <Stack flexDirection={'row'} gap={3}>

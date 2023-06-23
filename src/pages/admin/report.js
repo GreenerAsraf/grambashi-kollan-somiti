@@ -158,7 +158,7 @@ const Report = () => {
               Download Credit History
             </Button>
             {/* open modal */}
-            <CreditModalPdf />
+            {/* <CreditModalPdf /> */}
             <BaseCard title='Credit History'>
               <Stack spacing={2}>
                 <CreditHistory page={page} />
