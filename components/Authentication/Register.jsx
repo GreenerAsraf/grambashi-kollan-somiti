@@ -1,4 +1,6 @@
+import { AuthContext } from '@/Contexts/AuthProvider'
 import Link from 'next/link'
+import { useContext } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
@@ -7,22 +9,46 @@ import { toast } from 'react-hot-toast'
 
 const Register = () => {
   const [error, setError] = useState('')
-
-  // const [ createdUserEmail, setCreatedUserEmail ] = useState( "" );
+  const [signUpError, setSignUPError] = useState('')
+  const [createdUserEmail, setCreatedUserEmail] = useState('')
   const { register, handleSubmit, reset } = useForm()
-  //  const { createUser, updateUser } = useContext( AuthContext );
+  const { createUser, updateUser } = useContext(AuthContext)
+  console.log(createUser, updateUser, 'AuthContext')
   // const navigate = useNavigate()
   // const location = useLocation()
   const onSubmit = (data) => {
-    // const image = data.image[0]
     console.log(data, 'data in form')
     // const formData = new FormData()
   }
+
+  const handleSignUp = (data) => {
+    console.log(data, 'data in form')
+    setSignUPError('')
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user
+        console.log(user)
+        toast('User Created Successfully.')
+        const userInfo = {
+          displayName: data.name
+        }
+        updateUser(userInfo)
+          .then(() => {
+            saveUser(data.name, data.email)
+          })
+          .catch((err) => console.log(err))
+      })
+      .catch((error) => {
+        setError(error)
+        setSignUPError(error.message)
+      })
+  }
+
   return (
     <div className='hero w-full my-24'>
       <div className='card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 py-10'>
         <h1 className='text-5xl text-center font-bold'>Admin Register </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className='card-body'>
+        <form onSubmit={handleSubmit(handleSignUp)} className='card-body'>
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Full Name</span>
