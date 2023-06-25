@@ -62,12 +62,17 @@ const AllUsersCard = ({ searchUser }) => {
                   }
                   alt='profile'
                 />
-                <p className='text-start text-lg'>ID: {user?.memberId}</p>
+                <p className='text-start text-lg'>
+                  Member ID: {user?.memberId}
+                </p>
               </div>
               <div className='flex justify-between'>
                 <div>
                   <h2 className='text-start text-lg'>{user?.name}</h2>
                   <p>{user?.address}</p>
+                  <p className='text-start text-lg py-2'>
+                    Total Balance: {user?.totalBalance}
+                  </p>
                 </div>
                 <DeleteDialogue
                   id={user?._id}
