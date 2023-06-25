@@ -6,45 +6,92 @@ import Users from '@/features/admin/components/dashboard/AllUsers/AllUsersCard'
 import AllUsersCard from '@/features/admin/components/dashboard/AllUsers/AllUsersCard'
 import { useRef, useState } from 'react'
 import { useGetUsersQuery } from '@/slices/api/apiSlice'
+import { useGetBalanceQuery } from '@/slices/api/balanceApi'
 
 const AllUsers = () => {
-  const inputRef = useRef(null);
-  const { data, error, isLoading } = useGetUsersQuery();
-  const [search, setSearch] = useState("");
+  const inputRef = useRef(null)
+  const { data, error, isLoading } = useGetUsersQuery()
+  const { data: balanceQuery } = useGetBalanceQuery()
+  const balanceData = balanceQuery?.result
 
-  const searchUser = data?.filter((user) => {
-    if (search === "") {
-      return user;
-    } else if (user.name.toLowerCase().includes(search.toLocaleLowerCase())) {
-      return user;
+  const [search, setSearch] = useState('')
+
+  // Create an object to store the data and summation for all amount of a user
+  const balance = {}
+  // Iterate over the balanceData array
+  if (balanceData) {
+    for (const data of balanceData) {
+      const memberId = data.memberId
+      const amount = data.amount
+
+      // Check if the memberId already exists in the balance object
+      if (balance[memberId]) {
+        // If it exists, add the amount to the existing total
+        balance[memberId].amount += amount
+      } else {
+        // If it doesn't exist, initialize the object with the data
+        balance[memberId] = {
+          memberName: data.memberName,
+          amount: amount,
+          memberId: memberId
+        }
+      }
     }
-  });
-  // console.log(searchUser);
+  }
+
+  // converting object to array
+  const balanceArray = Object.values(balance)
+  // console.log('balanceArray: ', balanceArray)
+
+  const updatedUserData = balanceArray?.map((balance) => {
+    const matchingId = data?.find(
+      (item) => +item?.memberId === balance?.memberId
+    )
+    if (matchingId) {
+      return {
+        ...matchingId,
+        totalBalance: balance?.amount
+      }
+    }
+    return balance
+  })
+
+  console.log('updatedUserData: ', updatedUserData)
+
+  const searchUser = updatedUserData?.filter((user) => {
+    if (search === '') {
+      return user
+    } else if (
+      user.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+    ) {
+      return user
+    }
+  })
+  console.log('searchUser: ', searchUser)
 
   const handleSearch = (e) => {
-    const searchData = inputRef.current.value;
-    setSearch(searchData);
-  };
+    const searchData = inputRef.current.value
+    setSearch(searchData)
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
-      <div className=' text-center lg:text-left pb-5'>
-      <input
+        <div className=' text-center lg:text-left pb-5'>
+          <input
             ref={inputRef}
-            id="searchName"
-            className="p-2 rounded fs-4 mt-5 w-72 border-2"
-            type="text"
-            placeholder="Search"
+            id='searchName'
+            className='p-2 rounded fs-4 mt-5 w-72 border-2'
+            type='text'
+            placeholder='Search'
           />
           <button
-            id="searchName"
-            className="btn btn-info btn-outline m-4 lg:ml-4"
-            onClick={handleSearch}
-          >
+            id='searchName'
+            className='btn btn-info btn-outline m-4 lg:ml-4'
+            onClick={handleSearch}>
             Search
           </button>
-      </div>
+        </div>
         <Grid container spacing={0}>
           <Grid item xs={12} lg={12}>
             <AllUsersCard searchUser={searchUser} />

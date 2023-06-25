@@ -152,6 +152,7 @@ const AddNewUser = () => {
 
                   <TextField
                     name='memberId'
+                    type='number'
                     id='name-basic'
                     label='সদস্য নাম্বার '
                     variant='outlined'
@@ -176,12 +177,14 @@ const AddNewUser = () => {
                   />
                   <TextField
                     name='dateOfBirth'
+                    type='date'
                     id='name-basic'
-                    label='জন্মতারিখ'
+                    // label='জন্মতারিখ'
                     variant='outlined'
                   />
                   <TextField
                     name='mobile'
+                    type='number'
                     id='name-basic'
                     label='মোবাইল'
                     variant='outlined'
@@ -230,6 +233,7 @@ const AddNewUser = () => {
                     />
                     <TextField
                       name='nomineeMobile'
+                      type='number'
                       id='name-basic'
                       label='নমিনির মোবাইল '
                       variant='outlined'
