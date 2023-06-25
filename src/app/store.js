@@ -1,15 +1,17 @@
-import eventSlice from "../slices/eventSlice";
-import membersSlice from "@/slices/membersSlice";
-import { eventApi } from "@/slices/api/eventApi";
-import { userApi } from "@/slices/api/apiSlice";
-import { debitApi } from "@/slices/api/debitCreditApi";
-import { creditApi } from "@/slices/api/creditApi";
-import { balanceApi } from "@/slices/api/balanceApi";
-import { noticeApi } from "@/slices/api/noticeApi";
-const { configureStore } = require("@reduxjs/toolkit");
+import eventSlice from '../slices/eventSlice'
+import membersSlice from '@/slices/membersSlice'
+import { eventApi } from '@/slices/api/eventApi'
+import { userApi } from '@/slices/api/apiSlice'
+import { debitApi } from '@/slices/api/debitCreditApi'
+import { creditApi } from '@/slices/api/creditApi'
+import { balanceApi } from '@/slices/api/balanceApi'
+import { noticeApi } from '@/slices/api/noticeApi'
+import balanceReducer from '@/slices/reducer/balanceReducer'
+const { configureStore } = require('@reduxjs/toolkit')
 
 const store = configureStore({
   reducer: {
+    balanceReducer: balanceReducer,
     [userApi.reducerPath]: userApi.reducer,
     [balanceApi.reducerPath]: balanceApi.reducer,
     [eventApi.reducerPath]: eventApi.reducer,
@@ -17,7 +19,7 @@ const store = configureStore({
     [creditApi.reducerPath]: creditApi.reducer,
     [noticeApi.reducerPath]: noticeApi.reducer,
     eventsReducer: eventSlice,
-    membersReducer: membersSlice,
+    membersReducer: membersSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -26,7 +28,7 @@ const store = configureStore({
       .concat(eventApi.middleware)
       .concat(debitApi.middleware)
       .concat(creditApi.middleware)
-      .concat(noticeApi.middleware),
-});
+      .concat(noticeApi.middleware)
+})
 
-export default store;
+export default store
