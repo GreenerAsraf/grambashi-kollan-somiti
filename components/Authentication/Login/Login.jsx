@@ -1,5 +1,6 @@
 import { AuthContext } from '@/Contexts/AuthProvider'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -18,7 +19,7 @@ const Login = () => {
   // console.log( user )
 
   // const from = location.state?.from?.pathname || "/";
-
+  const { back } = useRouter()
   // if (token) {
   //   navigate(from, { replace: true });
   // }
@@ -36,7 +37,8 @@ const Login = () => {
         const user = result.user
         console.log(user)
         setLoginEmail(user?.email)
-        navigate(from, { replace: true })
+        // navigate(from, { replace: true })
+        back()
         form.reset()
         setError('')
       })

@@ -13,7 +13,7 @@ const Register = () => {
   const [createdUserEmail, setCreatedUserEmail] = useState('')
   const { register, handleSubmit, reset } = useForm()
   const { createUser, updateUser } = useContext(AuthContext)
-  console.log(createUser, updateUser, 'AuthContext')
+  // console.log(createUser, updateUser, 'AuthContext')
   // const navigate = useNavigate()
   // const location = useLocation()
   const onSubmit = (data) => {
@@ -29,6 +29,7 @@ const Register = () => {
         const user = result.user
         console.log(user)
         toast('User Created Successfully.')
+
         const userInfo = {
           displayName: data.name
         }
@@ -39,10 +40,25 @@ const Register = () => {
           .catch((err) => console.log(err))
       })
       .catch((error) => {
-        setError(error)
+        // setError(error)
         setSignUPError(error.message)
       })
   }
+
+  //   const saveUser = (name, email) =>{
+  //     const user ={name, email};
+  //     fetch('https:/users', {
+  //         method: 'POST',
+  //         headers: {
+  //             'content-type': 'application/json'
+  //         },
+  //         body: JSON.stringify(user)
+  //     })
+  //     .then(res => res.json())
+  //     .then(data =>{
+  //         setCreatedUserEmail(email);
+  //     })
+  // }
 
   return (
     <div className='hero w-full my-24'>
