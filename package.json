@@ -32,6 +32,7 @@
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "feather-icons-react": "^0.5.0",
+    "firebase": "^9.22.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
     "next": "13.2.3",

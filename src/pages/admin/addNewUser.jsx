@@ -108,14 +108,16 @@ const AddNewUser = () => {
                   <Select
                     // labelId='demo-simple-select-label'
                     name='memberRule'
-                    label='সদস্যের ধরন '
+                    value='সদস্যের ধরন '
                     id='name-basic'
                     // value={age}
                     // label='Age'
                     // onChange={handleChange}
                   >
                     <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
-                    <MenuItem value={`চেয়ারম্যান`}>চেয়ারম্যান</MenuItem>
+                    <MenuItem value={`চেয়ারম্যান (উপদেষ্টা কমিটি)`}>
+                      চেয়ারম্যান
+                    </MenuItem>
                     <MenuItem value={`ভাইস চেয়ারম্যান`}>
                       ভাইস চেয়ারম্যান
                     </MenuItem>
