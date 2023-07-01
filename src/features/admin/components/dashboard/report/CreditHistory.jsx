@@ -20,7 +20,7 @@ const CreditHistory = (page) => {
       sx={{
         p: 0
       }}>
-      {creditHist?.slice(6 * (page - 1), page * 6).map((activity, i) => (
+      {creditHist?.slice(6 * (page.page - 1), page.page * 6).map((activity, i) => (
         <TimelineItem key={i}>
           <TimelineOppositeContent
             sx={{

@@ -116,24 +116,20 @@ const AddNewUser = () => {
                     variant='outlined'
                   /> */}
 
-									{/* <InputLabel id='demo-simple-select-label'>Age</InputLabel> */}
-									<div>
-										<Select
-											className='w-2/5 float-left'
-											// labelId='demo-simple-select-label'
-											name='memberRule'
-											label='সদস্যের ধরন '
-											id='name-basic'
-											// value={age}
-											// label='Age'
-											// onChange={handleChange}
-										>
-											{array.map((ar) => (
-												<MenuItem value={ar}>{ar}</MenuItem>
-											))}
-
-											{/* <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
-                    <MenuItem value={`চেয়ারম্যান`}>চেয়ারম্যান</MenuItem>
+                  {/* <InputLabel id='demo-simple-select-label'>Age</InputLabel> */}
+                  <Select
+                    // labelId='demo-simple-select-label'
+                    name='memberRule'
+                    value='সদস্যের ধরন '
+                    id='name-basic'
+                    // value={age}
+                    // label='Age'
+                    // onChange={handleChange}
+                  >
+                    <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
+                    <MenuItem value={`চেয়ারম্যান (উপদেষ্টা কমিটি)`}>
+                      চেয়ারম্যান
+                    </MenuItem>
                     <MenuItem value={`ভাইস চেয়ারম্যান`}>
                       ভাইস চেয়ারম্যান
                     </MenuItem>
@@ -168,8 +164,6 @@ const AddNewUser = () => {
 										<Select className='w-2/5 float-right'>
 											<MenuItem>f</MenuItem>
 										</Select>
-									</div>
-
 									<TextField
 										name='memberId'
 										id='name-basic'
@@ -190,94 +184,84 @@ const AddNewUser = () => {
 									/>
 									<TextField
 										name='motherName'
-										id='name-basic'
-										label='মাতার নাম'
-										variant='outlined'
-									/>
-									<TextField
-										// type='date'
-										name='dateOfBirth'
-										id='name-basic'
-										label='জন্মতারিখ'
-										variant='outlined'
-									/>
-									<TextField
-										name='mobile'
-										id='name-basic'
-										label='মোবাইল'
-										variant='outlined'
-									/>
-									<TextField
-										name='address'
-										id='outlined-multiline-static'
-										label='সদস্যের ঠিকানা'
-										multiline
-										rows={4}
-									/>
-									<Stack
-										direction='row'
-										spacing={2}>
-										<Typography> ছবি আপলোড</Typography>
-										<Button
-											variant='contained'
-											component='label'>
-											{/* <PhotoCameraIcon /> */}
-											<input
-												name='image'
-												accept='image/*'
-												type='file'
-											/>
-										</Button>
-									</Stack>
-									{/* <FormControl> */}
-									<FormLabel id='gender'>Gender</FormLabel>
-									<RadioGroup
-										aria-labelledby='gender'
-										defaultValue='পুরুষ'
-										name='gender'>
-										<FormControlLabel
-											value='পুরুষ'
-											control={<Radio />}
-											label='পুরুষ'
-										/>
-										<FormControlLabel
-											value='মহিলা'
-											control={<Radio />}
-											label='মহিলা'
-										/>
-										<FormControlLabel
-											value='other'
-											control={<Radio />}
-											label='Other'
-										/>
-									</RadioGroup>
-									{/* </FormControl> */}
-									<TextField
-										name='nomineeName'
-										id='name-basic'
-										label='নমিনির নাম '
-										variant='outlined'
-									/>
-									<TextField
-										name='nomineeMobile'
-										id='name-basic'
-										label='নমিনির মোবাইল '
-										variant='outlined'
-									/>
-									<Button
-										type='submit'
-										variant='outlined'
-										color='success'>
-										Submit
-									</Button>
-								</Stack>
-							</form>
-						</BaseCard>
-					</Grid>
-				</Grid>
-			</FullLayout>
-		</ThemeProvider>
-	);
-};
-
+                    id='name-basic'
+                    label='মাতার নাম'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='dateOfBirth'
+                    type='date'
+                    id='name-basic'
+                    // label='জন্মতারিখ'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='mobile'
+                    type='number'
+                    id='name-basic'
+                    label='মোবাইল'
+                    variant='outlined'
+                  />
+                  <TextField
+                    name='address'
+                    id='outlined-multiline-static'
+                    label='সদস্যের ঠিকানা'
+                    multiline
+                    rows={4}
+                  />
+                  <Stack direction='row' spacing={2}>
+                    <Typography> ছবি আপলোড</Typography>
+                    <Button variant='contained' component='label'>
+                      {/* <PhotoCameraIcon /> */}
+                      <input name='image' accept='image/*' type='file' />
+                    </Button>
+                  </Stack>
+                  <FormControl>
+                    <FormLabel id='gender'>Gender</FormLabel>
+                    <RadioGroup
+                      aria-labelledby='gender'
+                      defaultValue='পুরুষ'
+                      name='gender'>
+                      <FormControlLabel
+                        value='পুরুষ'
+                        control={<Radio />}
+                        label='পুরুষ'
+                      />
+                      <FormControlLabel
+                        value='মহিলা'
+                        control={<Radio />}
+                        label='মহিলা'
+                      />
+                      <FormControlLabel
+                        value='other'
+                        control={<Radio />}
+                        label='Other'
+                      />
+                    </RadioGroup>
+                    <TextField
+                      name='nomineeName'
+                      id='name-basic'
+                      label='নমিনির নাম '
+                      variant='outlined'
+                    />
+                    <TextField
+                      name='nomineeMobile'
+                      type='number'
+                      id='name-basic'
+                      label='নমিনির মোবাইল '
+                      variant='outlined'
+                    />
+                  </FormControl>
+                  <Button type='submit' variant='outlined' color='success'>
+                    Submit
+                  </Button>
+                </Stack>
+              </form>
+            </BaseCard>
+          </Grid>
+        </Grid>
+      </FullLayout>
+    </ThemeProvider>
+  )
+}
 export default AddNewUser;

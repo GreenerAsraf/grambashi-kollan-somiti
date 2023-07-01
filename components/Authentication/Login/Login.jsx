@@ -1,11 +1,15 @@
+import { AuthContext } from '@/Contexts/AuthProvider'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { FaGoogle } from 'react-icons/fa'
 
 const Login = () => {
   const [error, setError] = useState('')
-  // const [loginEmail, setLoginEmail] = useState("");
-
+  const [loginEmail, setLoginEmail] = useState('')
+  const { signIn: login } = useContext(AuthContext)
   // const { providerLogin, login } = useContext( AuthContext );
   // const googleProvider = new GoogleAuthProvider();
   // const location = useLocation();
@@ -15,35 +19,36 @@ const Login = () => {
   // console.log( user )
 
   // const from = location.state?.from?.pathname || "/";
-
+  const { back } = useRouter()
   // if (token) {
   //   navigate(from, { replace: true });
   // }
 
   // handle created user login
-  // const handleLogin = ( event ) => {
-  //   event.preventDefault();
-  //   const form = event.target;
-  //   const email = form.email.value;
-  //   const password = form.password.value;
+  const handleLogin = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const email = form.email.value
+    const password = form.password.value
 
-  //   // console.log( user )
-  //   login( email, password )
-  //     .then( ( result ) => {
-  //       const user = result.user;
-  //       // console.log( user );
-  //       // setLoginEmail(user?.email);
-  //       navigate( from, { replace: true } );
-  //       form.reset();
-  //       setError( "" );
-  //     } )
-  //     .catch( ( error ) => {
-  //       console.error( "error ", error );
-  //       toast.error( "Register first to login" );
-  //       setError( error.message );
-  //       form.reset();
-  //     } );
-  // };
+    // console.log( user )
+    login(email, password)
+      .then((result) => {
+        const user = result.user
+        console.log(user)
+        setLoginEmail(user?.email)
+        // navigate(from, { replace: true })
+        back()
+        form.reset()
+        setError('')
+      })
+      .catch((error) => {
+        console.error('error ', error)
+        toast.error('Register first to login')
+        setError(error.message)
+        form.reset()
+      })
+  }
 
   // // handle google login
   // const handleGoogleSignIn = () => {
@@ -76,9 +81,6 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
     console.log('handleGoogleSignIn clicked ')
-  }
-  const handleLogin = () => {
-    console.log('handle login clicked ')
   }
 
   return (
@@ -118,7 +120,12 @@ const Login = () => {
               </p>
             </div>
             <div className='form-control mt-6'>
-              <input className='btn btn-primary' type='submit' value='Login' />
+              <input
+                className='btn btn-primary'
+                type='submit'
+                value='Login'
+                href='/admin'
+              />
             </div>
           </form>
 
