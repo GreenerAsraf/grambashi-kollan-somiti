@@ -80,7 +80,7 @@ const AddNewUser = () => {
 						nomineeMobile: nomineeMobile,
 					};
 
-					console.log(formInfo);
+					// console.log(formInfo);
 					// user added using RTK query
 					addUser(formInfo);
 					form.reset();
@@ -91,7 +91,7 @@ const AddNewUser = () => {
 			});
 	};
 
-	const array = ['সভাপতি', 'চেয়ারম্যান', 'ভাইস চেয়ারম্যান', `সহ সভাপতি`];
+	const array = ['সাধারণ সদস্য', 'কার্যকরী কমিটি', 'উপদেষ্টা কমিটি'];
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -112,16 +112,10 @@ const AddNewUser = () => {
 						<BaseCard title='নতুন সদস্য ফর্ম'>
 							<form onSubmit={(e) => handleSubmit(e)}>
 								<Stack spacing={3}>
-									{/* <TextField
-										name='memberRule'
-										id='name-basic'
-										label='সদস্যের ধরন '
-										variant='outlined'
-									/> */}
 									<Select
 										// labelId='demo-simple-select-label'
 										name='memberRule'
-										value='সদস্য পদ'
+										// value='সদস্য পদ'
 										// id='name-basic'
 										// value={age}
 										// label='Age'
@@ -156,23 +150,20 @@ const AddNewUser = () => {
 										<MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem>
 									</Select>
 
-									<Select
-										label='সদস্যের ধরন'
-										name='role'
-										value={'সদস্যের ধরন'}
-										required>
-										<MenuItem
-											value={`সাধারণ সদস্য`}
-											defaultChecked>
-											সাধারণ সদস্য
-										</MenuItem>
-										<MenuItem value={`কার্যকরী কমিটি`}>
-											কার্যকরী কমিটির সদস্য
-										</MenuItem>
-										<MenuItem value={`উপদেষ্টা কমিটি`}>
-											উপদেষ্টা কমিটির সদস্য
-										</MenuItem>
-									</Select>
+									<Stack>
+										{' '}
+										<Select
+											name='role'
+											required>
+											{array.map((ar) => (
+												<MenuItem
+													// name='role'
+													value={ar}>
+													{ar}
+												</MenuItem>
+											))}
+										</Select>
+									</Stack>
 
 									<TextField
 										name='memberId'
