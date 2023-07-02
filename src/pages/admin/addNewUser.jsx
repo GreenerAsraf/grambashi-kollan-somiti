@@ -15,6 +15,7 @@ import {
 	CircularProgress,
 	Select,
 	MenuItem,
+	InputLabel,
 } from '@mui/material';
 import BaseCard from '../../features/admin/components/baseCard/BaseCard';
 import { ThemeProvider } from '@mui/material/styles';
@@ -41,6 +42,7 @@ const AddNewUser = () => {
 		const form = e.target;
 		const memberId = form.memberId.value;
 		const memberRule = form.memberRule.value;
+		const role = form.role.value;
 		const name = form.name.value;
 		const fatherName = form.fatherName.value;
 		const motherName = form.motherName.value;
@@ -65,6 +67,7 @@ const AddNewUser = () => {
 					const formInfo = {
 						memberId: memberId,
 						memberRule: memberRule,
+						role: role,
 						name: name,
 						fatherName: fatherName,
 						motherName: motherName,
@@ -79,7 +82,7 @@ const AddNewUser = () => {
 
 					console.log(formInfo);
 					// user added using RTK query
-					// addUser(formInfo);
+					addUser(formInfo);
 					form.reset();
 				}
 			})
@@ -88,7 +91,7 @@ const AddNewUser = () => {
 			});
 	};
 
-	const array = ['x', 'y', 'z'];
+	const array = ['সভাপতি', 'চেয়ারম্যান', 'ভাইস চেয়ারম্যান', `সহ সভাপতি`];
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -110,60 +113,67 @@ const AddNewUser = () => {
 							<form onSubmit={(e) => handleSubmit(e)}>
 								<Stack spacing={3}>
 									{/* <TextField
-                    name='memberRule'
-                    id='name-basic'
-                    label='সদস্যের ধরন '
-                    variant='outlined'
-                  /> */}
+										name='memberRule'
+										id='name-basic'
+										label='সদস্যের ধরন '
+										variant='outlined'
+									/> */}
+									<Select
+										// labelId='demo-simple-select-label'
+										name='memberRule'
+										value='সদস্য পদ'
+										// id='name-basic'
+										// value={age}
+										// label='Age'
+										// onChange={handleChange}
+									>
+										{/* {
+										array.map(ar=><MenuItem value={ar}>{ar}</MenuItem>)
+									} */}
+										<MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
+										<MenuItem value={`চেয়ারম্যান`}>চেয়ারম্যান</MenuItem>
+										<MenuItem value={`ভাইস চেয়ারম্যান`}>
+											ভাইস চেয়ারম্যান
+										</MenuItem>
+										<MenuItem value={`সহ সভাপতি`}>সহ-সভাপতি</MenuItem>
+										<MenuItem value={`সাধারণ - সম্পাদক`}>
+											সাধারণ সম্পাদক
+										</MenuItem>
+										<MenuItem value={`সহ সাধারণ সম্পাদক`}>
+											{' '}
+											সহ সাধারণ সম্পাদক
+										</MenuItem>
+										<MenuItem value={`অর্থ সম্পাদক`}>অর্থ সম্পাদক</MenuItem>
+										<MenuItem value={`সহ অর্থ সম্পাদক`}>
+											সহ অর্থ সম্পাদক
+										</MenuItem>
+										<MenuItem value={`সাংগঠনিক সম্পাদক`}>
+											সাংগঠনিক সম্পাদক
+										</MenuItem>
+										<MenuItem value={`প্রবাসী কল্যাণ সম্পাদক`}>
+											প্রবাসী কল্যাণ সম্পাদক
+										</MenuItem>
+										<MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem>
+									</Select>
 
-                  {/* <InputLabel id='demo-simple-select-label'>Age</InputLabel> */}
-                  <Select
-                    // labelId='demo-simple-select-label'
-                    name='memberRule'
-                    value='সদস্যের ধরন '
-                    id='name-basic'
-                    // value={age}
-                    // label='Age'
-                    // onChange={handleChange}
-                  >
-                    <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
-                    <MenuItem value={`চেয়ারম্যান (উপদেষ্টা কমিটি)`}>
-                      চেয়ারম্যান
-                    </MenuItem>
-                    <MenuItem value={`ভাইস চেয়ারম্যান`}>
-                      ভাইস চেয়ারম্যান
-                    </MenuItem>
-                    <MenuItem value={`সহ সভাপতি`}>সহ-সভাপতি</MenuItem>
-                    <MenuItem value={`সাধারণ - সম্পাদক`}>
-                      সাধারণ সম্পাদক
-                    </MenuItem>
-                    <MenuItem value={`সহ সাধারণ সম্পাদক`}>
-                      {' '}
-                      সহ সাধারণ সম্পাদক
-                    </MenuItem>
-                    <MenuItem value={`অর্থ সম্পাদক`}>অর্থ সম্পাদক</MenuItem>
-                    <MenuItem value={`সহ অর্থ সম্পাদক`}>
-                      সহ অর্থ সম্পাদক
-                    </MenuItem>
-                    <MenuItem value={`সাংগঠনিক সম্পাদক`}>
-                      সাংগঠনিক সম্পাদক
-                    </MenuItem>
-                    <MenuItem value={`প্রবাসী কল্যাণ সম্পাদক`}>
-                      প্রবাসী কল্যাণ সম্পাদক
-                    </MenuItem>
-                    <MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem>
-                    <MenuItem value={`সদস্য (কার্যকরী কমিটি)`}>
-                      সদস্য (কার্যকরী কমিটি)
-                    </MenuItem>
-                    <MenuItem value={`সদস্য (উপদেষ্টা কমিটি)`}>
-                      সদস্য (উপদেষ্টা কমিটি)
-                    </MenuItem>
-                    <MenuItem value={`সাধারণ সদস্য`}>সাধারণ সদস্য</MenuItem>
-                    <MenuItem></MenuItem> */}
-										</Select>
-										<Select className='w-2/5 float-right'>
-											<MenuItem>f</MenuItem>
-										</Select>
+									<Select
+										label='সদস্যের ধরন'
+										name='role'
+										value={'সদস্যের ধরন'}
+										required>
+										<MenuItem
+											value={`সাধারণ সদস্য`}
+											defaultChecked>
+											সাধারণ সদস্য
+										</MenuItem>
+										<MenuItem value={`কার্যকরী কমিটি`}>
+											কার্যকরী কমিটির সদস্য
+										</MenuItem>
+										<MenuItem value={`উপদেষ্টা কমিটি`}>
+											উপদেষ্টা কমিটির সদস্য
+										</MenuItem>
+									</Select>
+
 									<TextField
 										name='memberId'
 										id='name-basic'
@@ -184,84 +194,93 @@ const AddNewUser = () => {
 									/>
 									<TextField
 										name='motherName'
-                    id='name-basic'
-                    label='মাতার নাম'
-                    variant='outlined'
-                  />
-                  <TextField
-                    name='dateOfBirth'
-                    type='date'
-                    id='name-basic'
-                    // label='জন্মতারিখ'
-                    variant='outlined'
-                  />
-                  <TextField
-                    name='mobile'
-                    type='number'
-                    id='name-basic'
-                    label='মোবাইল'
-                    variant='outlined'
-                  />
-                  <TextField
-                    name='address'
-                    id='outlined-multiline-static'
-                    label='সদস্যের ঠিকানা'
-                    multiline
-                    rows={4}
-                  />
-                  <Stack direction='row' spacing={2}>
-                    <Typography> ছবি আপলোড</Typography>
-                    <Button variant='contained' component='label'>
-                      {/* <PhotoCameraIcon /> */}
-                      <input name='image' accept='image/*' type='file' />
-                    </Button>
-                  </Stack>
-                  <FormControl>
-                    <FormLabel id='gender'>Gender</FormLabel>
-                    <RadioGroup
-                      aria-labelledby='gender'
-                      defaultValue='পুরুষ'
-                      name='gender'>
-                      <FormControlLabel
-                        value='পুরুষ'
-                        control={<Radio />}
-                        label='পুরুষ'
-                      />
-                      <FormControlLabel
-                        value='মহিলা'
-                        control={<Radio />}
-                        label='মহিলা'
-                      />
-                      <FormControlLabel
-                        value='other'
-                        control={<Radio />}
-                        label='Other'
-                      />
-                    </RadioGroup>
-                    <TextField
-                      name='nomineeName'
-                      id='name-basic'
-                      label='নমিনির নাম '
-                      variant='outlined'
-                    />
-                    <TextField
-                      name='nomineeMobile'
-                      type='number'
-                      id='name-basic'
-                      label='নমিনির মোবাইল '
-                      variant='outlined'
-                    />
-                  </FormControl>
-                  <Button type='submit' variant='outlined' color='success'>
-                    Submit
-                  </Button>
-                </Stack>
-              </form>
-            </BaseCard>
-          </Grid>
-        </Grid>
-      </FullLayout>
-    </ThemeProvider>
-  )
-}
+										id='name-basic'
+										label='মাতার নাম'
+										variant='outlined'
+									/>
+									<TextField
+										name='dateOfBirth'
+										type='date'
+										id='name-basic'
+										// label='জন্মতারিখ'
+										variant='outlined'
+									/>
+									<TextField
+										name='mobile'
+										type='number'
+										id='name-basic'
+										label='মোবাইল'
+										variant='outlined'
+									/>
+									<TextField
+										name='address'
+										id='outlined-multiline-static'
+										label='সদস্যের ঠিকানা'
+										multiline
+										rows={4}
+									/>
+									<Stack
+										direction='row'
+										spacing={2}>
+										<Typography> ছবি আপলোড</Typography>
+										<Button
+											variant='contained'
+											component='label'>
+											{/* <PhotoCameraIcon /> */}
+											<input
+												name='image'
+												accept='image/*'
+												type='file'
+											/>
+										</Button>
+									</Stack>
+									<FormLabel id='gender'>Gender</FormLabel>
+									<RadioGroup
+										aria-labelledby='gender'
+										defaultValue='পুরুষ'
+										name='gender'>
+										<FormControlLabel
+											value='পুরুষ'
+											control={<Radio />}
+											label='পুরুষ'
+										/>
+										<FormControlLabel
+											value='মহিলা'
+											control={<Radio />}
+											label='মহিলা'
+										/>
+										<FormControlLabel
+											value='other'
+											control={<Radio />}
+											label='Other'
+										/>
+									</RadioGroup>
+									<TextField
+										name='nomineeName'
+										id='name-basic'
+										label='নমিনির নাম '
+										variant='outlined'
+									/>
+									<TextField
+										name='nomineeMobile'
+										type='number'
+										id='name-basic'
+										label='নমিনির মোবাইল '
+										variant='outlined'
+									/>
+									<Button
+										type='submit'
+										variant='outlined'
+										color='success'>
+										Submit
+									</Button>
+								</Stack>
+							</form>
+						</BaseCard>
+					</Grid>
+				</Grid>
+			</FullLayout>
+		</ThemeProvider>
+	);
+};
 export default AddNewUser;
