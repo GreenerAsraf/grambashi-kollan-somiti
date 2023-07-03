@@ -80,7 +80,7 @@ const AddNewUser = () => {
 						nomineeMobile: nomineeMobile,
 					};
 
-					// console.log(formInfo);
+					console.log(formInfo);
 					// user added using RTK query
 					addUser(formInfo);
 					form.reset();
@@ -91,7 +91,20 @@ const AddNewUser = () => {
 			});
 	};
 
-	const array = ['সাধারণ সদস্য', 'কার্যকরী কমিটি', 'উপদেষ্টা কমিটি'];
+	const array = [
+		'সভাপতি',
+		'চেয়ারম্যান',
+		'ভাইস চেয়ারম্যান',
+		'সহ সভাপতি',
+		'সাধারণ-সম্পাদক',
+		'সহ সাধারণ সম্পাদক',
+		'অর্থ সম্পাদক',
+		'সহ অর্থ সম্পাদক',
+		'সাংগঠনিক সম্পাদক',
+		'প্রবাসী কল্যাণ সম্পাদক',
+		'প্রচার সম্পাদক',
+	];
+	const array1 = ['সাধারণ সদস্য', 'কার্যকরী কমিটি', 'উপদেষ্টা কমিটি'];
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -121,10 +134,14 @@ const AddNewUser = () => {
 										// label='Age'
 										// onChange={handleChange}
 									>
-										{/* {
-										array.map(ar=><MenuItem value={ar}>{ar}</MenuItem>)
-									} */}
-										<MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
+										{array.map((ar) => (
+											<MenuItem
+												label='সদস্য পদ'
+												value={ar}>
+												{ar}
+											</MenuItem>
+										))}
+										{/* <MenuItem value={`সভাপতি`}>সভাপতি</MenuItem>
 										<MenuItem value={`চেয়ারম্যান`}>চেয়ারম্যান</MenuItem>
 										<MenuItem value={`ভাইস চেয়ারম্যান`}>
 											ভাইস চেয়ারম্যান
@@ -147,24 +164,21 @@ const AddNewUser = () => {
 										<MenuItem value={`প্রবাসী কল্যাণ সম্পাদক`}>
 											প্রবাসী কল্যাণ সম্পাদক
 										</MenuItem>
-										<MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem>
+										<MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem> */}
 									</Select>
-
-									<Stack>
-										{' '}
-										<Select
-											name='role'
-											required>
-											{array.map((ar) => (
-												<MenuItem
-													// name='role'
-													value={ar}>
-													{ar}
-												</MenuItem>
-											))}
-										</Select>
-									</Stack>
-
+									{/* <Stack> */}{' '}
+									<Select
+										name='role'
+										required>
+										{array1.map((ar) => (
+											<MenuItem
+												placeholder='সদস্যের ধরন'
+												value={ar}>
+												{ar}
+											</MenuItem>
+										))}
+									</Select>
+									{/* </Stack> */}
 									<TextField
 										name='memberId'
 										id='name-basic'
