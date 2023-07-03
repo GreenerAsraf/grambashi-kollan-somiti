@@ -80,7 +80,7 @@ const AddNewUser = () => {
 						nomineeMobile: nomineeMobile,
 					};
 
-					console.log(formInfo);
+					// console.log(formInfo);
 					// user added using RTK query
 					addUser(formInfo);
 					form.reset();
@@ -166,7 +166,6 @@ const AddNewUser = () => {
 										</MenuItem>
 										<MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem> */}
 									</Select>
-									{/* <Stack> */}{' '}
 									<Select
 										name='role'
 										required>
@@ -178,13 +177,13 @@ const AddNewUser = () => {
 											</MenuItem>
 										))}
 									</Select>
-									{/* </Stack> */}
 									<TextField
 										name='memberId'
 										id='name-basic'
 										label='সদস্য নাম্বার '
 										variant='outlined'
 									/>
+
 									<TextField
 										name='name'
 										id='name-basic'

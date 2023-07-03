@@ -39,10 +39,7 @@ const MembersView = () => {
 					{data && (
 						<div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
 							{data
-								.filter(
-									(f) =>
-										f.memberRule === 'সভাপতি' || f.memberRule === 'সেক্রটারি'
-								)
+								.filter((f) => f.role === 'কার্যকরী কমিটি')
 								.map((member) => (
 									<div key={member.id}>
 										<MembersCard member={member}></MembersCard>
@@ -62,7 +59,7 @@ const MembersView = () => {
 								.filter(
 									(f) =>
 										// condition need to change
-										f.memberRule === 'সভাপতি' || f.memberRule === 'সেক্রটারি'
+										f.role === 'উপদেষ্টা কমিটি'
 								)
 								.map((member) => (
 									<div key={member.id}>
