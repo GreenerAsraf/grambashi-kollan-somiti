@@ -33,6 +33,11 @@ const Menuitems = [
     title: 'Report',
     icon: 'info',
     href: '/admin/report'
+  },
+  {
+    title: 'kollan Fund',
+    icon: 'users',
+    href: '/admin/kollanFund'
   }
   // {
   //   title: 'Buttons',

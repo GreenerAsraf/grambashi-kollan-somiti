@@ -4,9 +4,8 @@ export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     // baseUrl: "users.json",
-    baseUrl:
-      // 'http://localhost:8000'
-      'https://grambasi-kollyan-somiti-server.vercel.app'
+    baseUrl: 'http://localhost:8000'
+    // 'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
