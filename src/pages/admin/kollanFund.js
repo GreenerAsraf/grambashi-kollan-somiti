@@ -9,6 +9,8 @@ import theme from '../../features/admin/theme/theme'
 import Balance from '@/features/admin/components/dashboard/Balance'
 import Welcome from '@/features/admin/components/dashboard/Welcome'
 import Debit from '@/features/admin/components/dashboard/Debit'
+import BalanceKF from '@/features/admin/components/dashboard/KollanFund/BalanceKF'
+import DebitKF from '@/features/admin/components/dashboard/KollanFund/DebitKF'
 
 const kollanFund = () => {
   return (
@@ -19,10 +21,10 @@ const kollanFund = () => {
             <Welcome />
           </Grid>
           <Grid item xs={12} lg={12}>
-            <Balance />
+            <BalanceKF />
           </Grid>
           <Grid item xs={12} lg={12}>
-            <Debit />
+            <DebitKF />
           </Grid>
 
           {/* <Grid
