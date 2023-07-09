@@ -41,24 +41,29 @@ const AllUsers = () => {
 
   // converting object to array
   const balanceArray = Object.values(balance)
-  // console.log('balanceArray: ', balanceArray)
+  console.log('balanceArray: ', balanceArray)
+  console.log('data: ', data)
 
-  const updatedUserData = balanceArray?.map((balance) => {
-    const matchingId = data?.find(
-      (item) => +item?.memberId === balance?.memberId
+  const updatedData = data?.map((member) => {
+    const balance = balanceArray?.find(
+      (balanceMember) => balanceMember.memberId === +member.memberId
     )
-    if (matchingId) {
+    if (balance) {
+      console.log(balance)
       return {
-        ...matchingId,
-        totalBalance: balance?.amount
+        ...member,
+        totalBalance: balance.amount
       }
-    }
-    return balance
+    } else
+      return {
+        ...member,
+        totalBalance: 0
+      }
   })
 
-  console.log('updatedUserData: ', updatedUserData)
+  console.log('updatedData: ', updatedData)
 
-  const searchUser = updatedUserData?.filter((user) => {
+  const searchUser = updatedData?.filter((user) => {
     if (search === '') {
       return user
     } else if (
@@ -67,7 +72,7 @@ const AllUsers = () => {
       return user
     }
   })
-  console.log('searchUser: ', searchUser)
+  // console.log('searchUser: ', searchUser)
 
   const handleSearch = (e) => {
     const searchData = inputRef.current.value

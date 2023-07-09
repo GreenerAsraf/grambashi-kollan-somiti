@@ -70,8 +70,14 @@ const AllUsersCard = ({ searchUser }) => {
                 <div>
                   <h2 className='text-start text-lg'>{user?.name}</h2>
                   <p>{user?.address}</p>
-                  <p className='text-start text-lg py-2'>
-                    Total Balance: {user?.totalBalance}
+                  <span>Total Balance: </span>
+                  <p
+                    className={`inline text-start text-lg py-2 ${
+                      user?.totalBalance === 0
+                        ? 'text-red-300'
+                        : 'text-green-300'
+                    }`}>
+                    {user?.totalBalance}
                   </p>
                 </div>
                 <DeleteDialogue
