@@ -110,9 +110,24 @@ const AllUserBalance = () => {
     }
     return balance
   })
-  // console.log(balanceArray)
-  // console.log(filteredData)
-  // console.log(updatedMonthlyBalance)
+  // summation of monthlyBalance
+  const monthlySum = updatedMonthlyBalance?.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.amount,
+    0
+  )
+  // summation of user total balance
+
+  let totalSum = updatedMonthlyBalance?.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.total,
+    0
+  )
+  // formatting summation
+  const formatNumberWithCommas = (number) => {
+    return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+  const totalMoneyForThisMonth = formatNumberWithCommas(monthlySum)
+  totalSum = formatNumberWithCommas(totalSum)
+  // console.log(totalMoneyForThisMonth.toLocaleString())
 
   // download balance pdf
   const balanceCol = [
@@ -122,6 +137,17 @@ const AllUserBalance = () => {
     { title: 'This month', field: 'amount' },
     { title: 'Total Balance', field: 'total' }
   ]
+
+  const balanceRow = {
+    memberName: 'Total',
+    amount: totalMoneyForThisMonth,
+    total: totalSum
+  }
+  const faka = {
+    memberName: '',
+    amount: '',
+    total: ''
+  }
 
   const downloadBalanceReport = () => {
     const doc = new jsPDF()
@@ -135,7 +161,8 @@ const AllUserBalance = () => {
     doc.autoTable({
       theme: 'grid',
       columns: balanceCol.map((col) => ({ ...col, dataKey: col.field })),
-      body: updatedMonthlyBalance
+      // rows: balanceRow.map((row) => ({ ...row, dataKey: row.field })),
+      body: [...updatedMonthlyBalance, faka, balanceRow]
     })
     doc.save(
       `Balance History -  ${
@@ -143,7 +170,6 @@ const AllUserBalance = () => {
       } ${year}.pdf`
     )
   }
-  // console.log(filteredData)
   return (
     <Box>
       <Stack flexDirection={'row'} gap={3}>
@@ -227,6 +253,12 @@ const AllUserBalance = () => {
                 </TableCell>
               </TableRow>
             ))}
+          <TableRow>
+            <TableCell colSpan={4}>Total</TableCell>
+            <TableCell align='left'>{totalMoneyForThisMonth}</TableCell>
+            <TableCell align='left'>{totalSum}</TableCell>
+          </TableRow>
+
           {filteredData?.length === 0 && (
             <Typography mt={2}>
               No data found for {selectedMonthYear}{' '}
