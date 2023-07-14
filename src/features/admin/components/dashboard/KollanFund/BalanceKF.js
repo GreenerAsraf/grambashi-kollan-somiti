@@ -83,7 +83,7 @@ const BalanceKF = () => {
         gap={'2rem'}
         boxShadow={'lg'}>
         {/* Main Balance */}
-        <Box
+        {/* <Box
           bgcolor={'#90EE90'}
           padding={4}
           width={255}
@@ -101,7 +101,7 @@ const BalanceKF = () => {
           <br />
 
           <h1 className='text-3xl font-semibold'>${mainBalance}</h1>
-        </Box>
+        </Box> */}
         {/* Remaining Balance */}
         <Box
           bgcolor={'#FFA500'}
