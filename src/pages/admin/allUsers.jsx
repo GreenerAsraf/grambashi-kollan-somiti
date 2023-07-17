@@ -41,15 +41,15 @@ const AllUsers = () => {
 
   // converting object to array
   const balanceArray = Object.values(balance)
-  console.log('balanceArray: ', balanceArray)
-  console.log('data: ', data)
+  // console.log('balanceArray: ', balanceArray)
+  // console.log('data: ', data)
 
   const updatedData = data?.map((member) => {
     const balance = balanceArray?.find(
       (balanceMember) => balanceMember.memberId === +member.memberId
     )
     if (balance) {
-      console.log(balance)
+      // console.log(balance)
       return {
         ...member,
         totalBalance: balance.amount
@@ -61,7 +61,7 @@ const AllUsers = () => {
       }
   })
 
-  console.log('updatedData: ', updatedData)
+  // console.log('updatedData: ', updatedData)
 
   const searchUser = updatedData?.filter((user) => {
     if (search === '') {
