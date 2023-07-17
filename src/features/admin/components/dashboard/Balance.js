@@ -92,7 +92,7 @@ const Balance = () => {
           <h1 className='text-xl font-semibold'>Main Balance</h1>
           <br />
 
-          <h1 className='text-3xl font-semibold'>${mainBalance}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {mainBalance}</h1>
         </Box>
         {/* Remaining Balance */}
         <Box
@@ -111,7 +111,7 @@ const Balance = () => {
           </Box>
           <h1 className='text-xl font-semibold'>Remaining Balance</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>${totalBalance}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {totalBalance}</h1>
         </Box>
         {/* Total Profit */}
         <Box
@@ -134,7 +134,7 @@ const Balance = () => {
           </Box>
           <h1 className='text-xl font-semibold'>Total Profit</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>${totalProfit}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {totalProfit}</h1>
         </Box>
         {/* Total Spent */}
         <Box
@@ -153,7 +153,7 @@ const Balance = () => {
           </Box>
           <h1 className='text-xl font-semibold'>Total Spent</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>${totalSpent}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {totalSpent}</h1>
         </Box>
       </Box>
     </BaseCard>

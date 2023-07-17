@@ -84,7 +84,7 @@ const DebitKF = () => {
     }
   }
   return (
-    <BaseCard title={'Debit and Credit'} variant={'h1'}>
+    <BaseCard title={'জমা-খরচের হিসাব'} variant={'h1'}>
       <Box
         display={'flex'}
         flexWrap={'wrap'}
@@ -103,10 +103,17 @@ const DebitKF = () => {
               sx={{
                 boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
               }}>
-              <h1 className='text-2xl font-semibold'>Credit</h1>
+              <h1 className='text-2xl font-semibold'>জমার পরিমাণ</h1>
 
-              <TextField
+              {/* <TextField
                 label='Credit Note'
+                variant='standard'
+                name='creditNote'
+                margin='normal'
+                type='date'
+              /> */}
+              <TextField
+                label='জমার তথ্য'
                 variant='standard'
                 name='creditNote'
                 margin='normal'
@@ -137,9 +144,9 @@ const DebitKF = () => {
               sx={{
                 boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
               }}>
-              <h1 className='text-2xl font-semibold'>Debit </h1>
+              <h1 className='text-2xl font-semibold'>খরচ/ব্যায়ের পরিমাণ</h1>
               <TextField
-                label='Expenses Note'
+                label='খরচ/ব্যায়ের তথ্য'
                 variant='standard'
                 name='debitNote'
                 margin='normal'
