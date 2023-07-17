@@ -81,7 +81,7 @@ const AllUsersCard = ({ searchUser }) => {
                   </p>
                 </div>
                 <DeleteDialogue
-                  id={user?._id}
+                  id={user?.memberId}
                   name={user?.name}
                   agree={agree}
                   setAgree={setAgree}
