@@ -1,29 +1,17 @@
-import React, { useState } from 'react'
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import { Button, CardActionArea, CardActions } from '@mui/material'
 import TopBar from '../../../components/Navbar/Navbar'
 
-const FORM_ENDPOINT = '' // TODO - fill on the later step
-
 const index = () => {
-  const [submitted, setSubmitted] = useState(false)
-  const handleSubmit = () => {
-    setTimeout(() => {
-      setSubmitted(true)
-    }, 100)
-  }
-
-  if (submitted) {
-    return (
-      <>
-        <div className='text-2xl'>Thank you!</div>
-        <div className='text-md'>We'll be in touch soon.</div>
-      </>
-    )
-  }
   return (
     <div>
       <TopBar></TopBar>
 
-      <form
+      {/* <form
         className='bg-gray-400 w-full m-10'
         action={FORM_ENDPOINT}
         onSubmit={handleSubmit}
@@ -62,7 +50,32 @@ const index = () => {
             Send a message
           </button>
         </div>
-      </form>
+      </form> */}
+
+      <Card>
+        <CardActionArea>
+          <CardMedia
+            component='img'
+            height='140'
+            image='/bkash.jpg'
+            alt='green iguana'
+          />
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='div'>
+              Lizard
+            </Typography>
+            <Typography variant='body2' color='text.secondary'>
+              Lizards are a widespread group of squamate reptiles, with over
+              6,000 species, ranging across all continents except Antarctica
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size='small' color='primary'>
+            Share
+          </Button>
+        </CardActions>
+      </Card>
     </div>
   )
 }
