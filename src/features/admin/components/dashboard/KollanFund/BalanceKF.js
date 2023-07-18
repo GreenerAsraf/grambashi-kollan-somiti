@@ -117,9 +117,9 @@ const BalanceKF = () => {
           <Box>
             <img src='https://img.icons8.com/external-nawicon-outline-color-nawicon/64/null/external-Calculator-economy-nawicon-outline-color-nawicon.png' />
           </Box>
-          <h1 className='text-xl font-semibold'>Remaining Balance</h1>
+          <h1 className='text-xl font-semibold'>অবশিষ্ট টাকা</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>${totalBalance}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {totalBalance}</h1>
         </Box>
         {/* Total Profit */}
         <Box
@@ -140,9 +140,9 @@ const BalanceKF = () => {
               src='https://cdn-icons-png.flaticon.com/512/4149/4149714.png'
             />
           </Box>
-          <h1 className='text-xl font-semibold'>Total Profit</h1>
+          <h1 className='text-xl font-semibold'>জমার পরিমাণ</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>${totalProfit}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {totalProfit}</h1>
         </Box>
         {/* Total Spent */}
         <Box
@@ -159,13 +159,18 @@ const BalanceKF = () => {
           <Box>
             <img src='https://img.icons8.com/external-filled-outline-wichaiwi/64/null/external-cost-business-risks-filled-outline-wichaiwi.png' />
           </Box>
-          <h1 className='text-xl font-semibold'>Total Spent</h1>
+          <h1 className='text-xl font-semibold'> খরচ/ব্যায়ের পরিমাণ</h1>
           <br />
-          <h1 className='text-3xl font-semibold'>${totalSpent}</h1>
+          <h1 className='text-3xl font-semibold'>৳ {totalSpent}</h1>
         </Box>
       </Box>
     </BaseCard>
   )
+  // format number to US dollar
+  // let USDollar = new Intl.NumberFormat('en-US', {
+  //   style: 'currency',
+  //   currency: 'USD',
+  // });
 }
 
 export default BalanceKF
