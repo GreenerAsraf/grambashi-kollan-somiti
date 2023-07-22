@@ -138,11 +138,12 @@ const AddNewUser = () => {
                       প্রবাসী কল্যাণ সম্পাদক
                     </MenuItem>
                     <MenuItem value={`প্রচার সম্পাদক`}>প্রচার সম্পাদক</MenuItem>
+                    <MenuItem value={`সাধারণ সদস্য`}>সাধারণ সদস্য</MenuItem>
                   </Select>
 
                   <Stack>
                     {' '}
-                    <Select name='role' required>
+                    <Select name='role'>
                       {array.map((ar) => (
                         <MenuItem
                           // name='role'
