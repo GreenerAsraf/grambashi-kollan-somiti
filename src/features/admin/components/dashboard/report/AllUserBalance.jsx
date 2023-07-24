@@ -37,6 +37,7 @@ const AllUserBalance = () => {
   const year = date.getFullYear()
 
   const months = [
+    '',
     'January',
     'February',
     'March',
@@ -69,14 +70,13 @@ const AllUserBalance = () => {
           memberName: data.memberName,
           amount: amount,
           memberId: memberId,
-          createdAt: getDateOnly(data.createdAt)
+          updatedAt: getDateOnly(data.updatedAt)
         }
       }
     }
   }
   // converting object to array
   const balanceArray = Object.values(balance)
-
   // following code to display data as per month
   const [selectedMonthYear, setSelectedMonthYear] = useState(
     `${year + '-' + months[currentMonth]}`
@@ -102,20 +102,52 @@ const AllUserBalance = () => {
       (item) => item?.memberId === balance?.memberId
     )
     if (matchingBalance) {
-      return { ...balance, total: matchingBalance?.amount }
+      return {
+        ...balance,
+        date: getDateOnly(balance.updatedAt),
+        total: matchingBalance?.amount
+      }
     }
     return balance
   })
+  // summation of monthlyBalance
+  const monthlySum = updatedMonthlyBalance?.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.amount,
+    0
+  )
+  // summation of user total balance
 
-  // console.log(updatedMonthlyBalance)
+  let totalSum = updatedMonthlyBalance?.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.total,
+    0
+  )
+  // formatting summation
+  const formatNumberWithCommas = (number) => {
+    return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+  const totalMoneyForThisMonth = formatNumberWithCommas(monthlySum)
+  totalSum = formatNumberWithCommas(totalSum)
+  // console.log(totalMoneyForThisMonth.toLocaleString())
 
   // download balance pdf
   const balanceCol = [
     { title: 'Member ID', field: 'memberId' },
-    { title: 'Date', field: 'createdAt' },
+    { title: 'Date', field: 'date' },
     { title: 'Name', field: 'memberName' },
-    { title: 'Total Balance', field: 'amount' }
+    { title: 'This month', field: 'amount' },
+    { title: 'Total Balance', field: 'total' }
   ]
+
+  const balanceRow = {
+    memberName: 'Total',
+    amount: totalMoneyForThisMonth,
+    total: totalSum
+  }
+  const faka = {
+    memberName: '',
+    amount: '',
+    total: ''
+  }
 
   const downloadBalanceReport = () => {
     const doc = new jsPDF()
@@ -129,7 +161,8 @@ const AllUserBalance = () => {
     doc.autoTable({
       theme: 'grid',
       columns: balanceCol.map((col) => ({ ...col, dataKey: col.field })),
-      body: filteredData
+      // rows: balanceRow.map((row) => ({ ...row, dataKey: row.field })),
+      body: [...updatedMonthlyBalance, faka, balanceRow]
     })
     doc.save(
       `Balance History -  ${
@@ -137,19 +170,15 @@ const AllUserBalance = () => {
       } ${year}.pdf`
     )
   }
-
   return (
     <Box>
-      {/* <Typography variant='h3'>Credit History</Typography> */}
       <Stack flexDirection={'row'} gap={3}>
         <Box width={'200px'}>
           <FormControl fullWidth>
             <InputLabel>Select Month</InputLabel>
-            <Select
-              // defaultChecked={months[currentMonth]}
-              onChange={(e) => handleMonth(e)}>
+            <Select onChange={(e) => handleMonth(e)}>
               {months.map((month, i) => (
-                <MenuItem value={year + '-' + `${i + 1}`}>{month}</MenuItem>
+                <MenuItem value={year + '-' + `${i}`}>{month}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -224,8 +253,16 @@ const AllUserBalance = () => {
                 </TableCell>
               </TableRow>
             ))}
+          <TableRow>
+            <TableCell colSpan={4}>Total</TableCell>
+            <TableCell align='left'>{totalMoneyForThisMonth}</TableCell>
+            <TableCell align='left'>{totalSum}</TableCell>
+          </TableRow>
+
           {filteredData?.length === 0 && (
-            <Typography>No data found for {selectedMonthYear} </Typography>
+            <Typography mt={2}>
+              No data found for {selectedMonthYear}{' '}
+            </Typography>
           )}
         </TableBody>
       </Table>

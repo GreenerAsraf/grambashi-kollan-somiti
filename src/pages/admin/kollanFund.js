@@ -9,8 +9,10 @@ import theme from '../../features/admin/theme/theme'
 import Balance from '@/features/admin/components/dashboard/Balance'
 import Welcome from '@/features/admin/components/dashboard/Welcome'
 import Debit from '@/features/admin/components/dashboard/Debit'
+import BalanceKF from '@/features/admin/components/dashboard/KollanFund/BalanceKF'
+import DebitKF from '@/features/admin/components/dashboard/KollanFund/DebitKF'
 
-export default function Index() {
+const kollanFund = () => {
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
@@ -19,35 +21,37 @@ export default function Index() {
             <Welcome />
           </Grid>
           <Grid item xs={12} lg={12}>
-            <Balance />
+            <BalanceKF />
           </Grid>
           <Grid item xs={12} lg={12}>
-            <Debit />
+            <DebitKF />
           </Grid>
 
           {/* <Grid
-						item
-						xs={12}
-						lg={12}
-					>
-						<SalesOverview />
-					</Grid> */}
+          item
+          xs={12}
+          lg={12}
+        >
+          <SalesOverview />
+        </Grid> */}
           {/* ------------------------- row 1 ------------------------- */}
           {/* <Grid
-						item
-						xs={12}
-						lg={4}
-					>
-						<DailyActivity />
-					</Grid> */}
+          item
+          xs={12}
+          lg={4}
+        >
+          <DailyActivity />
+        </Grid> */}
           {/* <Grid item xs={12} lg={8}>
-            <AllUsers />
-          </Grid> */}
+          <AllUsers />
+        </Grid> */}
           {/* <Grid item xs={12} lg={12}>
-            <BlogCard />
-          </Grid> */}
+          <BlogCard />
+        </Grid> */}
         </Grid>
       </FullLayout>
     </ThemeProvider>
   )
 }
+
+export default kollanFund

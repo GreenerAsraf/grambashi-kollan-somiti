@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import BaseCard from '../baseCard/BaseCard'
+// import { useGetBalanceQuery } from '@/slices/api/balanceApi'
+// import { useAddCreditMutation, useGetCreditQuery } from '@/slices/api/creditApi'
+// import {
+//   useAddDebitMutation,
+//   useGetDebitQuery
+// } from '@/slices/api/debitCreditApi'
+import React from 'react'
+import BaseCard from '../../baseCard/BaseCard'
 import { Box } from '@mui/material'
-import { useGetBalanceQuery } from '@/slices/api/balanceApi'
-import { useAddCreditMutation, useGetCreditQuery } from '@/slices/api/creditApi'
 import {
-  useAddDebitMutation,
-  useGetDebitQuery
-} from '@/slices/api/debitCreditApi'
+  useAddCreditKFMutation,
+  useGetCreditKFQuery
+} from '@/slices/api/creditKFApi'
+import {
+  useAddDebitKFMutation,
+  useGetDebitKFQuery
+} from '@/slices/api/debitCreditKFApi'
+import { useGetBalanceKFQuery } from '@/slices/api/balanceKFApi'
 
-const Balance = () => {
-  const [addCredit, { isSuccess: creditSuccess }] = useAddCreditMutation()
-  const [addDebit, { isSuccess: debitSuccess }] = useAddDebitMutation()
+const BalanceKF = () => {
+  const [addCredit, { isSuccess: creditSuccess }] = useAddCreditKFMutation()
+  const [addDebit, { isSuccess: debitSuccess }] = useAddDebitKFMutation()
 
-  const { data } = useGetBalanceQuery()
+  const { data } = useGetBalanceKFQuery()
   const balance = data?.result
-  // console.log(balance);
+  console.log(balance)
 
   // Main Balance
   let mainBalance = 0
@@ -33,8 +42,8 @@ const Balance = () => {
   }
 
   // Total Spent
-  const { data: debit } = useGetDebitQuery()
-  // console.log(debit.result);
+  const { data: debit } = useGetDebitKFQuery()
+  // console.log(debit.result, 'debit.result')
   let totalSpent = 0
   {
     debit?.result?.map((dev) => {
@@ -50,8 +59,8 @@ const Balance = () => {
 
   // Total Profit
 
-  const { data: credit } = useGetCreditQuery()
-  // console.log(credit)
+  const { data: credit } = useGetCreditKFQuery()
+  console.log(credit)
   let totalProfit = 0
   {
     credit?.result?.map((cred) => {
@@ -64,9 +73,8 @@ const Balance = () => {
       (cred) => (totalBalance = totalBalance + parseInt(cred.credit))
     )
   }
-
   return (
-    <BaseCard title={'Wallet'} variant={'h1'}>
+    <BaseCard title={'Wallet of Kollan Fund'} variant={'h1'}>
       <Box
         display={'flex'}
         // flexDirection={{ base: 'column', md: 'row' }}
@@ -75,7 +83,7 @@ const Balance = () => {
         gap={'2rem'}
         boxShadow={'lg'}>
         {/* Main Balance */}
-        <Box
+        {/* <Box
           bgcolor={'#90EE90'}
           padding={4}
           width={255}
@@ -92,8 +100,8 @@ const Balance = () => {
           <h1 className='text-xl font-semibold'>Main Balance</h1>
           <br />
 
-          <h1 className='text-3xl font-semibold'>৳ {mainBalance}</h1>
-        </Box>
+          <h1 className='text-3xl font-semibold'>${mainBalance}</h1>
+        </Box> */}
         {/* Remaining Balance */}
         <Box
           bgcolor={'#FFA500'}
@@ -109,7 +117,7 @@ const Balance = () => {
           <Box>
             <img src='https://img.icons8.com/external-nawicon-outline-color-nawicon/64/null/external-Calculator-economy-nawicon-outline-color-nawicon.png' />
           </Box>
-          <h1 className='text-xl font-semibold'>Remaining Balance</h1>
+          <h1 className='text-xl font-semibold'>অবশিষ্ট টাকা</h1>
           <br />
           <h1 className='text-3xl font-semibold'>৳ {totalBalance}</h1>
         </Box>
@@ -132,7 +140,7 @@ const Balance = () => {
               src='https://cdn-icons-png.flaticon.com/512/4149/4149714.png'
             />
           </Box>
-          <h1 className='text-xl font-semibold'>Total Profit</h1>
+          <h1 className='text-xl font-semibold'>জমার পরিমাণ</h1>
           <br />
           <h1 className='text-3xl font-semibold'>৳ {totalProfit}</h1>
         </Box>
@@ -151,13 +159,18 @@ const Balance = () => {
           <Box>
             <img src='https://img.icons8.com/external-filled-outline-wichaiwi/64/null/external-cost-business-risks-filled-outline-wichaiwi.png' />
           </Box>
-          <h1 className='text-xl font-semibold'>Total Spent</h1>
+          <h1 className='text-xl font-semibold'> খরচ/ব্যায়ের পরিমাণ</h1>
           <br />
           <h1 className='text-3xl font-semibold'>৳ {totalSpent}</h1>
         </Box>
       </Box>
     </BaseCard>
   )
+  // format number to US dollar
+  // let USDollar = new Intl.NumberFormat('en-US', {
+  //   style: 'currency',
+  //   currency: 'USD',
+  // });
 }
 
-export default Balance
+export default BalanceKF
