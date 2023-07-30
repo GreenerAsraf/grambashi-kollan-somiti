@@ -8,9 +8,11 @@ import UserActivities from './UserActivities'
 import { toast } from 'react-hot-toast'
 import { Box } from '@mui/material'
 import Image from 'next/image'
+import UpdateProfile from './UpdateProfile'
 
 const AllUsersCard = ({ searchUser }) => {
   const { data } = useGetUsersQuery()
+  console.log(data)
   // console.log(typeof data[0].memberId)
   const [addBalance, { isSuccess, isLoading, data: response }] =
     useAddBalanceMutation()
@@ -27,7 +29,7 @@ const AllUsersCard = ({ searchUser }) => {
       memberName,
       memberId
     }
-    // console.log(data)
+
     addBalance(data)
   }
   // add balance api response
@@ -62,9 +64,7 @@ const AllUsersCard = ({ searchUser }) => {
                   }
                   alt='profile'
                 />{' '}
-                <div>
-                  <button>Edit</button>
-                </div>
+                <UpdateProfile user={user}></UpdateProfile>
                 <span className='float-right'>
                   <DeleteDialogue
                     id={user?.memberId}

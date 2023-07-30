@@ -105,7 +105,7 @@ const AllUserBalance = () => {
       return {
         ...balance,
         date: getDateOnly(balance.updatedAt),
-        total: matchingBalance?.amount
+        total: matchingBalance?.amount || 0
       }
     }
     return balance
@@ -115,12 +115,16 @@ const AllUserBalance = () => {
     (accumulator, currentValue) => accumulator + currentValue.amount,
     0
   )
+  console.log('updatedMonthlyBalance: ', updatedMonthlyBalance)
   // summation of user total balance
 
-  let totalSum = updatedMonthlyBalance?.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.total,
-    0
-  )
+  let totalSum = updatedMonthlyBalance?.reduce((accumulator, currentValue) => {
+    if (currentValue.total) {
+      return accumulator + currentValue.total
+    }
+    return accumulator
+  }, 0)
+  console.log('totalSum: ', totalSum)
   // formatting summation
   const formatNumberWithCommas = (number) => {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
