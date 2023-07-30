@@ -1,21 +1,19 @@
-import * as React from 'react'
+import { useGetBalanceQuery } from '@/slices/api/balanceApi'
+import Timeline from '@mui/lab/Timeline'
+import TimelineConnector from '@mui/lab/TimelineConnector'
+import TimelineContent from '@mui/lab/TimelineContent'
+import TimelineDot from '@mui/lab/TimelineDot'
+import TimelineItem from '@mui/lab/TimelineItem'
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
+import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
-import Timeline from '@mui/lab/Timeline'
-import TimelineItem from '@mui/lab/TimelineItem'
-import TimelineSeparator from '@mui/lab/TimelineSeparator'
-import TimelineConnector from '@mui/lab/TimelineConnector'
-import TimelineContent from '@mui/lab/TimelineContent'
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
-import TimelineDot from '@mui/lab/TimelineDot'
-import { getDate } from '../../../../../../components/getDate'
+import * as React from 'react'
 import { getDateOnly } from '../../../../../../components/getDateOnly'
-import { useGetBalanceQuery } from '@/slices/api/balanceApi'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
@@ -35,9 +33,8 @@ export default function UserActivities({ name, memberId }) {
 
   // paymentInfo will contain if data is found by id matching
   const paymentInfo = balance?.result?.filter(
-    (uid) => uid?.memberId === memberId
+    (uid) => uid?.memberId == memberId
   )
-  // console.log(memberId)
 
   return (
     <div>
