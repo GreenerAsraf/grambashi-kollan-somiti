@@ -1,11 +1,18 @@
 import React from 'react'
 import { useGetUsersQuery } from '../../slices/api/apiSlice'
-import { Button } from '@mui/material'
+import { Card, CardContent, Typography, Button, Grid } from '@mui/material'
+import UserModal from './UserModal'
+import { useState } from 'react'
 // import Image from "next/image";
 
 const UsersView = ({ searchUser }) => {
   const { data, error, isLoading } = useGetUsersQuery()
-  console.log(data)
+  // const { userData, setUserData } = useState({})
+  console.log(data, 'member hompage')
+  const handleModal = (user) => {
+    // setUserData(user)
+    console.log(user, 'onClick')
+  }
 
   return (
     <div>
@@ -54,9 +61,22 @@ const UsersView = ({ searchUser }) => {
                   </svg>
                   <span className='text-black'>{user.mobile}</span>
                 </span>
-                <Button variant='contained'>Details</Button>
+                <Button
+                  variant='contained'
+                  sx={{
+                    mt: '15px'
+                  }}
+                  color={'primary'}>
+                  <label
+                    htmlFor='my-modal-3'
+                    onClick={() => handleModal(user)}
+                    className='btn btn-ghost '>
+                    See Details
+                  </label>
+                </Button>
               </div>
             </div>
+            {user && <UserModal user={user}></UserModal>}
           </div>
         ))}
       </div>

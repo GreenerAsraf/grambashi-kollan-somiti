@@ -128,7 +128,6 @@ const AddNewUser = () => {
                 <Stack spacing={3}>
                   <InputLabel>সদস্য পদ</InputLabel>
                   <Select
-                    required
                     // color='#fff'
                     label='Age'
                     // labelId='demo-simple-select-label'
@@ -155,9 +154,9 @@ const AddNewUser = () => {
                     type='number'
                     label='সদস্য নাম্বার (অবশ্যই নতুন নাম্বার দিতে হবে)'
                   />
-                  <TextField required name='fatherName' label='পিতার নাম' />
-                  <TextField required name='motherName' label='মাতার নাম' />
-                  <TextField required name='dateOfBirth' type='date' />
+                  <TextField name='fatherName' label='পিতার নাম' />
+                  <TextField name='motherName' label='মাতার নাম' />
+                  <TextField name='dateOfBirth' type='date' />
                   <TextField
                     required
                     name='mobile'
@@ -165,7 +164,6 @@ const AddNewUser = () => {
                     label='মোবাইল'
                   />
                   <TextField
-                    required
                     name='address'
                     label='সদস্যের ঠিকানা'
                     multiline
@@ -175,12 +173,7 @@ const AddNewUser = () => {
                     <Typography> ছবি আপলোড</Typography>
                     <Button variant='contained' component='label'>
                       {/* <PhotoCameraIcon /> */}
-                      <input
-                        required
-                        name='image'
-                        accept='image/*'
-                        type='file'
-                      />
+                      <input name='image' accept='image/*' type='file' />
                     </Button>
                   </Stack>
                   <FormLabel id='gender'>Gender</FormLabel>
@@ -204,9 +197,8 @@ const AddNewUser = () => {
                       label='Other'
                     />
                   </RadioGroup>
-                  <TextField required name='nomineeName' label='নমিনির নাম ' />
+                  <TextField name='nomineeName' label='নমিনির নাম ' />
                   <TextField
-                    required
                     name='nomineeMobile'
                     type='number'
                     label='নমিনির মোবাইল '

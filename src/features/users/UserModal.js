@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
-const UserModal = ({ userData }) => {
+const UserModal = ({ user }) => {
+  console.log('userModal', user)
   return (
     <div>
       {/* Put this part before </body> tag */}
@@ -13,13 +14,13 @@ const UserModal = ({ userData }) => {
             ✕
           </label>
           <Image
-            src={userData?.image}
+            src={user?.image}
             width={600}
             height={600}
-            alt={userData?.userName}
+            alt={user?.userName}
           />
-          <h3 className='text-lg font-bold mt-4'>{userData?.userName}</h3>
-          <p className='py-4'>{userData?.description}</p>
+          <h3 className='text-lg font-bold mt-4'>{user?.memberRule}</h3>
+          <p className='py-4'>{user?.address}</p>
         </div>
       </div>
     </div>
