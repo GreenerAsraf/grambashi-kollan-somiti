@@ -52,10 +52,12 @@ const AddNewUser = () => {
 		const nomineeMobile = form.nomineeMobile.value;
 		const address = form.address.value;
 		const gender = form.gender.value;
-		const image = form.image.files[0];
+		const image =
+			form.image.files[0] ||
+			'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png';
 		const formData = new FormData();
 
-		formData.append('image', image);
+		formData?.append('image', image);
 		const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`;
 		fetch(url, {
 			method: 'POST',
@@ -155,19 +157,20 @@ const AddNewUser = () => {
 											))}
 										</Select>
 									</Stack>
-
-									<TextField
-										name='memberId'
-										id='name-basic'
-										label='সদস্য নাম্বার '
-										variant='outlined'
-									/>
 									<TextField
 										name='name'
 										id='name-basic'
 										label='সদস্যের নাম'
 										variant='outlined'
 									/>
+									<TextField
+										name='memberId'
+										type='number0'
+										id='name-basic'
+										label='সদস্য নাম্বার '
+										variant='outlined'
+									/>
+
 									<TextField
 										name='fatherName'
 										id='name-basic'
