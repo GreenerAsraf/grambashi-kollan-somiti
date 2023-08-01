@@ -71,7 +71,7 @@ const UsersView = ({ searchUser }) => {
                   }}
                   color={'primary'}>
                   <label
-                    htmlFor='my-modal-3'
+                    htmlFor={user._id}
                     onClick={() => handleModal(user)}
                     className='btn btn-ghost '>
                     See Details
