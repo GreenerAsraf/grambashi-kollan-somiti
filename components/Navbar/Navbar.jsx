@@ -59,6 +59,7 @@ export default function TopBar() {
           Users
         </Link>
       </Typography>
+
       <Typography
         as='li'
         variant='small'
@@ -77,6 +78,26 @@ export default function TopBar() {
           Contact
         </Link>
       </Typography>
+      <Typography
+        as='li'
+        variant='small'
+        color='white'
+        className='p-1 font-medium'>
+        {user ? (
+          <Typography variant='small' color='white' className='p-1 font-medium'>
+            {/* {user.email} */}
+            {user.displayName}
+            <Button onClick={signout}>Log Out</Button>
+            <Link href='/admin' variant='gradient' size='sm' className=''>
+              Admin
+            </Link>
+          </Typography>
+        ) : (
+          <Link href='/login' variant='gradient' size='sm' className=''>
+            <span>Login</span>
+          </Link>
+        )}
+      </Typography>
     </ul>
   )
 
@@ -91,7 +112,7 @@ export default function TopBar() {
         <Button className='text-black font-bold text-2xl text-center py-9'>
            Login as Admin
         </Button> */}
-        {user ? (
+        {/* {user ? (
           <p>
             {user.email}
             <Button onClick={signout}>Log Out</Button>
@@ -106,7 +127,7 @@ export default function TopBar() {
               <LoginIcon></LoginIcon>Login as Admin
             </span>
           </Link>
-        )}
+        )} */}
       </div>
       <Navbar className='mx-auto py-2 px-4 bg-[#009B90] lg:px-8 lg:py-4'>
         <div className='container mx-auto flex items-center justify-between '>
@@ -117,6 +138,7 @@ export default function TopBar() {
             className='mr-4 cursor-pointer py-1.5 font-medium'>
             <Link href='/'>Home</Link>
           </Typography>
+
           <div className='hidden lg:block'>{navList}</div>
           {/* <Button
             variant="gradient"

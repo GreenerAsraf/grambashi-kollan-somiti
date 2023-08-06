@@ -129,7 +129,7 @@ const Login = () => {
             </div>
           </form>
 
-          <p className='text-center'>
+          {/* <p className='text-center'>
             New to Grambashi Kollan Somity
             <Link
               htmlFor='sign-up-modal'
@@ -137,7 +137,7 @@ const Login = () => {
               href='/Register'>
               Sign Up
             </Link>
-          </p>
+          </p> */}
 
           <div className='divider'>OR</div>
 
