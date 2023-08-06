@@ -20,7 +20,8 @@ const UserModal = ({ user }) => {
             alt={user?.userName}
           />
           <h3 className='text-lg font-bold mt-4'>{user?.memberRule}</h3>
-          <p className='py-4'>{user?.address}</p>
+          <p className=''>Address: {user?.address}</p>
+          <p className=''>Father Name: {user?.fatherName}</p>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ const index = () => {
       <HomePage />
       <MembersView></MembersView>
       <HomeEvents></HomeEvents>
-      <Message></Message>
+      {/* <Message></Message> */}
     </div>
   )
 }
