@@ -54,7 +54,7 @@ const UpdateProfile = ({ user }) => {
     useUpdateUserMutation();
   console.log(isSuccess);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, isSuccess, isLoading) => {
     e.preventDefault();
     const form = e.target;
     const memberId = form.memberId.value;
