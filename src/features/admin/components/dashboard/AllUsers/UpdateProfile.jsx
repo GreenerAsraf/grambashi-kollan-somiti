@@ -21,25 +21,40 @@ import BaseCard from "../../baseCard/BaseCard";
 import { ThemeProvider } from "@mui/material/styles";
 import FullLayout from "@/features/admin/layouts/FullLayout";
 import AlertSuccess from "../../../../../../components/Alert/AlertSuccess";
-import { useAddUserMutation } from "@/slices/api/apiSlice";
+import {
+  useAddUserMutation,
+  useUpdateUserMutation,
+} from "@/slices/api/apiSlice";
 // import AlertSuccess from "../.";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { Refresh } from "@mui/icons-material";
+import Loading from "../../../../../../components/Loading";
 
 const UpdateProfile = ({ user }) => {
-  const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation();
+  // const [openModal, setOpenModal] = useState(false);
 
-  if (isLoading) {
-    return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  }
+  const {
+    role,
+    memberRule,
+    address,
+    memberId,
+    name,
+    dateOfBirth,
+    fatherName,
+    motherName,
+    gender,
+    mobile,
+    nomineeMobile,
+    nomineeName,
+    _id,
+  } = user;
 
-  const handleSubmit = (e) => {
+  const [updateUser, { isLoading, isSuccess, isError }] =
+    useUpdateUserMutation();
+  console.log(isSuccess);
+
+  const handleSubmit = (e, isSuccess, isLoading) => {
     e.preventDefault();
     const form = e.target;
     const memberId = form.memberId.value;
@@ -84,10 +99,9 @@ const UpdateProfile = ({ user }) => {
             nomineeMobile: nomineeMobile,
           };
 
-          console.log(formInfo);
+          // console.log(formInfo);
           // user added using RTK query
-          //   addUser(formInfo);
-          //   form.reset();
+          updateUser(formInfo);
         }
       })
       .catch((error) => {
@@ -110,8 +124,15 @@ const UpdateProfile = ({ user }) => {
   ];
   const array1 = ["সাধারণ সদস্য", "কার্যকরী কমিটি", "উপদেষ্টা কমিটি"];
 
-  const { memberId, name } = user;
-  console.log(name);
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isSuccess) {
+    toast.success("Updated");
+  }
+
+  // console.log(user);
   return (
     <div>
       {/* The button to open modal */}
@@ -123,9 +144,9 @@ const UpdateProfile = ({ user }) => {
       <div className="modal">
         <div className="modal-box">
           <Grid container spacing={0}>
-            {isSuccess && (
+            {/* {isSuccess && (
               <AlertSuccess message={"User Added"} setOpen={true} />
-            )}
+            )} */}
             <Grid item xs={12} lg={12}>
               <div className="modal-action">
                 <label
@@ -138,46 +159,42 @@ const UpdateProfile = ({ user }) => {
               <BaseCard title={name}>
                 <form onSubmit={(e) => handleSubmit(e)}>
                   <Stack spacing={3}>
+                    <InputLabel>সদস্য পদ</InputLabel>
                     <Select
+                      // color='#fff'
+                      // label="Age"
                       // labelId='demo-simple-select-label'
                       name="memberRule"
-                      // value='সদস্য পদ'
-                      // id='name-basic'
-                      // value={age}
-                      // label='Age'
-                      // onChange={handleChange}
+                      defaultValue={memberRule}
                     >
-                      {array.map((ar) => (
-                        <MenuItem label="সদস্য পদ" value={ar}>
+                      {array.map((ar, i) => (
+                        <MenuItem key={i} value={ar}>
                           {ar}
                         </MenuItem>
                       ))}
                     </Select>
-
-                    <Stack>
-                      {" "}
-                      <Select name="role">
-                        {array1.map((ar) => (
-                          <MenuItem
-                            // name='role'
-                            value={ar}
-                          >
-                            {ar}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </Stack>
+                    <InputLabel>উপ-সদস্য পদ</InputLabel>
+                    <Select name="role" defaultValue={role}>
+                      {array1.map((ar, i) => (
+                        <MenuItem key={i} value={ar}>
+                          {ar}
+                        </MenuItem>
+                      ))}
+                    </Select>
                     <TextField
                       name="name"
                       id="name-basic"
                       label="সদস্যের নাম"
+                      defaultValue={name}
                       variant="outlined"
                     />
                     <TextField
                       name="memberId"
-                      type="number0"
+                      type="number"
                       id="name-basic"
                       label="সদস্য নাম্বার "
+                      disabled
+                      defaultValue={memberId}
                       variant="outlined"
                     />
 
@@ -185,12 +202,14 @@ const UpdateProfile = ({ user }) => {
                       name="fatherName"
                       id="name-basic"
                       label="পিতার নাম"
+                      defaultValue={fatherName}
                       variant="outlined"
                     />
                     <TextField
                       name="motherName"
                       id="name-basic"
                       label="মাতার নাম"
+                      defaultValue={motherName}
                       variant="outlined"
                     />
                     <TextField
@@ -205,12 +224,14 @@ const UpdateProfile = ({ user }) => {
                       type="number"
                       id="name-basic"
                       label="মোবাইল"
+                      defaultValue={mobile}
                       variant="outlined"
                     />
                     <TextField
                       name="address"
                       id="outlined-multiline-static"
                       label="সদস্যের ঠিকানা"
+                      defaultValue={address}
                       multiline
                       rows={4}
                     />
@@ -247,6 +268,7 @@ const UpdateProfile = ({ user }) => {
                       name="nomineeName"
                       id="name-basic"
                       label="নমিনির নাম "
+                      defaultValue={nomineeName}
                       variant="outlined"
                     />
                     <TextField
@@ -254,6 +276,7 @@ const UpdateProfile = ({ user }) => {
                       type="number"
                       id="name-basic"
                       label="নমিনির মোবাইল "
+                      defaultValue={nomineeMobile}
                       variant="outlined"
                     />
                     <Button type="submit" variant="outlined" color="success">
