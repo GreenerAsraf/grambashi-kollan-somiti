@@ -112,22 +112,6 @@ export default function TopBar() {
         <Button className='text-black font-bold text-2xl text-center py-9'>
            Login as Admin
         </Button> */}
-        {/* {user ? (
-          <p>
-            {user.email}
-            <Button onClick={signout}>Log Out</Button>
-          </p>
-        ) : (
-          <Link
-            href='/login'
-            variant='gradient'
-            size='sm'
-            className='hidden lg:inline-block font-bold text-3xl text-center py-9'>
-            <span>
-              <LoginIcon></LoginIcon>Login as Admin
-            </span>
-          </Link>
-        )} */}
       </div>
       <Navbar className='mx-auto py-2 px-4 bg-[#009B90] lg:px-8 lg:py-4'>
         <div className='container mx-auto flex items-center justify-between '>
