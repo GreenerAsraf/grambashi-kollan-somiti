@@ -4,7 +4,9 @@ const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit')
 
 // Get Events data
 export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
-  const res = await axios.get('events.json')
+  const res = await axios.get(
+    'https://grambasi-kollyan-somiti-server.vercel.app/all-events'
+  )
   return res.data
 })
 // Add Event data
