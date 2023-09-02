@@ -66,7 +66,7 @@ export default function TopBar() {
         color='white'
         className='p-1 font-medium'>
         <Link href='/gallery' passHref className='flex items-center'>
-          Gallery
+          Constitution
         </Link>
       </Typography>
       <Typography
@@ -182,7 +182,10 @@ export default function TopBar() {
           </div>
         </MobileNav>
       </Navbar>
-      <marquee className='mt-2' behavior='scroll' direction='left'>
+      <marquee
+        className='mt-1 pt-1 text-3xl text-green-500'
+        behavior='scroll'
+        direction='left'>
         {notice?.notice ||
           `নতুন কোনো নোটিশ আসলে সাথেই সাথেই আপডেট পেয়ে যাবেন। আমদের সাথে থাকার জন্য
         ধন্যবাদ।`}
