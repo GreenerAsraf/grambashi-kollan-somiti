@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     // baseUrl: "users.json",
     // baseUrl: "http://localhost:8000",
     baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app',
+
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
@@ -14,6 +16,7 @@ export const userApi = createApi({
         url: '/all-users',
       }),
       providesTags: ['Users'],
+
     }),
     addUser: builder.mutation({
       query: (data) => ({
@@ -22,6 +25,7 @@ export const userApi = createApi({
         body: data,
       }),
       invalidatesTags: ['Users'],
+
     }),
     updateUser: builder.mutation({
       query: (data) => ({
@@ -30,6 +34,7 @@ export const userApi = createApi({
         body: data,
       }),
       invalidatesTags: ['Users'],
+
     }),
     deleteUser: builder.mutation({
       query: (id) => ({
@@ -41,9 +46,10 @@ export const userApi = createApi({
   }),
 });
 
+
 export const {
   useGetUsersQuery,
   useAddUserMutation,
   useDeleteUserMutation,
-  useUpdateUserMutation,
-} = userApi;
+  useUpdateUserMutation
+} = userApi

@@ -56,9 +56,10 @@ export default function TopBar() {
         color='white'
         className='p-1 font-medium'>
         <Link href='/users' passHref className='flex items-center'>
-          Users
+          Members
         </Link>
       </Typography>
+
       <Typography
         as='li'
         variant='small'
@@ -85,9 +86,16 @@ export default function TopBar() {
         {user ? (
           <Typography variant='small' color='white' className='p-1 font-medium'>
             {/* {user.email} */}
+            <button className=' btn btn-circle p-1' onClick={signout}>
+              Log Out
+            </button>
             {user.displayName}
-            <Button onClick={signout}>Log Out</Button>
-            <Link href='/admin' variant='gradient' size='sm' className=''>
+
+            <Link
+              href='/admin'
+              variant='gradient'
+              size='sm'
+              className='m-1 p-1'>
               Admin
             </Link>
           </Typography>
@@ -121,6 +129,7 @@ export default function TopBar() {
             className='mr-4 cursor-pointer py-1.5 font-medium'>
             <Link href='/'>Home</Link>
           </Typography>
+
           <div className='hidden lg:block'>{navList}</div>
           {/* <Button
             variant="gradient"
