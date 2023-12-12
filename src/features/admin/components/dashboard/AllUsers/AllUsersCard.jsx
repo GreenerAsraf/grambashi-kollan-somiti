@@ -49,7 +49,7 @@ const AllUsersCard = ({ searchUser, page }) => {
       {searchUser?.length === 0 ? (
         <Box>No user found. Please add an user</Box>
       ) : (
-        searchUser?.slice(12 * (page - 1), page * 12).map((user) => (
+        searchUser?.slice(9 * (page - 1), page * 9).map((user) => (
           <div
             key={user._id}
             className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
@@ -136,7 +136,6 @@ const AllUsersCard = ({ searchUser, page }) => {
           </div>
         ))
       )}
-      {/* <Pagination data={data}></Pagination> */}
     </div>
   );
 };
