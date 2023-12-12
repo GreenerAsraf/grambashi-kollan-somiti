@@ -16,20 +16,20 @@ import {
   Select,
   MenuItem,
   InputLabel,
-} from "@mui/material";
-import BaseCard from "../../baseCard/BaseCard";
-import { ThemeProvider } from "@mui/material/styles";
-import FullLayout from "@/features/admin/layouts/FullLayout";
-import AlertSuccess from "../../../../../../components/Alert/AlertSuccess";
+} from '@mui/material';
+import BaseCard from '../../baseCard/BaseCard';
+import { ThemeProvider } from '@mui/material/styles';
+import FullLayout from '@/features/admin/layouts/FullLayout';
+import AlertSuccess from '../../../../../../components/Alert/AlertSuccess';
 import {
   useAddUserMutation,
   useUpdateUserMutation,
-} from "@/slices/api/apiSlice";
+} from '@/slices/api/apiSlice';
 // import AlertSuccess from "../.";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { Refresh } from "@mui/icons-material";
-import Loading from "../../../../../../components/Loading";
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { Refresh } from '@mui/icons-material';
+import Loading from '../../../../../../components/Loading';
 
 const UpdateProfile = ({ user }) => {
   // const [openModal, setOpenModal] = useState(false);
@@ -52,7 +52,7 @@ const UpdateProfile = ({ user }) => {
 
   const [updateUser, { isLoading, isSuccess, isError }] =
     useUpdateUserMutation();
-  console.log(isSuccess);
+  // console.log(isSuccess);
 
   const handleSubmit = (e, isSuccess, isLoading) => {
     e.preventDefault();
@@ -71,13 +71,13 @@ const UpdateProfile = ({ user }) => {
     const gender = form.gender.value;
     const image =
       form.image.files[0] ||
-      "https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png";
+      'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png';
     const formData = new FormData();
 
-    formData?.append("image", image);
+    formData?.append('image', image);
     const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`;
     fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: formData,
     })
       .then((res) => res.json())
@@ -86,7 +86,7 @@ const UpdateProfile = ({ user }) => {
           const formInfo = {
             memberId: memberId,
             memberRule: memberRule,
-            role: role || "সাধারণ সদস্য",
+            role: role || 'সাধারণ সদস্য',
             name: name,
             fatherName: fatherName,
             motherName: motherName,
@@ -105,54 +105,64 @@ const UpdateProfile = ({ user }) => {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
   };
 
   const array = [
-    "সভাপতি",
-    "চেয়ারম্যান",
-    "ভাইস চেয়ারম্যান",
-    "সহ সভাপতি",
-    "সাধারণ-সম্পাদক",
-    "সহ সাধারণ সম্পাদক",
-    "অর্থ সম্পাদক",
-    "সহ অর্থ সম্পাদক",
-    "সাংগঠনিক সম্পাদক",
-    "প্রবাসী কল্যাণ সম্পাদক",
-    "প্রচার সম্পাদক",
+    'সভাপতি',
+    'চেয়ারম্যান',
+    'ভাইস চেয়ারম্যান',
+    'সহ সভাপতি',
+    'সাধারণ-সম্পাদক',
+    'সহ সাধারণ সম্পাদক',
+    'অর্থ সম্পাদক',
+    'সহ অর্থ সম্পাদক',
+    'সাংগঠনিক সম্পাদক',
+    'প্রবাসী কল্যাণ সম্পাদক',
+    'প্রচার সম্পাদক',
   ];
-  const array1 = ["সাধারণ সদস্য", "কার্যকরী কমিটি", "উপদেষ্টা কমিটি"];
+  const array1 = ['সাধারণ সদস্য', 'কার্যকরী কমিটি', 'উপদেষ্টা কমিটি'];
 
   if (isLoading) {
     return <Loading />;
   }
 
   if (isSuccess) {
-    toast.success("Updated");
+    toast.success('Updated');
   }
 
   // console.log(user);
   return (
     <div>
       {/* The button to open modal */}
-      <label htmlFor={memberId} className="btn btn-xs btn-outline btn-info">
+      <label
+        htmlFor={memberId}
+        className='btn btn-xs btn-outline btn-info'>
         edit
       </label>
       {/* Put this part before </body> tag */}
-      <input type="checkbox" id={memberId} className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <Grid container spacing={0}>
+      <input
+        type='checkbox'
+        id={memberId}
+        className='modal-toggle'
+      />
+      <div className='modal'>
+        <div className='modal-box'>
+          <Grid
+            container
+            spacing={0}>
             {/* {isSuccess && (
               <AlertSuccess message={"User Added"} setOpen={true} />
             )} */}
-            <Grid item xs={12} lg={12}>
-              <div className="modal-action">
+            <Grid
+              item
+              xs={12}
+              lg={12}>
+              <div className='modal-action'>
                 <label
                   htmlFor={memberId}
-                  className="btn btn-sm btn-outline btn-error"
-                >
+                  className='btn btn-sm btn-outline btn-error'>
                   Close!
                 </label>
               </div>
@@ -164,122 +174,137 @@ const UpdateProfile = ({ user }) => {
                       // color='#fff'
                       // label="Age"
                       // labelId='demo-simple-select-label'
-                      name="memberRule"
-                      defaultValue={memberRule}
-                    >
+                      name='memberRule'
+                      defaultValue={memberRule}>
                       {array.map((ar, i) => (
-                        <MenuItem key={i} value={ar}>
+                        <MenuItem
+                          key={i}
+                          value={ar}>
                           {ar}
                         </MenuItem>
                       ))}
                     </Select>
                     <InputLabel>উপ-সদস্য পদ</InputLabel>
-                    <Select name="role" defaultValue={role}>
+                    <Select
+                      name='role'
+                      defaultValue={role}>
                       {array1.map((ar, i) => (
-                        <MenuItem key={i} value={ar}>
+                        <MenuItem
+                          key={i}
+                          value={ar}>
                           {ar}
                         </MenuItem>
                       ))}
                     </Select>
                     <TextField
-                      name="name"
-                      id="name-basic"
-                      label="সদস্যের নাম"
+                      name='name'
+                      id='name-basic'
+                      label='সদস্যের নাম'
                       defaultValue={name}
-                      variant="outlined"
+                      variant='outlined'
                     />
                     <TextField
-                      name="memberId"
-                      type="number"
-                      id="name-basic"
-                      label="সদস্য নাম্বার "
+                      name='memberId'
+                      type='number'
+                      id='name-basic'
+                      label='সদস্য নাম্বার '
                       disabled
                       defaultValue={memberId}
-                      variant="outlined"
+                      variant='outlined'
                     />
 
                     <TextField
-                      name="fatherName"
-                      id="name-basic"
-                      label="পিতার নাম"
+                      name='fatherName'
+                      id='name-basic'
+                      label='পিতার নাম'
                       defaultValue={fatherName}
-                      variant="outlined"
+                      variant='outlined'
                     />
                     <TextField
-                      name="motherName"
-                      id="name-basic"
-                      label="মাতার নাম"
+                      name='motherName'
+                      id='name-basic'
+                      label='মাতার নাম'
                       defaultValue={motherName}
-                      variant="outlined"
+                      variant='outlined'
                     />
                     <TextField
-                      name="dateOfBirth"
-                      type="date"
-                      id="name-basic"
+                      name='dateOfBirth'
+                      type='date'
+                      id='name-basic'
                       // label='জন্মতারিখ'
-                      variant="outlined"
+                      variant='outlined'
                     />
                     <TextField
-                      name="mobile"
-                      type="number"
-                      id="name-basic"
-                      label="মোবাইল"
+                      name='mobile'
+                      type='number'
+                      id='name-basic'
+                      label='মোবাইল'
                       defaultValue={mobile}
-                      variant="outlined"
+                      variant='outlined'
                     />
                     <TextField
-                      name="address"
-                      id="outlined-multiline-static"
-                      label="সদস্যের ঠিকানা"
+                      name='address'
+                      id='outlined-multiline-static'
+                      label='সদস্যের ঠিকানা'
                       defaultValue={address}
                       multiline
                       rows={4}
                     />
-                    <Stack direction="row" spacing={2}>
+                    <Stack
+                      direction='row'
+                      spacing={2}>
                       <Typography> ছবি আপলোড</Typography>
-                      <Button variant="contained" component="label">
+                      <Button
+                        variant='contained'
+                        component='label'>
                         {/* <PhotoCameraIcon /> */}
-                        <input name="image" accept="image/*" type="file" />
+                        <input
+                          name='image'
+                          accept='image/*'
+                          type='file'
+                        />
                       </Button>
                     </Stack>
-                    <FormLabel id="gender">Gender</FormLabel>
+                    <FormLabel id='gender'>Gender</FormLabel>
                     <RadioGroup
-                      aria-labelledby="gender"
-                      defaultValue="পুরুষ"
-                      name="gender"
-                    >
+                      aria-labelledby='gender'
+                      defaultValue='পুরুষ'
+                      name='gender'>
                       <FormControlLabel
-                        value="পুরুষ"
+                        value='পুরুষ'
                         control={<Radio />}
-                        label="পুরুষ"
+                        label='পুরুষ'
                       />
                       <FormControlLabel
-                        value="মহিলা"
+                        value='মহিলা'
                         control={<Radio />}
-                        label="মহিলা"
+                        label='মহিলা'
                       />
                       <FormControlLabel
-                        value="other"
+                        value='other'
                         control={<Radio />}
-                        label="Other"
+                        label='Other'
                       />
                     </RadioGroup>
                     <TextField
-                      name="nomineeName"
-                      id="name-basic"
-                      label="নমিনির নাম "
+                      name='nomineeName'
+                      id='name-basic'
+                      label='নমিনির নাম '
                       defaultValue={nomineeName}
-                      variant="outlined"
+                      variant='outlined'
                     />
                     <TextField
-                      name="nomineeMobile"
-                      type="number"
-                      id="name-basic"
-                      label="নমিনির মোবাইল "
+                      name='nomineeMobile'
+                      type='number'
+                      id='name-basic'
+                      label='নমিনির মোবাইল '
                       defaultValue={nomineeMobile}
-                      variant="outlined"
+                      variant='outlined'
                     />
-                    <Button type="submit" variant="outlined" color="success">
+                    <Button
+                      type='submit'
+                      variant='outlined'
+                      color='success'>
                       Submit
                     </Button>
                   </Stack>
