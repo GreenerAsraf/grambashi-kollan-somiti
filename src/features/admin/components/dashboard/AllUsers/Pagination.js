@@ -3,12 +3,12 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi2';
 
 const Pagination = ({ setPage, searchUser, page }) => {
   const [pre, setPre] = useState(0);
-  const [next, setNext] = useState(5);
+  const [next, setNext] = useState(10);
   const userLength = searchUser?.length;
   // console.log(userLength);
 
   let lnt = 0;
-  lnt = parseInt(Math.ceil(userLength / 6));
+  lnt = parseInt(Math.ceil(userLength / 9));
 
   const arr = [];
   for (let i = 1; i <= lnt; i++) {
