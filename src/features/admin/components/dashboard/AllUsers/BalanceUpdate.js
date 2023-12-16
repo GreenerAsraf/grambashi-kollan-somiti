@@ -1,27 +1,26 @@
 import {
   useAddBalanceMutation,
-  useGetBalanceQuery,
-} from '@/slices/api/balanceApi';
-import React, { useState } from 'react';
-import { BiEdit } from 'react-icons/bi';
+  useGetBalanceQuery
+} from '@/slices/api/balanceApi'
+import { BiEdit } from 'react-icons/bi'
 
 const BalanceUpdate = ({ user }) => {
-  const { totalBalance, memberId, name } = user;
-  const { data: balance } = useGetBalanceQuery();
-  const [addBalance] = useAddBalanceMutation();
+  const { totalBalance, memberId, name } = user
+  const { data: balance } = useGetBalanceQuery()
+  const [addBalance] = useAddBalanceMutation()
   const paymentInfo = balance?.result?.filter(
     (uid) => uid?.memberId == memberId && uid?.amount > 0
-  );
+  )
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const famount = +form.amount.value;
-    const memberName = form.name.value;
-    const memberId = +form.id.value;
-    let lamount = form.lamount.value;
+    event.preventDefault()
+    const form = event.target
+    const famount = +form.amount.value
+    const memberName = form.name.value
+    const memberId = +form.id.value
+    let lamount = form.lamount.value
 
-    let amount = famount - lamount;
+    let amount = famount - lamount
 
     // let amount = totalBalance - camount;
     // let amount = camount - totalBalance;
@@ -29,37 +28,29 @@ const BalanceUpdate = ({ user }) => {
     const data = {
       amount,
       memberName,
-      memberId,
-    };
+      memberId
+    }
     // console.log(data);
     if (famount < lamount) {
-      addBalance(data);
+      addBalance(data)
     }
-    form.reset();
-  };
+    form.reset()
+  }
 
   return (
     <div>
       <label htmlFor='updateModal'>
         <BiEdit className=' ml-3 mt-1 cursor-pointer' />
       </label>
-      <input
-        type='checkbox'
-        id='updateModal'
-        className='modal-toggle'
-      />
-      <div
-        className='modal'
-        role='dialog'>
+      <input type='checkbox' id='updateModal' className='modal-toggle' />
+      <div className='modal' role='dialog'>
         <div className='modal-box '>
           <h3 className='font-bold text-lg'>{name}</h3>
           <p className='py-2'>Total Balance: {totalBalance}</p>
-          <form
-            onSubmit={handleSubmit}
-            className=''>
+          <form onSubmit={handleSubmit} className=''>
             <p className='mb-3'>
               {' '}
-              {paymentInfo.slice(0, 1).map((amt) => (
+              {paymentInfo?.slice(0, 1).map((amt) => (
                 <>
                   <label>Last Paid Amount:</label>
                   <input
@@ -71,13 +62,7 @@ const BalanceUpdate = ({ user }) => {
                 </>
               ))}
             </p>
-            <input
-              readOnly
-              hidden
-              type='text'
-              name='name'
-              value={user?.name}
-            />
+            <input readOnly hidden type='text' name='name' value={user?.name} />
             <input
               readOnly
               hidden
@@ -93,9 +78,7 @@ const BalanceUpdate = ({ user }) => {
                 className='input input-bordered'
                 min={1}
               />
-              <button
-                type='submit'
-                className='btn btn-info btn-outline'>
+              <button type='submit' className='btn btn-info btn-outline'>
                 submit
               </button>
             </span>
@@ -110,7 +93,7 @@ const BalanceUpdate = ({ user }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BalanceUpdate;
+export default BalanceUpdate
