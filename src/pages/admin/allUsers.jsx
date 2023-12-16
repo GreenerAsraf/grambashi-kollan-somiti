@@ -1,83 +1,84 @@
-import { Grid } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import FullLayout from '@/features/admin/layouts/FullLayout'
-import theme from '../../features/admin/theme/theme'
-import Users from '@/features/admin/components/dashboard/AllUsers/AllUsersCard'
-import AllUsersCard from '@/features/admin/components/dashboard/AllUsers/AllUsersCard'
-import { useRef, useState } from 'react'
-import { useGetUsersQuery } from '@/slices/api/apiSlice'
-import { useGetBalanceQuery } from '@/slices/api/balanceApi'
+import { Grid } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import FullLayout from '@/features/admin/layouts/FullLayout';
+import theme from '../../features/admin/theme/theme';
+import Users from '@/features/admin/components/dashboard/AllUsers/AllUsersCard';
+import AllUsersCard from '@/features/admin/components/dashboard/AllUsers/AllUsersCard';
+import { useRef, useState } from 'react';
+import { useGetUsersQuery } from '@/slices/api/apiSlice';
+import { useGetBalanceQuery } from '@/slices/api/balanceApi';
+import Pagination from '@/features/admin/components/dashboard/AllUsers/Pagination';
 
 const AllUsers = () => {
-  const inputRef = useRef(null)
-  const { data, error, isLoading } = useGetUsersQuery()
-  const { data: balanceQuery } = useGetBalanceQuery()
-  const balanceData = balanceQuery?.result
-
-  const [search, setSearch] = useState('')
+  const inputRef = useRef(null);
+  const { data, error, isLoading } = useGetUsersQuery();
+  const { data: balanceQuery } = useGetBalanceQuery();
+  const balanceData = balanceQuery?.result;
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
 
   // Create an object to store the data and summation for all amount of a user
-  const balance = {}
+  const balance = {};
   // Iterate over the balanceData array
   if (balanceData) {
     for (const data of balanceData) {
-      const memberId = data.memberId
-      const amount = data.amount
+      const memberId = data.memberId;
+      const amount = data.amount;
 
       // Check if the memberId already exists in the balance object
       if (balance[memberId]) {
         // If it exists, add the amount to the existing total
-        balance[memberId].amount += amount
+        balance[memberId].amount += amount;
       } else {
         // If it doesn't exist, initialize the object with the data
         balance[memberId] = {
           memberName: data.memberName,
           amount: amount,
-          memberId: memberId
-        }
+          memberId: memberId,
+        };
       }
     }
   }
 
   // converting object to array
-  const balanceArray = Object.values(balance)
+  const balanceArray = Object.values(balance);
   // console.log('balanceArray: ', balanceArray)
   // console.log('data: ', data)
 
   const updatedData = data?.map((member) => {
     const balance = balanceArray?.find(
       (balanceMember) => balanceMember.memberId === +member.memberId
-    )
+    );
     if (balance) {
       // console.log(balance)
       return {
         ...member,
-        totalBalance: balance.amount
-      }
+        totalBalance: balance.amount,
+      };
     } else
       return {
         ...member,
-        totalBalance: 0
-      }
-  })
+        totalBalance: 0,
+      };
+  });
 
   // console.log('updatedData: ', updatedData)
 
   const searchUser = updatedData?.filter((user) => {
     if (search === '') {
-      return user
+      return user;
     } else if (
       user.memberId.toLowerCase().includes(search.toLocaleLowerCase())
     ) {
-      return user
+      return user;
     }
-  })
+  });
   // console.log('searchUser: ', searchUser)
 
   const handleSearch = (e) => {
-    const searchData = inputRef.current.value
-    setSearch(searchData)
-  }
+    const searchData = inputRef.current.value;
+    setSearch(searchData);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -97,14 +98,26 @@ const AllUsers = () => {
             Search
           </button>
         </div>
-        <Grid container spacing={0}>
-          <Grid item xs={12} lg={12}>
-            <AllUsersCard searchUser={searchUser} />
+        <Grid
+          container
+          spacing={0}>
+          <Grid
+            item
+            xs={12}
+            lg={12}>
+            <AllUsersCard
+              searchUser={searchUser}
+              page={page}
+            />
+            <Pagination
+              setPage={setPage}
+              searchUser={searchUser}
+              page={page}></Pagination>
           </Grid>
         </Grid>
       </FullLayout>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default AllUsers
+export default AllUsers;
