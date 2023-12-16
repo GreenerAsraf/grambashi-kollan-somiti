@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 const UserModal = ({ user }) => {
-  console.log('userModal', user)
+  // console.log('userModal', user)
   return (
     <div>
       {/* Put this part before </body> tag */}
