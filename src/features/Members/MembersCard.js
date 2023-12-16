@@ -1,12 +1,7 @@
-import React from 'react'
+import { Card, CardContent, Grid, Typography } from '@mui/material'
 import Image from 'next/image'
-import { Card, CardContent, Typography, Button, Grid } from '@mui/material'
 
 const MembersCard = ({ member }) => {
-  const handleModal = (member) => {
-    setMember(member)
-  }
-
   return (
     <Grid container className='flex justify-center'>
       <Grid
