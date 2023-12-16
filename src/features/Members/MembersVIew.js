@@ -73,14 +73,14 @@ const MembersView = () => {
 
   return (
     <div className='text-center'>
-      {isLoading ? (
-        <CardSkeleton />
-      ) : (
-        <Stack mt={2} gap={5}>
+      <Stack mt={2} gap={5}>
+        <h2 className='text-start font-semibold text-2xl  decoration-neutral'>
+          কার্যকরী কমিটির সদস্যবৃন্দ
+        </h2>
+        {isLoading ? (
+          <CardSkeleton />
+        ) : (
           <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
-            <h2 className='text-start font-semibold text-2xl mb-3 decoration-neutral'>
-              কার্যকরী কমিটির সদস্যবৃন্দ
-            </h2>
             {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
@@ -115,11 +115,15 @@ const MembersView = () => {
               )}
             </Stack>
           </Box>
+        )}
 
+        <h2 className='text-start font-semibold text-2xl '>
+          উপদেষ্টা কমিটির সদস্যবৃন্দ
+        </h2>
+        {isLoading ? (
+          <CardSkeleton />
+        ) : (
           <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
-            <h2 className='text-start font-semibold text-2xl mb-3'>
-              উপদেষ্টা কমিটির সদস্যবৃন্দ
-            </h2>
             {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
@@ -153,8 +157,8 @@ const MembersView = () => {
               )}
             </Stack>
           </Box>
-        </Stack>
-      )}
+        )}
+      </Stack>
     </div>
   )
 }
