@@ -21,8 +21,7 @@ import Loading from '../../../../../../components/Loading'
 import Image from 'next/image'
 
 const UpdateProfile = ({ user }) => {
-  // const [openModal, setOpenModal] = useState(false);
-
+  const [img, setImg] = useState()
   const {
     role,
     memberRole,
@@ -52,6 +51,19 @@ const UpdateProfile = ({ user }) => {
       role: ''
     }
   })
+
+  // convert image to base64
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const base64 = e.target.result
+        setImg(base64)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   useEffect(() => {
     setUserData({
@@ -260,17 +272,19 @@ const UpdateProfile = ({ user }) => {
                       <Typography> ছবি আপলোড</Typography>
                       <Button variant='contained' component='label'>
                         {/* <PhotoCameraIcon /> */}
-                        <input name='image' accept='image/*' type='file' />
+                        <input
+                          onChange={(e) => handleFileChange(e)}
+                          name='image'
+                          accept='image/*'
+                          type='file'
+                        />
                       </Button>
                     </Stack>
                     <img
                       className='rounded-full float-left w-60 h-56'
                       width={'100px'}
                       height={'100px'}
-                      src={
-                        currentImage ||
-                        'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
-                      }
+                      src={img ? img : currentImage}
                       alt='profile'
                     />
 
