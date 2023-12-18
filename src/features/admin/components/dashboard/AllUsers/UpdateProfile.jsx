@@ -18,6 +18,7 @@ import BaseCard from '../../baseCard/BaseCard'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import Loading from '../../../../../../components/Loading'
+import Image from 'next/image'
 
 const UpdateProfile = ({ user }) => {
   // const [openModal, setOpenModal] = useState(false);
@@ -35,9 +36,9 @@ const UpdateProfile = ({ user }) => {
     mobile,
     nomineeMobile,
     nomineeName,
+    image: currentImage,
     _id
   } = user
-  console.log(memberRole)
 
   const [updateUser, { isLoading, isSuccess, isError }] =
     useUpdateUserMutation()
@@ -75,9 +76,7 @@ const UpdateProfile = ({ user }) => {
     const nomineeMobile = form.nomineeMobile.value
     const address = form.address.value
     const gender = form.gender.value
-    const image =
-      form.image.files[0] ||
-      'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
+    const image = form.image.files[0] || currentImage
     const formData = new FormData()
 
     formData?.append('image', image)
@@ -237,6 +236,7 @@ const UpdateProfile = ({ user }) => {
                       name='dateOfBirth'
                       type='date'
                       id='name-basic'
+                      defaultValue={dateOfBirth}
                       // label='জন্মতারিখ'
                       variant='outlined'
                     />
@@ -263,6 +263,17 @@ const UpdateProfile = ({ user }) => {
                         <input name='image' accept='image/*' type='file' />
                       </Button>
                     </Stack>
+                    <img
+                      className='rounded-full float-left w-60 h-56'
+                      width={'100px'}
+                      height={'100px'}
+                      src={
+                        currentImage ||
+                        'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
+                      }
+                      alt='profile'
+                    />
+
                     <FormLabel id='gender'>Gender</FormLabel>
                     <RadioGroup
                       aria-labelledby='gender'
