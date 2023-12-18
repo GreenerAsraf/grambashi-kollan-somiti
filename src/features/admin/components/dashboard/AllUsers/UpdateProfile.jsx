@@ -21,8 +21,7 @@ import Loading from '../../../../../../components/Loading'
 import Image from 'next/image'
 
 const UpdateProfile = ({ user }) => {
-  // const [openModal, setOpenModal] = useState(false);
-
+  const [img, setImg] = useState()
   const {
     role,
     memberRole,
@@ -53,6 +52,19 @@ const UpdateProfile = ({ user }) => {
     }
   })
 
+  // convert image to base64
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const base64 = e.target.result
+        setImg(base64)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   useEffect(() => {
     setUserData({
       memberRole: memberRole,
@@ -76,42 +88,67 @@ const UpdateProfile = ({ user }) => {
     const nomineeMobile = form.nomineeMobile.value
     const address = form.address.value
     const gender = form.gender.value
-    const image = form.image.files[0] || currentImage
+    const image = img ? form.image.files[0] : currentImage
     const formData = new FormData()
 
     formData?.append('image', image)
     const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`
-    fetch(url, {
-      method: 'POST',
-      body: formData
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.success) {
-          const formInfo = {
-            memberId: memberId,
-            memberRole: userData.memberRole,
-            role: userData.role || 'সাধারণ সদস্য',
-            name: name,
-            fatherName: fatherName,
-            motherName: motherName,
-            image: result.data.url,
-            mobile: mobile,
-            dateOfBirth: dateOfBirth,
-            address: address,
-            gender: gender,
-            nomineeName: nomineeName,
-            nomineeMobile: nomineeMobile
-          }
 
-          // return console.log(formInfo)
-          // user added using RTK query
-          updateUser(formInfo)
-        }
+    // if user not choose new img, existing will be updated
+    if (!img) {
+      const formInfo = {
+        memberId: memberId,
+        memberRole: userData.memberRole,
+        role: userData.role || 'সাধারণ সদস্য',
+        name: name,
+        fatherName: fatherName,
+        motherName: motherName,
+        image: currentImage,
+        mobile: mobile,
+        dateOfBirth: dateOfBirth,
+        address: address,
+        gender: gender,
+        nomineeName: nomineeName,
+        nomineeMobile: nomineeMobile
+      }
+
+      updateUser(formInfo)
+    }
+    // if user choose new img, new img will be upload
+    else {
+      fetch(url, {
+        method: 'POST',
+        body: formData
       })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.success) {
+            const formInfo = {
+              memberId: memberId,
+              memberRole: userData.memberRole,
+              role: userData.role || 'সাধারণ সদস্য',
+              name: name,
+              fatherName: fatherName,
+              motherName: motherName,
+              image: result.data.url,
+              mobile: mobile,
+              dateOfBirth: dateOfBirth,
+              address: address,
+              gender: gender,
+              nomineeName: nomineeName,
+              nomineeMobile: nomineeMobile
+            }
+
+            // return console.log(formInfo)
+            // user added using RTK query
+            updateUser(formInfo)
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+        })
+    }
+    setImg()
   }
 
   const memberList = [
@@ -260,17 +297,19 @@ const UpdateProfile = ({ user }) => {
                       <Typography> ছবি আপলোড</Typography>
                       <Button variant='contained' component='label'>
                         {/* <PhotoCameraIcon /> */}
-                        <input name='image' accept='image/*' type='file' />
+                        <input
+                          onChange={(e) => handleFileChange(e)}
+                          name='image'
+                          accept='image/*'
+                          type='file'
+                        />
                       </Button>
                     </Stack>
                     <img
                       className='rounded-full float-left w-60 h-56'
                       width={'100px'}
                       height={'100px'}
-                      src={
-                        currentImage ||
-                        'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
-                      }
+                      src={img ? img : currentImage}
                       alt='profile'
                     />
 
