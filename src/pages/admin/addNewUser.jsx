@@ -1,8 +1,11 @@
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import { useAddUserMutation } from '@/slices/api/apiSlice'
-import { DeleteForeverSharp, SendSharp } from '@mui/icons-material'
+import { SendSharp } from '@mui/icons-material'
+import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined'
+import { LoadingButton } from '@mui/lab'
 import {
   Backdrop,
+  Box,
   Button,
   CircularProgress,
   Divider,
@@ -27,6 +30,8 @@ import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import theme from '../../features/admin/theme/theme'
 
 const AddNewUser = () => {
+  const [img, setImg] = useState()
+  const [loading, setLoading] = useState(false)
   const [addUser, { isLoading, isSuccess, isError, error }] =
     useAddUserMutation()
 
@@ -51,7 +56,21 @@ const AddNewUser = () => {
     )
   }
 
+  // convert image to base64
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const base64 = e.target.result
+        setImg(base64)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   const handleSubmit = (e) => {
+    setLoading(true)
     e.preventDefault()
     const form = e.target
     const memberId = form.memberId.value
@@ -100,6 +119,8 @@ const AddNewUser = () => {
           // console.log(formInfo);
           // user added using RTK query
           addUser(formInfo)
+          setImg()
+          setLoading(false)
           console.log(isSuccess, isError, error)
           if (error) {
             toast.error('Add new User Failed')
@@ -197,13 +218,39 @@ const AddNewUser = () => {
                     multiline
                     rows={4}
                   />
-                  <Stack direction='row' spacing={2}>
-                    <Typography> ছবি আপলোড</Typography>
-                    <Button variant='contained' component='label'>
-                      {/* <PhotoCameraIcon /> */}
-                      <input name='image' accept='image/*' type='file' />
-                    </Button>
+
+                  <Stack
+                    sx={{ boxShadow: 1 }}
+                    gap={5}
+                    p={5}
+                    direction='row'
+                    justifyContent={'space-between'}
+                    spacing={2}>
+                    <Box height={50}>
+                      <Typography mb={2}> ছবি আপলোড</Typography>
+                      <Button variant='contained' component='label'>
+                        {/* <PhotoCameraIcon /> */}
+                        <input
+                          onChange={(e) => handleFileChange(e)}
+                          name='image'
+                          accept='image/*'
+                          type='file'
+                        />
+                      </Button>
+                    </Box>
+                    <br />
+                    <img
+                      className=' w-60 h-56'
+                      width={'100px'}
+                      height={'100px'}
+                      src={
+                        img ||
+                        'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
+                      }
+                      alt='profile'
+                    />
                   </Stack>
+
                   <FormLabel id='gender'>Gender</FormLabel>
                   <RadioGroup
                     aria-labelledby='gender'
@@ -241,16 +288,20 @@ const AddNewUser = () => {
                       type='Reset'
                       variant='contained'
                       color='danger'
-                      startIcon={<DeleteForeverSharp />}>
-                      RESET
+                      startIcon={<RestartAltOutlinedIcon color='#fff' />}>
+                      <Typography color={'white'}>RESET</Typography>
                     </Button>
-                    <Button
+
+                    <LoadingButton
                       type='submit'
+                      size='medium'
+                      endIcon={<SendSharp />}
+                      loading={loading}
+                      loadingPosition='end'
                       variant='contained'
-                      color='success'
-                      endIcon={<SendSharp />}>
-                      SUBMIT
-                    </Button>
+                      color='success'>
+                      <span> SUBMIT</span>
+                    </LoadingButton>
                   </Stack>
                 </Stack>
               </form>
