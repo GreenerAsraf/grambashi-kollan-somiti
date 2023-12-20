@@ -87,7 +87,7 @@ const MembersView = () => {
             {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
-                  .filter(
+                  ?.filter(
                     (filterItem) => filterItem?.role?.role === 'কার্যকরী কমিটি'
                   )
                   ?.map((member) => (
@@ -131,7 +131,7 @@ const MembersView = () => {
             {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
-                  .filter(
+                  ?.filter(
                     (filterItem) => filterItem?.role?.role === 'উপদেষ্টা কমিটি'
                   )
                   ?.map((member) => (
