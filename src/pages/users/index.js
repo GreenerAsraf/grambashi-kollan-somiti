@@ -65,7 +65,7 @@ const index = () => {
     if (search === '') {
       return user
     } else if (
-      user.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+      user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
     ) {
       return user
     }

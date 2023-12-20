@@ -215,7 +215,7 @@ const UpdateProfile = ({ user }) => {
                       }}
                       name='memberRole'
                       defaultValue={memberRole?.id}>
-                      {memberList.map(({ id, role }, i) => (
+                      {memberList?.map(({ id, role }, i) => (
                         <MenuItem key={i} value={id}>
                           {role}
                         </MenuItem>
@@ -232,7 +232,7 @@ const UpdateProfile = ({ user }) => {
                       }}
                       name='role'
                       defaultValue={role?.id}>
-                      {subMemberList.map((ar, i) => (
+                      {subMemberList?.map((ar, i) => (
                         <MenuItem key={i} value={ar.id}>
                           {ar.role}
                         </MenuItem>
