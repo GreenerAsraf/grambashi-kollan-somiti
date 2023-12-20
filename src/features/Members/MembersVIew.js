@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CardSkeleton from '../../../components/cardSkeleton'
 import { fetchMembers } from '../../slices/membersSlice'
 import MembersCard from './MembersCard'
+import Loading from '../../../components/Loading'
 
 const MembersView = () => {
   const [pageSize, setPageSize] = useState(10)
@@ -90,7 +91,7 @@ const MembersView = () => {
                     (filterItem) => filterItem?.role?.role === 'কার্যকরী কমিটি'
                   )
                   ?.map((member) => (
-                    <div key={member.id}>
+                    <div key={member.id + '123'}>
                       <MembersCard member={member}></MembersCard>
                     </div>
                   ))}
@@ -111,6 +112,7 @@ const MembersView = () => {
                   onClick={() => setPageSize((pre) => pre + 10)}
                   loading={isLoadingUser}
                   loadingPosition='start'
+                  startIcon={'loading'}
                   variant='outlined'>
                   <span>Load More</span>
                 </LoadingButton>
@@ -133,7 +135,7 @@ const MembersView = () => {
                     (filterItem) => filterItem?.role?.role === 'উপদেষ্টা কমিটি'
                   )
                   ?.map((member) => (
-                    <div key={member.id}>
+                    <div key={member.id + '456'}>
                       <MembersCard member={member}></MembersCard>
                     </div>
                   ))}
@@ -153,6 +155,7 @@ const MembersView = () => {
                   onClick={() => setPageSize((pre) => pre + 10)}
                   loading={isLoadingUser}
                   loadingPosition='start'
+                  startIcon={'Loading'}
                   variant='outlined'>
                   <span>Load More</span>
                 </LoadingButton>
