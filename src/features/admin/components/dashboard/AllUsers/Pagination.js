@@ -46,7 +46,7 @@ const Pagination = ({
         onClick={() => prevBtn()}>
         <HiChevronDoubleLeft />
       </button>
-      {arr.slice(pre, next).map((ar) => (
+      {arr.slice(pre, next)?.map((ar) => (
         <button
           onClick={() => pagination(ar)}
           className={

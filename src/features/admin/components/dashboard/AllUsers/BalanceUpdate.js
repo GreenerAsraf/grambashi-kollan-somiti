@@ -50,7 +50,7 @@ const BalanceUpdate = ({ user }) => {
           <form onSubmit={handleSubmit} className=''>
             <p className='mb-3'>
               {' '}
-              {paymentInfo?.slice(0, 1).map((amt) => (
+              {paymentInfo?.slice(0, 1)?.map((amt) => (
                 <>
                   <label>Last Paid Amount:</label>
                   <input

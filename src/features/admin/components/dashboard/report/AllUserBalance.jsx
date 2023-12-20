@@ -11,30 +11,30 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
-} from '@mui/material';
-import React, { useState } from 'react';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import { getDateOnly } from '../../../../../../components/getDateOnly';
-import { useGetCreditQuery } from '@/slices/api/creditApi';
+  Typography
+} from '@mui/material'
+import React, { useState } from 'react'
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
+import { getDateOnly } from '../../../../../../components/getDateOnly'
+import { useGetCreditQuery } from '@/slices/api/creditApi'
 import {
   useGetBalanceQuery,
-  useGetMonthlyBalanceQuery,
-} from '@/slices/api/balanceApi';
+  useGetMonthlyBalanceQuery
+} from '@/slices/api/balanceApi'
 
 const AllUserBalance = () => {
-  const { data: creditData } = useGetCreditQuery();
-  const creditHist = creditData?.result;
-  const { data: balanceQuery } = useGetBalanceQuery();
-  const { data } = useGetMonthlyBalanceQuery();
-  const monthlyBalance = data?.result;
+  const { data: creditData } = useGetCreditQuery()
+  const creditHist = creditData?.result
+  const { data: balanceQuery } = useGetBalanceQuery()
+  const { data } = useGetMonthlyBalanceQuery()
+  const monthlyBalance = data?.result
   // console.log(monthlyBalance)
-  const balanceData = balanceQuery?.result;
+  const balanceData = balanceQuery?.result
 
-  const date = new Date();
-  const currentMonth = date.getMonth() + 1;
-  const year = date.getFullYear();
+  const date = new Date()
+  const currentMonth = date.getMonth() + 1
+  const year = date.getFullYear()
 
   const months = [
     '',
@@ -49,88 +49,88 @@ const AllUserBalance = () => {
     'September',
     'October',
     'November',
-    'December',
-  ];
+    'December'
+  ]
 
   // Create an object to store the data and summation for all amount of a user
-  const balance = {};
+  const balance = {}
   // Iterate over the balanceData array
   if (balanceData) {
     for (const data of balanceData) {
-      const memberId = data.memberId;
-      const amount = data.amount;
+      const memberId = data.memberId
+      const amount = data.amount
 
       // Check if the memberId already exists in the balance object
       if (balance[memberId]) {
         // If it exists, add the amount to the existing total
-        balance[memberId].amount += amount;
+        balance[memberId].amount += amount
       } else {
         // If it doesn't exist, initialize the object with the data
         balance[memberId] = {
           memberName: data.memberName,
           amount: amount,
           memberId: memberId,
-          updatedAt: getDateOnly(data.updatedAt),
-        };
+          updatedAt: getDateOnly(data.updatedAt)
+        }
       }
     }
   }
   // converting object to array
-  const balanceArray = Object.values(balance);
+  const balanceArray = Object.values(balance)
   // following code to display data as per month
   const [selectedMonthYear, setSelectedMonthYear] = useState(
     `${year + '-' + months[currentMonth]}`
-  );
+  )
 
   const handleMonth = (event) => {
-    setSelectedMonthYear(event.target.value);
-  };
+    setSelectedMonthYear(event.target.value)
+  }
 
   let filteredData = monthlyBalance?.filter((item) => {
-    const updatedAt = new Date(item.updatedAt);
+    const updatedAt = new Date(item.updatedAt)
     // console.log('updatedAt: ', updatedAt)
-    const selectedMonth = Number(selectedMonthYear.substring(5, 7));
-    const selectedYear = Number(selectedMonthYear.substring(0, 4));
+    const selectedMonth = Number(selectedMonthYear.substring(5, 7))
+    const selectedYear = Number(selectedMonthYear.substring(0, 4))
     return (
       updatedAt.getMonth() + 1 === selectedMonth &&
       updatedAt.getFullYear() === selectedYear
-    );
-  });
+    )
+  })
 
   const updatedMonthlyBalance = filteredData?.map((balance) => {
     const matchingBalance = balanceArray?.find(
       (item) => item?.memberId === balance?.memberId && item?.amount > 0
-    );
+    )
     if (matchingBalance) {
       return {
         ...balance,
         date: getDateOnly(balance.updatedAt),
-        total: matchingBalance?.amount || 0,
-      };
+        total: matchingBalance?.amount || 0
+      }
     }
-    return balance;
-  });
+    return balance
+  })
   // summation of monthlyBalance
   const monthlySum = updatedMonthlyBalance?.reduce(
     (accumulator, currentValue) => accumulator + currentValue.amount,
     0
-  );
-  console.log('updatedMonthlyBalance: ', updatedMonthlyBalance);
+  )
+  console.log('updatedMonthlyBalance: ', updatedMonthlyBalance)
   // summation of user total balance
 
   let totalSum = updatedMonthlyBalance?.reduce((accumulator, currentValue) => {
     if (currentValue.total) {
-      return accumulator + currentValue.total;
+      return accumulator + currentValue.total
     }
-    return accumulator;
-  }, 0);
-  console.log('totalSum: ', totalSum);
+    return accumulator
+  }, 0)
+  console.log('totalSum: ', totalSum)
   // formatting summation
   const formatNumberWithCommas = (number) => {
-    return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
-  const totalMoneyForThisMonth = formatNumberWithCommas(monthlySum);
-  totalSum = formatNumberWithCommas(totalSum);
+    return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+  const totalMoneyForThisMonth = formatNumberWithCommas(monthlySum)
+  totalSum = formatNumberWithCommas(totalSum)
   // console.log(totalMoneyForThisMonth.toLocaleString())
 
   // download balance pdf
@@ -139,51 +139,49 @@ const AllUserBalance = () => {
     { title: 'Date', field: 'date' },
     { title: 'Name', field: 'memberName' },
     { title: 'This month', field: 'amount' },
-    { title: 'Total Balance', field: 'total' },
-  ];
+    { title: 'Total Balance', field: 'total' }
+  ]
 
   const balanceRow = {
     memberName: 'Total',
     amount: totalMoneyForThisMonth,
-    total: totalSum,
-  };
+    total: totalSum
+  }
   const faka = {
     memberName: '',
     amount: '',
-    total: '',
-  };
+    total: ''
+  }
 
   const downloadBalanceReport = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF()
     doc.text(
       `Balance History - ${
         months[Number(selectedMonthYear.substring(5, 7))]
       } ${year}`,
       20,
       10
-    );
+    )
     doc.autoTable({
       theme: 'grid',
-      columns: balanceCol.map((col) => ({ ...col, dataKey: col.field })),
+      columns: balanceCol?.map((col) => ({ ...col, dataKey: col.field })),
       // rows: balanceRow.map((row) => ({ ...row, dataKey: row.field })),
-      body: [...updatedMonthlyBalance, faka, balanceRow],
-    });
+      body: [...updatedMonthlyBalance, faka, balanceRow]
+    })
     doc.save(
       `Balance History -  ${
         months[Number(selectedMonthYear.substring(5, 7))]
       } ${year}.pdf`
-    );
-  };
+    )
+  }
   return (
     <Box>
-      <Stack
-        flexDirection={'row'}
-        gap={3}>
+      <Stack flexDirection={'row'} gap={3}>
         <Box width={'200px'}>
           <FormControl fullWidth>
             <InputLabel>Select Month</InputLabel>
             <Select onChange={(e) => handleMonth(e)}>
-              {months.map((month, i) => (
+              {months?.map((month, i) => (
                 <MenuItem value={year + '-' + `${i}`}>{month}</MenuItem>
               ))}
             </Select>
@@ -200,44 +198,32 @@ const AllUserBalance = () => {
         <TableHead>
           <TableRow>
             <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
+              <Typography color='textSecondary' variant='h6'>
                 SL No
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
+              <Typography color='textSecondary' variant='h6'>
                 ID No
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
+              <Typography color='textSecondary' variant='h6'>
                 Date
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
+              <Typography color='textSecondary' variant='h6'>
                 Member Name
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
+              <Typography color='textSecondary' variant='h6'>
                 This Month
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
+              <Typography color='textSecondary' variant='h6'>
                 Total Balance
               </Typography>
             </TableCell>
@@ -254,16 +240,12 @@ const AllUserBalance = () => {
                   <Typography>{data?.memberId}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    fontSize='15px'
-                    fontWeight='500'>
+                  <Typography fontSize='15px' fontWeight='500'>
                     {getDateOnly(data?.updatedAt)}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    variant='h6'
-                    fontWeight='600'>
+                  <Typography variant='h6' fontWeight='600'>
                     {data?.memberName}
                   </Typography>
                 </TableCell>
@@ -289,7 +271,7 @@ const AllUserBalance = () => {
         </TableBody>
       </Table>
     </Box>
-  );
-};
+  )
+}
 
-export default AllUserBalance;
+export default AllUserBalance

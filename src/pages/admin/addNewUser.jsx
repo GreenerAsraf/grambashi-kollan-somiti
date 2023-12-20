@@ -173,7 +173,7 @@ const AddNewUser = () => {
                       setUserData({ ...temp, memberRole: data })
                     }}
                     name='memberRole'>
-                    {memberList.map(({ id, role }, i) => (
+                    {memberList?.map(({ id, role }, i) => (
                       <MenuItem key={i} value={id}>
                         {role}
                       </MenuItem>
@@ -189,7 +189,7 @@ const AddNewUser = () => {
                       setUserData({ ...temp, role: data })
                     }}
                     name='role'>
-                    {subMemberList.map((ar, i) => (
+                    {subMemberList?.map((ar, i) => (
                       <MenuItem key={i} value={ar.id}>
                         {ar.role}
                       </MenuItem>
