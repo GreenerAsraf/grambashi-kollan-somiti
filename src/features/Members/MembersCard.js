@@ -22,7 +22,7 @@ const MembersCard = ({ member }) => {
             src={member.image}
             width={'600'}
             height={'200'}
-            alt={member.title}
+            alt={member?.title}
           />
           {/* </figure> */}
           <CardContent

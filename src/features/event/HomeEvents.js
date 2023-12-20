@@ -30,7 +30,7 @@ const HomeEvents = () => {
           {events && (
             <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
               {events.slice(0, 3)?.map((event) => (
-                <div key={event.id}>
+                <div key={event.id + '789'}>
                   <EventsCard event={event} setEvent={setEvent}></EventsCard>
                 </div>
               ))}
