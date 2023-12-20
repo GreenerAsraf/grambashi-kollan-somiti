@@ -1,3 +1,5 @@
+'use client'
+
 import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import { useGetBalanceQuery } from '@/slices/api/balanceApi'
 import { LoadingButton } from '@mui/lab'

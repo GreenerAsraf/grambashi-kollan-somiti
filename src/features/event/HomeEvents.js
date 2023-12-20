@@ -1,3 +1,5 @@
+'use client'
+
 import { fetchEvents } from '@/slices/eventSlice'
 import { Box, Button, Stack } from '@mui/material'
 import Link from 'next/link'
