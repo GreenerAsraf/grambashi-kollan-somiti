@@ -27,7 +27,7 @@ const HomeEvents = () => {
         <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
           {events && (
             <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
-              {events.slice(0, 3).map((event) => (
+              {events.slice(0, 3)?.map((event) => (
                 <div key={event.id}>
                   <EventsCard event={event} setEvent={setEvent}></EventsCard>
                 </div>
