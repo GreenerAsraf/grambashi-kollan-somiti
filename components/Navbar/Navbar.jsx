@@ -89,7 +89,7 @@ export default function TopBar() {
             <button className=' btn btn-circle p-1' onClick={signout}>
               Log Out
             </button>
-            {user.displayName}
+            {user?.displayName}
 
             <Link
               href='/admin'

@@ -32,7 +32,7 @@ const blogs = [
 const BlogCard = () => {
   return (
     <Grid container>
-      {blogs.map((blog, index) => (
+      {blogs?.map((blog, index) => (
         <Grid
           key={index}
           item

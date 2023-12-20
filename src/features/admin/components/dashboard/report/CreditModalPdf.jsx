@@ -95,7 +95,7 @@ export default function CreditModalPdf() {
                 </TableHead>
                 <TableBody>
                   {creditHist?.map((user, i) => (
-                    <TableRow key={user._id}>
+                    <TableRow key={user?._id}>
                       <TableCell>
                         <Typography
                           sx={{
@@ -112,11 +112,11 @@ export default function CreditModalPdf() {
                       </TableCell>
                       <TableCell>
                         <Typography variant='h6' fontWeight='600'>
-                          {user.creditNote}
+                          {user?.creditNote}
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant='h6'>{user.credit}</Typography>
+                        <Typography variant='h6'>{user?.credit}</Typography>
                       </TableCell>
                     </TableRow>
                   ))}

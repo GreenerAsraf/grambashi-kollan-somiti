@@ -53,8 +53,8 @@ const AllUsers = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((user) => (
-            <TableRow key={user._id}>
+          {data?.slice?.map((user) => (
+            <TableRow key={user?._id}>
               <TableCell>
                 <Typography
                   sx={{
@@ -76,14 +76,14 @@ const AllUsers = () => {
                       sx={{
                         fontWeight: '600'
                       }}>
-                      {user.name}
+                      {user?.name}
                     </Typography>
                     <Typography
                       color='textSecondary'
                       sx={{
                         fontSize: '13px'
                       }}>
-                      {user.address}
+                      {user?.address}
                     </Typography>
                   </Box>
                 </Box>
@@ -93,7 +93,7 @@ const AllUsers = () => {
               </TableCell>
               <TableCell>
                 <DeleteDialogue
-                  id={user.memberId}
+                  id={user?.memberId}
                   agree={agree}
                   setAgree={setAgree}
                 />

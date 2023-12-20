@@ -1,20 +1,30 @@
-import { Grid } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import FullLayout from '@/features/admin/layouts/FullLayout'
-import theme from '../../features/admin/theme/theme'
-import Users from '@/features/admin/components/dashboard/AllUsers/AllUsersCard'
 import AllUsersCard from '@/features/admin/components/dashboard/AllUsers/AllUsersCard'
-import { useRef, useState } from 'react'
+import Pagination from '@/features/admin/components/dashboard/AllUsers/Pagination'
+import FullLayout from '@/features/admin/layouts/FullLayout'
 import { useGetUsersQuery } from '@/slices/api/apiSlice'
 import { useGetBalanceQuery } from '@/slices/api/balanceApi'
+import { Grid } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
+import { useRef, useState } from 'react'
+import theme from '../../features/admin/theme/theme'
+import CardSkeleton from '../../../components/cardSkeleton'
 
 const AllUsers = () => {
   const inputRef = useRef(null)
-  const { data, error, isLoading } = useGetUsersQuery()
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const [pageSize, setPageSize] = useState(100)
+
+  // fetching user data
+  const { data, isLoading: isLoadingUser } = useGetUsersQuery({
+    page,
+    pageSize
+  })
+  const userData = data?.sortedDataMemberRole
+  const totalCount = data?.totalCount
+
   const { data: balanceQuery } = useGetBalanceQuery()
   const balanceData = balanceQuery?.result
-
-  const [search, setSearch] = useState('')
 
   // Create an object to store the data and summation for all amount of a user
   const balance = {}
@@ -41,10 +51,8 @@ const AllUsers = () => {
 
   // converting object to array
   const balanceArray = Object.values(balance)
-  // console.log('balanceArray: ', balanceArray)
-  // console.log('data: ', data)
 
-  const updatedData = data?.map((member) => {
+  const updatedData = userData?.map((member) => {
     const balance = balanceArray?.find(
       (balanceMember) => balanceMember.memberId === +member.memberId
     )
@@ -61,18 +69,15 @@ const AllUsers = () => {
       }
   })
 
-  // console.log('updatedData: ', updatedData)
-
   const searchUser = updatedData?.filter((user) => {
     if (search === '') {
       return user
     } else if (
-      user.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+      user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
     ) {
       return user
     }
   })
-  // console.log('searchUser: ', searchUser)
 
   const handleSearch = (e) => {
     const searchData = inputRef.current.value
@@ -99,7 +104,18 @@ const AllUsers = () => {
         </div>
         <Grid container spacing={0}>
           <Grid item xs={12} lg={12}>
-            <AllUsersCard searchUser={searchUser} />
+            {isLoadingUser ? (
+              <CardSkeleton />
+            ) : (
+              <AllUsersCard searchUser={searchUser} page={page} />
+            )}
+            <Pagination
+              setPageSize={setPageSize}
+              pageSize={pageSize}
+              totalCount={totalCount}
+              setPage={setPage}
+              searchUser={searchUser}
+              page={page}></Pagination>
           </Grid>
         </Grid>
       </FullLayout>
