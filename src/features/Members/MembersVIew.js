@@ -87,7 +87,7 @@ const MembersView = () => {
                   .filter(
                     (filterItem) => filterItem?.role?.role === 'কার্যকরী কমিটি'
                   )
-                  .map((member) => (
+                  ?.map((member) => (
                     <div key={member.id}>
                       <MembersCard member={member}></MembersCard>
                     </div>
@@ -130,7 +130,7 @@ const MembersView = () => {
                   .filter(
                     (filterItem) => filterItem?.role?.role === 'উপদেষ্টা কমিটি'
                   )
-                  .map((member) => (
+                  ?.map((member) => (
                     <div key={member.id}>
                       <MembersCard member={member}></MembersCard>
                     </div>
