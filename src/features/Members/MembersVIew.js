@@ -84,7 +84,7 @@ const MembersView = () => {
           <CardSkeleton />
         ) : (
           <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
-            {/* {updatedData && (
+            {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
                   ?.filter(
@@ -96,7 +96,7 @@ const MembersView = () => {
                     </div>
                   ))}
               </div>
-            )} */}
+            )}
 
             <Stack
               direction={'row'}
@@ -130,7 +130,7 @@ const MembersView = () => {
           <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
             {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
-                {/* {updatedData
+                {updatedData
                   ?.filter(
                     (filterItem) => filterItem?.role?.role === 'উপদেষ্টা কমিটি'
                   )
@@ -138,7 +138,7 @@ const MembersView = () => {
                     <div key={member.id + '456'}>
                       <MembersCard member={member}></MembersCard>
                     </div>
-                  ))} */}
+                  ))}
               </div>
             )}
             <Stack
