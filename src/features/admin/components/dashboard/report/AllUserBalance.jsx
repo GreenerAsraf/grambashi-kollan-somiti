@@ -99,7 +99,7 @@ const AllUserBalance = () => {
 
   const updatedMonthlyBalance = filteredData?.map((balance) => {
     const matchingBalance = balanceArray?.find(
-      (item) => item?.memberId === balance?.memberId
+      (item) => item?.memberId === balance?.memberId && item?.amount > 0
     )
     if (matchingBalance) {
       return {
@@ -164,7 +164,7 @@ const AllUserBalance = () => {
     )
     doc.autoTable({
       theme: 'grid',
-      columns: balanceCol.map((col) => ({ ...col, dataKey: col.field })),
+      columns: balanceCol?.map((col) => ({ ...col, dataKey: col.field })),
       // rows: balanceRow.map((row) => ({ ...row, dataKey: row.field })),
       body: [...updatedMonthlyBalance, faka, balanceRow]
     })
@@ -181,7 +181,7 @@ const AllUserBalance = () => {
           <FormControl fullWidth>
             <InputLabel>Select Month</InputLabel>
             <Select onChange={(e) => handleMonth(e)}>
-              {months.map((month, i) => (
+              {months?.map((month, i) => (
                 <MenuItem value={year + '-' + `${i}`}>{month}</MenuItem>
               ))}
             </Select>

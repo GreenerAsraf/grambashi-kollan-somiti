@@ -20,34 +20,36 @@ const CreditHistory = (page) => {
       sx={{
         p: 0
       }}>
-      {creditHist?.slice(6 * (page.page - 1), page.page * 6).map((activity, i) => (
-        <TimelineItem key={i}>
-          <TimelineOppositeContent
-            sx={{
-              fontSize: '12px',
-              fontWeight: '700',
-              flex: '0'
-            }}>
-            {getDateOnly(activity.createdAt)}
-          </TimelineOppositeContent>
-          <TimelineSeparator>
-            <TimelineDot
-              variant='outlined'
+      {creditHist
+        ?.slice(6 * (page.page - 1), page.page * 6)
+        ?.map((activity, i) => (
+          <TimelineItem key={i}>
+            <TimelineOppositeContent
               sx={{
-                borderColor: 'success.main'
-              }}
-            />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent
-            color='text.secondary'
-            sx={{
-              fontSize: '14px'
-            }}>
-            {activity.creditNote} {activity.credit}
-          </TimelineContent>
-        </TimelineItem>
-      ))}
+                fontSize: '12px',
+                fontWeight: '700',
+                flex: '0'
+              }}>
+              {getDateOnly(activity.createdAt)}
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot
+                variant='outlined'
+                sx={{
+                  borderColor: 'success.main'
+                }}
+              />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent
+              color='text.secondary'
+              sx={{
+                fontSize: '14px'
+              }}>
+              {activity.creditNote} {activity.credit}
+            </TimelineContent>
+          </TimelineItem>
+        ))}
     </Timeline>
   )
 }

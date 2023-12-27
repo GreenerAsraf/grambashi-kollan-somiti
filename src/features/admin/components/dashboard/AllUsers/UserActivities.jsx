@@ -33,7 +33,7 @@ export default function UserActivities({ name, memberId }) {
 
   // paymentInfo will contain if data is found by id matching
   const paymentInfo = balance?.result?.filter(
-    (uid) => uid?.memberId == memberId
+    (uid) => uid?.memberId == memberId && uid?.amount > 0
   )
 
   return (
@@ -57,7 +57,7 @@ export default function UserActivities({ name, memberId }) {
               sx={{
                 p: 0
               }}>
-              {paymentInfo.map((activity) => (
+              {paymentInfo?.map((activity) => (
                 <TimelineItem key={activity._id}>
                   <TimelineOppositeContent
                     sx={{

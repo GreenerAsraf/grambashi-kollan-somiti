@@ -39,7 +39,7 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }) => {
       </Box>
       <Box mt={2}>
         <List>
-          {Menuitems.map((item, index) => (
+          {Menuitems?.map((item, index) => (
             <List component='li' disablePadding key={item.title}>
               <NextLink href={item.href}>
                 <ListItem
