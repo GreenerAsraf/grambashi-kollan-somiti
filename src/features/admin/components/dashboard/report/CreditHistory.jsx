@@ -13,7 +13,7 @@ const CreditHistory = (page) => {
   const { data: creditData } = useGetCreditQuery()
   const creditHist = creditData?.result
   // console.log(creditHist);
-  console.log(page.page)
+  // console.log(page.page)
 
   return (
     <Timeline
