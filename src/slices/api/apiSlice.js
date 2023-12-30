@@ -16,6 +16,13 @@ export const userApi = createApi({
       }),
       providesTags: ['Users']
     }),
+    getHomepageUsers: builder.query({
+      query: ({ page, pageSize }) => ({
+        url: `/all-users-homepage`
+        // url: '/all-users'
+      }),
+      providesTags: ['Users']
+    }),
     addUser: builder.mutation({
       query: (data) => ({
         url: '/add-user',
@@ -44,6 +51,7 @@ export const userApi = createApi({
 
 export const {
   useGetUsersQuery,
+  useGetHomepageUsersQuery,
   useAddUserMutation,
   useDeleteUserMutation,
   useUpdateUserMutation

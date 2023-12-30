@@ -1,6 +1,9 @@
 'use client'
 
-import { useGetUsersQuery } from '@/slices/api/apiSlice'
+import {
+  useGetHomepageUsersQuery,
+  useGetUsersQuery
+} from '@/slices/api/apiSlice'
 import { useGetBalanceQuery } from '@/slices/api/balanceApi'
 import { Box, Button, Stack } from '@mui/material'
 import Link from 'next/link'
@@ -14,7 +17,7 @@ const MembersView = () => {
   const { isLoading } = useSelector((state) => state.membersReducer)
   const dispatch = useDispatch()
   // fetching user data
-  const { data, isLoading: isLoadingUser } = useGetUsersQuery({
+  const { data, isLoading: isLoadingUser } = useGetHomepageUsersQuery({
     page: 1
     // pageSize
   })
