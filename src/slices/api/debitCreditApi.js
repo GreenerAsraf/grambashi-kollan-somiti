@@ -1,29 +1,28 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const debitApi = createApi({
   reducerPath: 'debitCreditApi',
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      // 'http://localhost:8000'
-      'https://grambasi-kollyan-somiti-server.vercel.app'
+    baseUrl: 'http://localhost:8000',
+    // 'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
   tagTypes: ['debit'],
   endpoints: (builder) => ({
     getDebit: builder.query({
       query: () => ({
-        url: '/get-debit'
+        url: '/get-debit',
       }),
-      providesTags: ['debit']
+      providesTags: ['debit'],
     }),
     addDebit: builder.mutation({
       query: (money) => ({
         url: '/add-debit',
         method: 'post',
-        body: money
+        body: money,
       }),
-      invalidatesTags: ['debit']
-    })
-  })
-})
+      invalidatesTags: ['debit'],
+    }),
+  }),
+});
 
-export const { useAddDebitMutation, useGetDebitQuery } = debitApi
+export const { useAddDebitMutation, useGetDebitQuery } = debitApi;
