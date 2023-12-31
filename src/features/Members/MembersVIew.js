@@ -1,27 +1,27 @@
 'use client'
 
-import { useGetUsersQuery } from '@/slices/api/apiSlice'
+import {
+  useGetHomepageUsersQuery,
+  useGetUsersQuery
+} from '@/slices/api/apiSlice'
 import { useGetBalanceQuery } from '@/slices/api/balanceApi'
-import { LoadingButton } from '@mui/lab'
 import { Box, Button, Stack } from '@mui/material'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardSkeleton from '../../../components/cardSkeleton'
 import { fetchMembers } from '../../slices/membersSlice'
 import MembersCard from './MembersCard'
-import Loading from '../../../components/Loading'
 
 const MembersView = () => {
-  const [pageSize, setPageSize] = useState(10)
   const { isLoading } = useSelector((state) => state.membersReducer)
   const dispatch = useDispatch()
   // fetching user data
-  const { data, isLoading: isLoadingUser } = useGetUsersQuery({
-    page: 1,
-    pageSize
+  const { data, isLoading: isLoadingUser } = useGetHomepageUsersQuery({
+    page: 1
+    // pageSize
   })
-  const userData = data?.sortedDataMemberRole
+  const userData = data?.sortedHomepageUsers
   const totalCount = data?.totalCount
   // fetching user balance data
   const { data: balanceQuery } = useGetBalanceQuery()
@@ -84,7 +84,7 @@ const MembersView = () => {
           <CardSkeleton />
         ) : (
           <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
-            {/* {updatedData && (
+            {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
                   ?.filter(
@@ -96,7 +96,7 @@ const MembersView = () => {
                     </div>
                   ))}
               </div>
-            )} */}
+            )}
 
             <Stack
               direction={'row'}
@@ -107,16 +107,16 @@ const MembersView = () => {
               <Button variant='contained'>
                 <Link href={'/users'}>See All Members</Link>
               </Button>
-              {totalCount > updatedData?.length && (
+              {/* {totalCount > updatedData?.length && (
                 <LoadingButton
                   onClick={() => setPageSize((pre) => pre + 10)}
                   loading={isLoadingUser}
                   loadingPosition='start'
-                  startIcon={'loading'}
+                  // startIcon={'loading'}
                   variant='outlined'>
                   <span>Load More</span>
                 </LoadingButton>
-              )}
+              )} */}
             </Stack>
           </Box>
         )}
@@ -130,7 +130,7 @@ const MembersView = () => {
           <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
             {updatedData && (
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
-                {/* {updatedData
+                {updatedData
                   ?.filter(
                     (filterItem) => filterItem?.role?.role === 'উপদেষ্টা কমিটি'
                   )
@@ -138,7 +138,7 @@ const MembersView = () => {
                     <div key={member.id + '456'}>
                       <MembersCard member={member}></MembersCard>
                     </div>
-                  ))} */}
+                  ))}
               </div>
             )}
             <Stack
@@ -150,7 +150,7 @@ const MembersView = () => {
               <Button variant='contained'>
                 <Link href={'/users'}>See All Members</Link>
               </Button>
-              {totalCount > updatedData?.length && (
+              {/* {totalCount > updatedData?.length && (
                 <LoadingButton
                   onClick={() => setPageSize((pre) => pre + 10)}
                   loading={isLoadingUser}
@@ -159,7 +159,7 @@ const MembersView = () => {
                   variant='outlined'>
                   <span>Load More</span>
                 </LoadingButton>
-              )}
+              )} */}
             </Stack>
           </Box>
         )}

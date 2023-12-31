@@ -1,33 +1,17 @@
+import AllUserBalance from '@/features/admin/components/dashboard/report/AllUserBalance'
 import CreditHistory from '@/features/admin/components/dashboard/report/CreditHistory'
 import DebitHistory from '@/features/admin/components/dashboard/report/DebitHistory'
 import FullLayout from '@/features/admin/layouts/FullLayout'
 import { useGetCreditQuery } from '@/slices/api/creditApi'
 import { useGetDebitQuery } from '@/slices/api/debitCreditApi'
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Paper,
-  Select,
-  Stack
-} from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
+import { Button, Paper, Stack } from '@mui/material'
+import { ThemeProvider, styled } from '@mui/material/styles'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { useState } from 'react'
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi2'
 import BaseCard from '../../features/admin/components/baseCard/BaseCard'
 import theme from '../../features/admin/theme/theme'
-import { styled } from '@mui/material/styles'
-import {
-  HiArrowRightCircle,
-  HiChevronDoubleLeft,
-  HiChevronDoubleRight,
-  IconName
-} from 'react-icons/hi2'
-import CreditModalPdf from '@/features/admin/components/dashboard/report/CreditModalPdf'
-import AllUserBalance from '@/features/admin/components/dashboard/report/AllUserBalance'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#99E2C2',

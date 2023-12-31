@@ -24,12 +24,13 @@ import {
 } from '@/slices/api/balanceApi'
 
 const AllUserBalance = () => {
-  const { data: creditData } = useGetCreditQuery()
-  const creditHist = creditData?.result
+  // const { data: creditData } = useGetCreditQuery()
+  // const creditHist = creditData?.result
   const { data: balanceQuery } = useGetBalanceQuery()
-  const { data } = useGetMonthlyBalanceQuery()
-  const monthlyBalance = data?.result
-  // console.log(monthlyBalance)
+  // const { data } = useGetMonthlyBalanceQuery()
+  const monthlyBalance = balanceQuery?.monthlyBalance
+  // console.log('monthlyBalance: ', monthlyBalance)
+  // console.log('balanceQuery: ', balanceQuery)
   const balanceData = balanceQuery?.result
 
   const date = new Date()
@@ -115,7 +116,7 @@ const AllUserBalance = () => {
     (accumulator, currentValue) => accumulator + currentValue.amount,
     0
   )
-  console.log('updatedMonthlyBalance: ', updatedMonthlyBalance)
+  // console.log('updatedMonthlyBalance: ', updatedMonthlyBalance)
   // summation of user total balance
 
   let totalSum = updatedMonthlyBalance?.reduce((accumulator, currentValue) => {
@@ -124,7 +125,7 @@ const AllUserBalance = () => {
     }
     return accumulator
   }, 0)
-  console.log('totalSum: ', totalSum)
+  // console.log('totalSum: ', totalSum)
   // formatting summation
   const formatNumberWithCommas = (number) => {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
