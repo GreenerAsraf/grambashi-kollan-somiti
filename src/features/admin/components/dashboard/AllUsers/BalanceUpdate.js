@@ -91,7 +91,6 @@ const BalanceUpdate = ({ user }) => {
           fontWeight={'bold'}
           color={'red'}
           fontSize={19}>
-          {/* <DialogActions> */}
           {user.name}
           <Button
             onClick={handleClose}
@@ -101,7 +100,6 @@ const BalanceUpdate = ({ user }) => {
             className='btn btn-sm btn-circle btn-error btn-outline float-right'>
             X
           </Button>
-          {/* </DialogActions> */}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-slide-description'>
