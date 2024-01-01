@@ -48,7 +48,7 @@ const AllUsersCard = ({ searchUser, page }) => {
             key={user._id}
             className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
             <div className='card-body'>
-              <div className='flex items-start'>
+              <div className='flex justify-between items-start'>
                 <UpdateProfile user={user}></UpdateProfile>
                 <span className='indicator '>
                   {user.releaseStatus ? (
