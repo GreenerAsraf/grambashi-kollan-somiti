@@ -1,4 +1,8 @@
 import {
+  useGetBalanceQuery,
+  useGetMonthlyBalanceQuery
+} from '@/slices/api/balanceApi'
+import {
   Box,
   Button,
   FormControl,
@@ -13,29 +17,41 @@ import {
   TableRow,
   Typography
 } from '@mui/material'
-import React, { useState } from 'react'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import { useState, useEffect } from 'react'
 import { getDateOnly } from '../../../../../../components/getDateOnly'
-import { useGetCreditQuery } from '@/slices/api/creditApi'
-import {
-  useGetBalanceQuery,
-  useGetMonthlyBalanceQuery
-} from '@/slices/api/balanceApi'
 
 const AllUserBalance = () => {
-  // const { data: creditData } = useGetCreditQuery()
-  // const creditHist = creditData?.result
   const { data: balanceQuery } = useGetBalanceQuery()
-  // const { data } = useGetMonthlyBalanceQuery()
-  const monthlyBalance = balanceQuery?.monthlyBalance
-  // console.log('monthlyBalance: ', monthlyBalance)
+  const { data: monthlyBalanceQuery } = useGetMonthlyBalanceQuery()
+  const monthlyBalance = balanceQuery?.result
+  // const monthlyBalance = balanceQuery?.monthlyBalance
+  console.log('monthlyBalanceQuery: ', monthlyBalanceQuery?.result)
   // console.log('balanceQuery: ', balanceQuery)
   const balanceData = balanceQuery?.result
 
   const date = new Date()
   const currentMonth = date.getMonth() + 1
-  const year = date.getFullYear()
+  const [year, setYear] = useState(date.getFullYear())
+
+  // Get the current year
+  const currentYear = year
+
+  // Generate a list of years for the past 5 years
+  const pastYears = Array.from(
+    { length: 5 },
+    (_, index) => currentYear - index - 1
+  )
+
+  // Generate a list of years for the next 5 years
+  const futureYears = Array.from(
+    { length: 5 },
+    (_, index) => currentYear + index + 1
+  )
+
+  // Combine the past and future years
+  const allYears = [...pastYears.reverse(), currentYear, ...futureYears]
 
   const months = [
     '',
@@ -87,16 +103,20 @@ const AllUserBalance = () => {
     setSelectedMonthYear(event.target.value)
   }
 
-  let filteredData = monthlyBalance?.filter((item) => {
-    const updatedAt = new Date(item.updatedAt)
-    // console.log('updatedAt: ', updatedAt)
-    const selectedMonth = Number(selectedMonthYear.substring(5, 7))
-    const selectedYear = Number(selectedMonthYear.substring(0, 4))
-    return (
-      updatedAt.getMonth() + 1 === selectedMonth &&
-      updatedAt.getFullYear() === selectedYear
-    )
-  })
+  let filteredData
+
+  useEffect(() => {
+    filteredData = monthlyBalance?.filter((item) => {
+      const updatedAt = new Date(item.updatedAt)
+      // console.log('updatedAt: ', updatedAt)
+      const selectedMonth = Number(selectedMonthYear.substring(5, 7))
+      const selectedYear = Number(selectedMonthYear.substring(0, 4))
+      return (
+        updatedAt.getMonth() + 1 === selectedMonth &&
+        updatedAt.getFullYear() === selectedYear
+      )
+    })
+  }, [year])
 
   const updatedMonthlyBalance = filteredData?.map((balance) => {
     const matchingBalance = balanceArray?.find(
@@ -177,8 +197,22 @@ const AllUserBalance = () => {
   }
   return (
     <Box>
-      <Stack flexDirection={'row'} gap={3}>
-        <Box width={'200px'}>
+      <Stack flexDirection={'row'} gap={3} flexWrap={'wrap'}>
+        <Stack minWidth={'25%'} flexDirection={'row'} gap={2} width={'200px'}>
+          <FormControl fullWidth>
+            <InputLabel>Select Year</InputLabel>
+            <Select
+              defaultValue={year}
+              onChange={(e) => setYear(e.target.value)}>
+              {allYears?.map((yearItem) => (
+                <MenuItem
+                  // defaultValue={year}
+                  value={yearItem}>
+                  {yearItem}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl fullWidth>
             <InputLabel>Select Month</InputLabel>
             <Select onChange={(e) => handleMonth(e)}>
@@ -187,7 +221,7 @@ const AllUserBalance = () => {
               ))}
             </Select>
           </FormControl>
-        </Box>
+        </Stack>
         <Button
           style={{ background: '#000', color: '#fff' }}
           variant='outlined'
