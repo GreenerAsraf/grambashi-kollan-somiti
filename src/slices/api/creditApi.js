@@ -1,29 +1,28 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const creditApi = createApi({
   reducerPath: 'creditApi',
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      // 'http://localhost:8000'
-      'https://grambasi-kollyan-somiti-server.vercel.app'
+    baseUrl: 'http://localhost:8000',
+    // 'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
   tagTypes: ['credit'],
   endpoints: (builder) => ({
     getCredit: builder.query({
       query: () => ({
-        url: '/get-credit'
+        url: '/get-credit',
       }),
-      providesTags: ['credit']
+      providesTags: ['credit'],
     }),
     addCredit: builder.mutation({
       query: (money) => ({
         url: '/add-credit',
         method: 'post',
-        body: money
+        body: money,
       }),
-      invalidatesTags: ['credit']
-    })
-  })
-})
+      invalidatesTags: ['credit'],
+    }),
+  }),
+});
 
-export const { useAddCreditMutation, useGetCreditQuery } = creditApi
+export const { useAddCreditMutation, useGetCreditQuery } = creditApi;
