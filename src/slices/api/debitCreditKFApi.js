@@ -5,8 +5,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const debitKFApi = createApi({
   reducerPath: 'debitCreditKFApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000',
-    // 'https://grambasi-kollyan-somiti-server.vercel.app'
+    // baseUrl: 'http://localhost:8000',
+    baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app',
   }),
   tagTypes: ['debitKF'],
   endpoints: (builder) => ({
