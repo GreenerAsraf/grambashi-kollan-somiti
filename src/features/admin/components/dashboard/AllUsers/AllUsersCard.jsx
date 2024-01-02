@@ -7,7 +7,6 @@ import BalanceUpdate from './BalanceUpdate';
 import DeleteDialogue from './DeleteDialogue';
 import UpdateProfile from './UpdateProfile';
 import UserActivities from './UserActivities';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const AllUsersCard = ({ searchUser, page }) => {
   const [addBalance, { isSuccess, isLoading, data: response }] =

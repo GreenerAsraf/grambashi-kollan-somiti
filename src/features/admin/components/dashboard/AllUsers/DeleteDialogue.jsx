@@ -12,7 +12,6 @@ import {
 } from '@/slices/api/apiSlice';
 import AlertSuccess from '../../../../../../components/Alert/AlertSuccess';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { FormControl } from '@mui/material';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return (
@@ -30,7 +29,7 @@ export default function DeleteDialogue({ user }) {
   const [deleteUser, { isSuccess }] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
 
-  console.log(user);
+  // console.log(user);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,7 +44,6 @@ export default function DeleteDialogue({ user }) {
     };
     setOpen(false);
     updateUser(info);
-    // console.log(info);
   };
 
   const handleAgree = () => {
