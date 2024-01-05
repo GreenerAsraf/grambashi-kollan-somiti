@@ -3,7 +3,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
-    // baseUrl: "users.json",
     // baseUrl: 'http://localhost:8000'
     baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
@@ -12,14 +11,12 @@ export const userApi = createApi({
     getUsers: builder.query({
       query: ({ page, pageSize }) => ({
         url: `/all-users?page=${page}&pageSize=${pageSize}`
-        // url: '/all-users'
       }),
       providesTags: ['Users']
     }),
     getHomepageUsers: builder.query({
       query: ({ page, pageSize }) => ({
         url: `/all-users-homepage`
-        // url: '/all-users'
       }),
       providesTags: ['Users']
     }),
