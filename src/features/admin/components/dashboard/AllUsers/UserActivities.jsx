@@ -1,40 +1,46 @@
-import { useGetBalanceQuery } from '@/slices/api/balanceApi'
-import Timeline from '@mui/lab/Timeline'
-import TimelineConnector from '@mui/lab/TimelineConnector'
-import TimelineContent from '@mui/lab/TimelineContent'
-import TimelineDot from '@mui/lab/TimelineDot'
-import TimelineItem from '@mui/lab/TimelineItem'
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
-import TimelineSeparator from '@mui/lab/TimelineSeparator'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
-import Slide from '@mui/material/Slide'
-import * as React from 'react'
-import { getDateOnly } from '../../../../../../components/getDateOnly'
+import { useGetBalanceQuery } from '@/slices/api/balanceApi';
+import Timeline from '@mui/lab/Timeline';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import * as React from 'react';
+import { getDateOnly } from '../../../../../../components/getDateOnly';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />
-})
+  return (
+    <Slide
+      direction='up'
+      ref={ref}
+      {...props}
+    />
+  );
+});
 
 export default function UserActivities({ name, memberId }) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
-  const { data: balance } = useGetBalanceQuery()
+  const { data: balance } = useGetBalanceQuery();
   // console.log(balance.result)
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   // paymentInfo will contain if data is found by id matching
   const paymentInfo = balance?.result?.filter(
-    (uid) => uid?.memberId == memberId && uid?.amount > 0
-  )
+    (uid) => uid?.memberId == memberId
+  );
 
   return (
     <div>
@@ -45,7 +51,10 @@ export default function UserActivities({ name, memberId }) {
         keepMounted
         onClose={handleClose}
         aria-describedby='alert-dialog-slide-description'>
-        <DialogTitle fontWeight={'bold'} color={'green'} fontSize={19}>
+        <DialogTitle
+          fontWeight={'bold'}
+          color={'green'}
+          fontSize={19}>
           "{name}" Payment activities
         </DialogTitle>
         {paymentInfo?.length === 0 && (
@@ -55,7 +64,7 @@ export default function UserActivities({ name, memberId }) {
           <DialogContent>
             <Timeline
               sx={{
-                p: 0
+                p: 0,
               }}>
               {paymentInfo?.map((activity) => (
                 <TimelineItem key={activity._id}>
@@ -63,7 +72,7 @@ export default function UserActivities({ name, memberId }) {
                     sx={{
                       fontSize: '12px',
                       fontWeight: '700',
-                      flex: '0'
+                      flex: '0',
                     }}>
                     {getDateOnly(activity.createdAt)}
                     {/* {getDate(activity.createdAt)} */}
@@ -73,14 +82,14 @@ export default function UserActivities({ name, memberId }) {
                       <TimelineDot
                         variant='outlined'
                         sx={{
-                          borderColor: 'success.main'
+                          borderColor: 'success.main',
                         }}
                       />
                     ) : (
                       <TimelineDot
                         variant='outlined'
                         sx={{
-                          borderColor: 'error.main'
+                          borderColor: 'error.main',
                         }}
                       />
                     )}
@@ -89,7 +98,7 @@ export default function UserActivities({ name, memberId }) {
                   <TimelineContent
                     color='text.secondary'
                     sx={{
-                      fontSize: '14px'
+                      fontSize: '14px',
                     }}>
                     {activity.amount} tk
                   </TimelineContent>
@@ -99,11 +108,14 @@ export default function UserActivities({ name, memberId }) {
           </DialogContent>
         )}
         <DialogActions>
-          <Button variant='outlined' color='error' onClick={handleClose}>
+          <Button
+            variant='outlined'
+            color='error'
+            onClick={handleClose}>
             Close
           </Button>
         </DialogActions>
       </Dialog>
     </div>
-  )
+  );
 }
