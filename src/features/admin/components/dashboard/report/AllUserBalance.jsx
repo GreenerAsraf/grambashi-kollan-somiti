@@ -1,4 +1,8 @@
 import {
+  useGetBalanceQuery,
+  useGetMonthlyBalanceQuery
+} from '@/slices/api/balanceApi'
+import {
   Box,
   Button,
   FormControl,
@@ -13,126 +17,77 @@ import {
   TableRow,
   Typography
 } from '@mui/material'
-import React, { useState } from 'react'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import { useState, useEffect } from 'react'
 import { getDateOnly } from '../../../../../../components/getDateOnly'
-import { useGetCreditQuery } from '@/slices/api/creditApi'
-import {
-  useGetBalanceQuery,
-  useGetMonthlyBalanceQuery
-} from '@/slices/api/balanceApi'
+
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+]
 
 const AllUserBalance = () => {
-  // const { data: creditData } = useGetCreditQuery()
-  // const creditHist = creditData?.result
-  const { data: balanceQuery } = useGetBalanceQuery()
-  // const { data } = useGetMonthlyBalanceQuery()
-  const monthlyBalance = balanceQuery?.monthlyBalance
-  // console.log('monthlyBalance: ', monthlyBalance)
-  // console.log('balanceQuery: ', balanceQuery)
-  const balanceData = balanceQuery?.result
-
   const date = new Date()
-  const currentMonth = date.getMonth() + 1
-  const year = date.getFullYear()
+  const currentMonth = date.getMonth()
+  const [month, setMonth] = useState(months[currentMonth])
+  const [currentYear, setYear] = useState(date.getFullYear())
+  const selectedMonthYear = `${month + '-' + currentYear}`
 
-  const months = [
-    '',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ]
+  const { data: monthlyBalanceQuery } = useGetMonthlyBalanceQuery({
+    month: month,
+    year: currentYear
+  })
+  // console.log('monthlyBalanceQuery: ', monthlyBalanceQuery?.result)
 
-  // Create an object to store the data and summation for all amount of a user
-  const balance = {}
-  // Iterate over the balanceData array
-  if (balanceData) {
-    for (const data of balanceData) {
-      const memberId = data.memberId
-      const amount = data.amount
-
-      // Check if the memberId already exists in the balance object
-      if (balance[memberId]) {
-        // If it exists, add the amount to the existing total
-        balance[memberId].amount += amount
-      } else {
-        // If it doesn't exist, initialize the object with the data
-        balance[memberId] = {
-          memberName: data.memberName,
-          amount: amount,
-          memberId: memberId,
-          updatedAt: getDateOnly(data.updatedAt)
-        }
-      }
-    }
-  }
-  // converting object to array
-  const balanceArray = Object.values(balance)
-  // following code to display data as per month
-  const [selectedMonthYear, setSelectedMonthYear] = useState(
-    `${year + '-' + months[currentMonth]}`
+  // Generate a list of years for the past 5 years
+  const pastYears = Array.from(
+    { length: 1 },
+    (_, index) => currentYear - index - 1
   )
 
-  const handleMonth = (event) => {
-    setSelectedMonthYear(event.target.value)
-  }
+  // Generate a list of years for the next 5 years
+  const futureYears = Array.from(
+    { length: 1 },
+    (_, index) => currentYear + index + 1
+  )
 
-  let filteredData = monthlyBalance?.filter((item) => {
-    const updatedAt = new Date(item.updatedAt)
-    // console.log('updatedAt: ', updatedAt)
-    const selectedMonth = Number(selectedMonthYear.substring(5, 7))
-    const selectedYear = Number(selectedMonthYear.substring(0, 4))
-    return (
-      updatedAt.getMonth() + 1 === selectedMonth &&
-      updatedAt.getFullYear() === selectedYear
-    )
-  })
+  // Combine the past and future years
+  const allYears = [...pastYears.reverse(), currentYear, ...futureYears]
 
-  const updatedMonthlyBalance = filteredData?.map((balance) => {
-    const matchingBalance = balanceArray?.find(
-      (item) => item?.memberId === balance?.memberId && item?.amount > 0
-    )
-    if (matchingBalance) {
-      return {
-        ...balance,
-        date: getDateOnly(balance.updatedAt),
-        total: matchingBalance?.amount || 0
-      }
-    }
-    return balance
-  })
   // summation of monthlyBalance
-  const monthlySum = updatedMonthlyBalance?.reduce(
+  let monthlySum = monthlyBalanceQuery?.result?.reduce(
     (accumulator, currentValue) => accumulator + currentValue.amount,
     0
   )
-  // console.log('updatedMonthlyBalance: ', updatedMonthlyBalance)
-  // summation of user total balance
 
-  let totalSum = updatedMonthlyBalance?.reduce((accumulator, currentValue) => {
-    if (currentValue.total) {
-      return accumulator + currentValue.total
-    }
-    return accumulator
-  }, 0)
-  // console.log('totalSum: ', totalSum)
+  // summation of user total balance
+  let totalSum = monthlyBalanceQuery?.result?.reduce(
+    (accumulator, currentValue) => {
+      if (currentValue.total) {
+        return accumulator + currentValue.total
+      }
+      return accumulator
+    },
+    0
+  )
+
   // formatting summation
   const formatNumberWithCommas = (number) => {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
-  const totalMoneyForThisMonth = formatNumberWithCommas(monthlySum)
+  monthlySum = formatNumberWithCommas(monthlySum)
   totalSum = formatNumberWithCommas(totalSum)
-  // console.log(totalMoneyForThisMonth.toLocaleString())
 
   // download balance pdf
   const balanceCol = [
@@ -145,8 +100,8 @@ const AllUserBalance = () => {
 
   const balanceRow = {
     memberName: 'Total',
-    amount: totalMoneyForThisMonth,
-    total: totalSum
+    amount: 100 || 'totalMoneyForThisMonth',
+    total: 10 || 'totalSum'
   }
   const faka = {
     memberName: '',
@@ -156,38 +111,45 @@ const AllUserBalance = () => {
 
   const downloadBalanceReport = () => {
     const doc = new jsPDF()
-    doc.text(
-      `Balance History - ${
-        months[Number(selectedMonthYear.substring(5, 7))]
-      } ${year}`,
-      20,
-      10
-    )
+    doc.text(`Balance History ${selectedMonthYear}`, 20, 10)
     doc.autoTable({
       theme: 'grid',
       columns: balanceCol?.map((col) => ({ ...col, dataKey: col.field })),
       // rows: balanceRow.map((row) => ({ ...row, dataKey: row.field })),
-      body: [...updatedMonthlyBalance, faka, balanceRow]
+      body: [...monthlyBalanceQuery?.result, faka, balanceRow]
     })
-    doc.save(
-      `Balance History -  ${
-        months[Number(selectedMonthYear.substring(5, 7))]
-      } ${year}.pdf`
-    )
+    doc.save(`Balance History -${selectedMonthYear}.pdf`)
   }
+
   return (
     <Box>
-      <Stack flexDirection={'row'} gap={3}>
-        <Box width={'200px'}>
+      <Stack flexDirection={'row'} gap={3} flexWrap={'wrap'}>
+        <Stack minWidth={'25%'} flexDirection={'row'} gap={2} width={'200px'}>
           <FormControl fullWidth>
-            <InputLabel>Select Month</InputLabel>
-            <Select onChange={(e) => handleMonth(e)}>
-              {months?.map((month, i) => (
-                <MenuItem value={year + '-' + `${i}`}>{month}</MenuItem>
+            <InputLabel>Select Year</InputLabel>
+            <Select
+              defaultValue={currentYear}
+              onChange={(e) => setYear(e.target.value)}>
+              {allYears?.map((yearItem, i) => (
+                <MenuItem key={i} value={yearItem}>
+                  {yearItem}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
-        </Box>
+          <FormControl fullWidth>
+            <InputLabel>Select Month</InputLabel>
+            <Select
+              defaultValue={months[0]}
+              onChange={(e) => setMonth(e.target.value)}>
+              {months?.map((month, i) => (
+                <MenuItem defaultValue={month} key={i} value={month}>
+                  {month}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
         <Button
           style={{ background: '#000', color: '#fff' }}
           variant='outlined'
@@ -231,40 +193,39 @@ const AllUserBalance = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredData &&
-            updatedMonthlyBalance?.map((data, i) => (
-              <TableRow key={i}>
-                <TableCell>
-                  <Typography>{i + 1}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{data?.memberId}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize='15px' fontWeight='500'>
-                    {getDateOnly(data?.updatedAt)}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant='h6' fontWeight='600'>
-                    {data?.memberName}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant='h6'>{data?.amount}</Typography>
-                </TableCell>{' '}
-                <TableCell>
-                  <Typography variant='h6'>{data?.total}</Typography>
-                </TableCell>
-              </TableRow>
-            ))}
+          {monthlyBalanceQuery?.result?.map((data, i) => (
+            <TableRow key={i}>
+              <TableCell>
+                <Typography>{i + 1}</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography>{data?.memberId}</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography fontSize='15px' fontWeight='500'>
+                  {getDateOnly(data?.updatedAt)}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant='h6' fontWeight='600'>
+                  {data?.memberName}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant='h6'>{data?.amount}</Typography>
+              </TableCell>{' '}
+              <TableCell>
+                <Typography variant='h6'>{data?.total}</Typography>
+              </TableCell>
+            </TableRow>
+          ))}
           <TableRow>
             <TableCell colSpan={4}>Total</TableCell>
-            <TableCell align='left'>{totalMoneyForThisMonth}</TableCell>
+            <TableCell align='left'>{monthlySum}</TableCell>
             <TableCell align='left'>{totalSum}</TableCell>
           </TableRow>
 
-          {filteredData?.length === 0 && (
+          {monthlyBalanceQuery?.result?.length === 0 && (
             <Typography mt={2}>
               No data found for {selectedMonthYear}{' '}
             </Typography>
