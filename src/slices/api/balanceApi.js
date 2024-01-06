@@ -16,19 +16,17 @@ export const balanceApi = createApi({
       providesTags: ['Balance']
     }),
     getMonthlyBalance: builder.query({
-      query: () => ({
-        url: '/monthly-balance'
+      query: ({ month, year }) => ({
+        url: `/monthly-balance?month=${month}&year=${year}`
       }),
       providesTags: ['Balance']
     }),
     addBalance: builder.mutation({
-      query: (data) =>
-        // console.log(data),
-        ({
-          url: '/add-balance',
-          method: 'post',
-          body: data
-        }),
+      query: (data) => ({
+        url: '/add-balance',
+        method: 'post',
+        body: data
+      }),
       invalidatesTags: ['Balance']
     })
   })
