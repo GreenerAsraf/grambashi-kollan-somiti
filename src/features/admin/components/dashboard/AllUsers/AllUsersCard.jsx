@@ -55,7 +55,7 @@ const AllUsersCard = ({ searchUser, page }) => {
                 <UpdateProfile user={user}></UpdateProfile>
                 <span className='indicator '>
                   {user.releaseStatus ? (
-                    <span className='indicator-item indicator-center indicator-middle badge badge-primary bg-opacity-60 text-2xl w-52 h-52 rounded-full font-semibold'>
+                    <span className='indicator-item indicator-center indicator-middle badge badge-ghost  opacity-60 text-2xl w-52 h-52 rounded-full font-semibold'>
                       অব্যাহতি
                     </span>
                   ) : null}
