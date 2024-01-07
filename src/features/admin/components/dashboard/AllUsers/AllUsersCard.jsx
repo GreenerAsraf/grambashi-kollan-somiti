@@ -1,38 +1,38 @@
-import { useAddBalanceMutation } from '@/slices/api/balanceApi';
-import { Box } from '@mui/material';
-import React from 'react';
-import { toast } from 'react-hot-toast';
-import Loading from '../../../../../../components/Loading';
-import BalanceUpdate from './BalanceUpdate';
-import DeleteDialogue from './DeleteDialogue';
-import UpdateProfile from './UpdateProfile';
-import UserActivities from './UserActivities';
+import { useAddBalanceMutation } from '@/slices/api/balanceApi'
+import { Box } from '@mui/material'
+import React from 'react'
+import { toast } from 'react-hot-toast'
+import Loading from '../../../../../../components/Loading'
+import BalanceUpdate from './BalanceUpdate'
+import DeleteDialogue from './DeleteDialogue'
+import UpdateProfile from './UpdateProfile'
+import UserActivities from './UserActivities'
 
 const AllUsersCard = ({ searchUser, page }) => {
   const [addBalance, { isSuccess, isLoading, data: response }] =
-    useAddBalanceMutation();
-  const [agree, setAgree] = React.useState(false);
+    useAddBalanceMutation()
+  const [agree, setAgree] = React.useState(false)
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const amount = +form.amount.value;
-    const memberName = form.name.value;
-    const memberId = +form.id.value;
+    event.preventDefault()
+    const form = event.target
+    const amount = +form.amount.value
+    const memberName = form.name.value
+    const memberId = +form.id.value
     const data = {
       amount,
       memberName,
-      memberId,
-    };
+      memberId
+    }
 
-    addBalance(data);
-  };
+    addBalance(data)
+  }
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading />
   }
   if (isSuccess === true) {
-    toast.success('Money added!');
+    toast.success('Money added!')
   }
 
   // console.log(searchUser);
@@ -45,7 +45,11 @@ const AllUsersCard = ({ searchUser, page }) => {
         searchUser?.slice(9 * (page - 1), page * 9)?.map((user) => (
           <div
             key={user._id}
-            className='card card-compact w-[360px] bg-base-100 shadow-2xl p-2'>
+            className={`card card-compact w-[360px] ${
+              user?.releaseStatus
+                ? 'bg-gray-300 shadow-md'
+                : 'bg-base-100 shadow-2xl'
+            }  p-2`}>
             <div className='card-body'>
               <div className='flex justify-between items-start'>
                 <UpdateProfile user={user}></UpdateProfile>
@@ -92,21 +96,21 @@ const AllUsersCard = ({ searchUser, page }) => {
                       }`}>
                       {user?.totalBalance}
                     </span>
-                    <BalanceUpdate
-                      user={user}
-                      memberId={user?.memberId}
-                      name={user?.name}></BalanceUpdate>
+                    {!user?.releaseStatus && (
+                      <BalanceUpdate
+                        user={user}
+                        memberId={user?.memberId}
+                        name={user?.name}></BalanceUpdate>
+                    )}
                   </p>
                 </div>
               </div>
-              <UserActivities
-                memberId={user?.memberId}
-                name={user?.name}
-              />
+              <UserActivities memberId={user?.memberId} name={user?.name} />
               <form
                 onSubmit={handleSubmit}
                 className='flex justify-between mt-3'>
                 <input
+                  disabled={user?.releaseStatus}
                   type='number'
                   placeholder='amount'
                   name='amount'
@@ -128,6 +132,7 @@ const AllUsersCard = ({ searchUser, page }) => {
                   value={user?.memberId}
                 />
                 <button
+                  disabled={user?.releaseStatus}
                   type='submit'
                   className='btn btn-info btn-outline'>
                   add
@@ -138,7 +143,7 @@ const AllUsersCard = ({ searchUser, page }) => {
         ))
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AllUsersCard;
+export default AllUsersCard
