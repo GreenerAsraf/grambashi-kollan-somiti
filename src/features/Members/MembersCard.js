@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 
 const MembersCard = ({ member }) => {
-  const bg = 'bg-gray-200 shadow-md';
+  // console.log(member);
   return (
     <Grid
       container
@@ -48,7 +48,7 @@ const MembersCard = ({ member }) => {
             }}>
             <Typography
               sx={{
-                fontSize: '24px',
+                fontSize: '22px',
                 fontWeight: '600',
               }}>
               {member.name}
@@ -64,7 +64,7 @@ const MembersCard = ({ member }) => {
             <Typography
               color='textSecondary'
               sx={{
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: '600',
                 mt: 1,
               }}>
