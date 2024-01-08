@@ -1,16 +1,17 @@
-import { LoadingButton } from '@mui/lab'
-import { Button, Stack } from '@mui/material'
-import UserModal from './UserModal'
-import CardSkeleton from '../../../components/cardSkeleton'
+import { LoadingButton } from '@mui/lab';
+import { Button, Stack } from '@mui/material';
+import UserModal from './UserModal';
+import CardSkeleton from '../../../components/cardSkeleton';
 // import Image from "next/image";
 
 const UsersView = ({ searchUser, setPageSize, isLoading, totalCount }) => {
   // const { userData, setUserData } = useState({})
 
-  const handleModal = (user) => {
-    // setUserData(user)
-    console.log(user, 'onClick')
-  }
+  // const handleModal = (user) => {
+  // setUserData(user)
+  // console.log(user, 'onClick')
+  // };
+  // console.log(searchUser?.releaseStatus);
 
   return (
     <div>
@@ -21,13 +22,24 @@ const UsersView = ({ searchUser, setPageSize, isLoading, totalCount }) => {
           {searchUser?.map((user) => (
             <div
               key={user?._id}
-              className='max-w-md p-6 lg:flex lg:space-x-4 bg-teal-125 border-2 shadow-lg text-black'>
-              <div className='flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0'>
-                <img
-                  src={user?.image}
-                  alt='user image'
-                  className='object-cover object-center w-full h-full rounded '
-                />
+              className={`max-w-md p-6 bg-teal-125 border-2 shadow-lg text-black ${
+                user?.releaseStatus
+                  ? 'bg-gray-300 shadow-md'
+                  : 'bg-base-100 shadow-2xl'
+              }`}>
+              <div className='text-center mb-3'>
+                <span className='indicator'>
+                  {user.releaseStatus ? (
+                    <span className='indicator-item indicator-center indicator-middle badge badge-ghost opacity-60 text-2xl w-60 h-56 rounded-full font-semibold'>
+                      অব্যাহতি
+                    </span>
+                  ) : null}
+                  <img
+                    src={user?.image}
+                    alt='user image'
+                    className='rounded-full w-60 h-56'
+                  />
+                </span>
               </div>
               <div className='flex flex-col space-y-4'>
                 <div>
@@ -78,12 +90,12 @@ const UsersView = ({ searchUser, setPageSize, isLoading, totalCount }) => {
                   <Button
                     variant='contained'
                     sx={{
-                      mt: '15px'
+                      mt: '15px',
                     }}
                     color={'primary'}>
                     <label
                       htmlFor={user?._id}
-                      onClick={() => handleModal(user)}
+                      // onClick={() => handleModal(user)}
                       className='btn btn-ghost '>
                       See Details
                     </label>
@@ -121,7 +133,7 @@ const UsersView = ({ searchUser, setPageSize, isLoading, totalCount }) => {
         )}
       </Stack>
     </div>
-  )
-}
+  );
+};
 
-export default UsersView
+export default UsersView;
