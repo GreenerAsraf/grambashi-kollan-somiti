@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const creditApi = createApi({
   reducerPath: 'creditApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000',
-    // 'https://grambasi-kollyan-somiti-server.vercel.app'
+    // baseUrl: 'http://localhost:8000',
+    baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app',
   }),
   tagTypes: ['credit'],
   endpoints: (builder) => ({
