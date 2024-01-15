@@ -68,12 +68,14 @@ const AllUsers = () => {
         totalBalance: 0,
       };
   });
+  // console.log(data);
 
   const searchUser = updatedData?.filter((user) => {
     if (search === '') {
       return user;
     } else if (
-      user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+      // user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+      user?.memberId.toString().includes(search.toString())
     ) {
       return user;
     }
