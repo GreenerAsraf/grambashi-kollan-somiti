@@ -1,80 +1,81 @@
-import UsersView from '@/features/users/UsersView'
-import { useGetUsersQuery } from '@/slices/api/apiSlice'
-import { useGetBalanceQuery } from '@/slices/api/balanceApi'
-import Head from 'next/head'
-import { useRef, useState } from 'react'
-import TopBar from '../../../components/Navbar/Navbar'
+import UsersView from '@/features/users/UsersView';
+import { useGetUsersQuery } from '@/slices/api/apiSlice';
+import { useGetBalanceQuery } from '@/slices/api/balanceApi';
+import Head from 'next/head';
+import { useRef, useState } from 'react';
+import TopBar from '../../../components/Navbar/Navbar';
 
 const index = () => {
-  const inputRef = useRef(null)
-  const [search, setSearch] = useState('')
-  const [pageSize, setPageSize] = useState(50)
+  const inputRef = useRef(null);
+  const [search, setSearch] = useState('');
+  const [pageSize, setPageSize] = useState(50);
   const { data, isLoading } = useGetUsersQuery({
     page: 1,
-    pageSize
-  })
-  const totalCount = data?.totalCount
+    pageSize,
+  });
+  const totalCount = data?.totalCount;
 
-  const { data: balanceQuery } = useGetBalanceQuery()
-  const balanceData = balanceQuery?.result
+  const { data: balanceQuery } = useGetBalanceQuery();
+  const balanceData = balanceQuery?.result;
 
   // Create an object to store the data and summation for all amount of a user
-  const balance = {}
+  const balance = {};
   // Iterate over the balanceData array
   if (balanceData) {
     for (const data of balanceData) {
-      const memberId = data.memberId
-      const amount = data.amount
+      const memberId = data.memberId;
+      const amount = data.amount;
 
       // Check if the memberId already exists in the balance object
       if (balance[memberId]) {
         // If it exists, add the amount to the existing total
-        balance[memberId].amount += amount
+        balance[memberId].amount += amount;
       } else {
         // If it doesn't exist, initialize the object with the data
         balance[memberId] = {
           memberName: data.memberName,
           amount: amount,
-          memberId: memberId
-        }
+          memberId: memberId,
+        };
       }
     }
   }
 
   // converting object to array
-  const balanceArray = Object.values(balance)
+  const balanceArray = Object.values(balance);
 
   const updatedData = data?.sortedDataMemberRole?.map((member) => {
     const balance = balanceArray?.find(
       (balanceMember) => balanceMember.memberId === +member.memberId
-    )
+    );
     if (balance) {
       // console.log(balance)
       return {
         ...member,
-        totalBalance: balance.amount
-      }
+        totalBalance: balance.amount,
+      };
     } else
       return {
         ...member,
-        totalBalance: 0
-      }
-  })
+        totalBalance: 0,
+      };
+  });
 
   const searchUser = updatedData?.filter((user) => {
     if (search === '') {
-      return user
+      return user;
     } else if (
-      user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+      // user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
+      user?.memberId.toString().includes(search.toString())
     ) {
-      return user
+      return user;
     }
-  })
+  });
 
   const handleSearch = (e) => {
-    const searchData = inputRef.current.value
-    setSearch(searchData)
-  }
+    const searchData = inputRef.current.value;
+    setSearch(searchData);
+  };
 
   return (
     <div className='max-w-[1240px] mx-auto '>
@@ -107,7 +108,7 @@ const index = () => {
           searchUser={searchUser}></UsersView>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

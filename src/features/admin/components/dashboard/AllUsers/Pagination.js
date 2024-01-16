@@ -18,7 +18,7 @@ const Pagination = ({
   lnt = parseInt(Math.ceil(userLength / 9));
 
   const arr = [];
-  for (let i = 1; i <= lnt + 1; i++) {
+  for (let i = 1; i <= lnt; i++) {
     arr.push(i);
   }
   // console.log(arr);
@@ -31,7 +31,6 @@ const Pagination = ({
       setPre(pre - 1);
       setNext(next - 1);
       setPageSize((p) => p - 10);
-      console.log(totalCount, pageSize);
     }
   };
   const nextBtn = () => {
@@ -39,13 +38,16 @@ const Pagination = ({
     setNext(next + 1);
     setPageSize((p) => p + 10);
     setPage((p) => p + 1);
-    console.log(totalCount, pageSize);
   };
 
   return (
     <div className='btn-group gap-3 flex justify-center mt-9'>
       <button
-        className=' btn  btn-success btn-circle btn-outline '
+        className={
+          pre > 0
+            ? 'btn btn-success btn-circle btn-outline'
+            : 'btn btn-disabled btn-circle btn-outline'
+        }
         onClick={() => prevBtn()}>
         <HiChevronDoubleLeft />
       </button>
@@ -63,7 +65,7 @@ const Pagination = ({
         className={
           totalCount > pageSize
             ? 'btn btn-success btn-circle btn-outline'
-            : 'btn btn-disabled btn-circle  btn-outline'
+            : 'btn btn-disabled btn-circle btn-outline'
         }
         onClick={() => totalCount > pageSize && nextBtn()}>
         <HiChevronDoubleRight color='black' />
