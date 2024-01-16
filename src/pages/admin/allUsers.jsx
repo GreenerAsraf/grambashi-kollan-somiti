@@ -72,18 +72,19 @@ const AllUsers = () => {
 
   const searchUser = updatedData?.filter((user) => {
     if (search === '') {
-      return user;
+      return true;
     } else if (
       // user?.memberId.toLowerCase().includes(search.toLocaleLowerCase())
       user?.memberId.toString().includes(search.toString())
     ) {
-      return user;
+      return true;
     }
   });
 
-  const handleSearch = (e) => {
+  const handleSearch = () => {
     const searchData = inputRef.current.value;
     setSearch(searchData);
+    setPage(1);
   };
 
   return (
