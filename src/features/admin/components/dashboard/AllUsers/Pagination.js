@@ -12,12 +12,13 @@ const Pagination = ({
   const [pre, setPre] = useState(0);
   const [next, setNext] = useState(10);
   const userLength = searchUser?.length;
+  // console.log(totalCount, pageSize);
 
   let lnt = 0;
   lnt = parseInt(Math.ceil(userLength / 9));
 
   const arr = [];
-  for (let i = 1; i <= lnt; i++) {
+  for (let i = 1; i <= lnt + 1; i++) {
     arr.push(i);
   }
   // console.log(arr);
@@ -29,6 +30,8 @@ const Pagination = ({
     if (pre > 0) {
       setPre(pre - 1);
       setNext(next - 1);
+      setPageSize((p) => p - 10);
+      console.log(totalCount, pageSize);
     }
   };
   const nextBtn = () => {
@@ -36,6 +39,7 @@ const Pagination = ({
     setNext(next + 1);
     setPageSize((p) => p + 10);
     setPage((p) => p + 1);
+    console.log(totalCount, pageSize);
   };
 
   return (

@@ -13,7 +13,7 @@ const AllUsers = () => {
   const inputRef = useRef(null);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [pageSize, setPageSize] = useState(100);
+  const [pageSize, setPageSize] = useState(90);
 
   // fetching user data
   const { data, isLoading: isLoadingUser } = useGetUsersQuery({
@@ -96,6 +96,7 @@ const AllUsers = () => {
             className='p-2 rounded fs-4 mt-5 w-72 border-2'
             type='text'
             placeholder='Search'
+            onChange={handleSearch}
           />
           <button
             id='searchName'

@@ -44,7 +44,7 @@ const AllUsersCard = ({ searchUser, page }) => {
       ) : (
         searchUser
           .sort((a, b) => a.memberId - b.memberId)
-          ?.slice(9 * (page - 1), page * 9)
+          ?.slice((page - 1) * 9, page * 9)
           .map((user) => (
             <div
               key={user._id}
