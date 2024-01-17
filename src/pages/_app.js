@@ -7,27 +7,27 @@ import { useEffect, useState } from 'react';
 import { AuthProvider } from '@/Contexts/AuthProvider';
 
 export default function App({ Component, pageProps }) {
-	const [loader, setLoader] = useState(true);
-	useEffect(() => {
-		setTimeout(() => {
-			setLoader(false);
-		}, 2500);
-	}, []);
+  const [loader, setLoader] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 2500);
+  }, []);
 
-	return (
-		<div>
-			{loader ? (
-				<Loader />
-			) : (
-				<div>
-					<Provider store={store}>
-						<AuthProvider>
-							<Component {...pageProps} />
-							<Toaster />
-						</AuthProvider>
-					</Provider>
-				</div>
-			)}
-		</div>
-	);
+  return (
+    <div>
+      {loader ? (
+        <Loader />
+      ) : (
+        <div>
+          <Provider store={store}>
+            <AuthProvider>
+              <Component {...pageProps} />
+              <Toaster />
+            </AuthProvider>
+          </Provider>
+        </div>
+      )}
+    </div>
+  );
 }
