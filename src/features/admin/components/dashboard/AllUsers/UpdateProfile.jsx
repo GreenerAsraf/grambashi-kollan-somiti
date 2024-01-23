@@ -163,6 +163,7 @@ const UpdateProfile = ({ user }) => {
     { id: 9, role: 'সাংগঠনিক সম্পাদক' },
     { id: 10, role: 'প্রবাসী কল্যাণ সম্পাদক' },
     { id: 11, role: 'প্রচার সম্পাদক' },
+    { id: 12, role: 'সদস্য' },
   ];
 
   const subMemberList = [
