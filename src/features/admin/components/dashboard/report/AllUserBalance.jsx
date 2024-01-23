@@ -92,7 +92,7 @@ const AllUserBalance = () => {
   // download balance pdf
   const balanceCol = [
     { title: 'Member ID', field: 'memberId' },
-    { title: 'Date', field: 'date' },
+    { title: 'Date', field: 'updatedAt' },
     { title: 'Name', field: 'memberName' },
     { title: 'This month', field: 'amount' },
     { title: 'Total Balance', field: 'total' },
@@ -120,6 +120,11 @@ const AllUserBalance = () => {
     });
     doc.save(`Balance History -${selectedMonthYear}.pdf`);
   };
+
+  const formatedDate = monthlyBalanceQuery?.result?.map((data) =>
+    getDateOnly(data?.updatedAt)
+  );
+  console.log(formatedDate);
 
   return (
     <Box>
