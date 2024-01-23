@@ -110,13 +110,17 @@ const AllUserBalance = () => {
   };
 
   const downloadBalanceReport = () => {
+    const formattedData = monthlyBalanceQuery?.result.map((row) => ({
+      ...row,
+      updatedAt: getDateOnly(row.updatedAt),
+    }));
+
     const doc = new jsPDF();
     doc.text(`Balance History ${selectedMonthYear}`, 20, 10);
     doc.autoTable({
       theme: 'grid',
       columns: balanceCol?.map((col) => ({ ...col, dataKey: col.field })),
-      // rows: balanceRow.map((row) => ({ ...row, dataKey: row.field })),
-      body: [...monthlyBalanceQuery?.result, faka, balanceRow],
+      body: [...formattedData, faka, balanceRow],
     });
     doc.save(`Balance History -${selectedMonthYear}.pdf`);
   };
