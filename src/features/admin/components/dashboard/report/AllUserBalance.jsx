@@ -178,97 +178,102 @@ const AllUserBalance = () => {
           Download Balance History
         </Button>
       </Stack>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
-                SL No
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
-                ID No
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
-                Date
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
-                Member Name
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
-                This Month
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color='textSecondary'
-                variant='h6'>
-                Total Balance
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {monthlyBalanceQuery?.result?.map((data, i) => (
-            <TableRow key={i}>
-              <TableCell>
-                <Typography>{i + 1}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography>{data?.memberId}</Typography>
-              </TableCell>
+      <hr />
+      <hr />
+      <hr />
+      <div style={{ overflowX: 'auto' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
               <TableCell>
                 <Typography
-                  fontSize='15px'
-                  fontWeight='500'>
-                  {getDateOnly(data?.updatedAt)}
+                  color='textSecondary'
+                  variant='h6'>
+                  SL No
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography
-                  variant='h6'
-                  fontWeight='600'>
-                  {data?.memberName}
+                  color='textSecondary'
+                  variant='h6'>
+                  ID No
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography variant='h6'>{data?.amount}</Typography>
-              </TableCell>{' '}
+                <Typography
+                  color='textSecondary'
+                  variant='h6'>
+                  Date
+                </Typography>
+              </TableCell>
               <TableCell>
-                <Typography variant='h6'>{data?.total}</Typography>
+                <Typography
+                  color='textSecondary'
+                  variant='h6'>
+                  Member Name
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  color='textSecondary'
+                  variant='h6'>
+                  This Month
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  color='textSecondary'
+                  variant='h6'>
+                  Total Balance
+                </Typography>
               </TableCell>
             </TableRow>
-          ))}
-          <TableRow>
-            <TableCell colSpan={4}>Total</TableCell>
-            <TableCell align='left'>{monthlySum}</TableCell>
-            <TableCell align='left'>{totalSum}</TableCell>
-          </TableRow>
+          </TableHead>
+          <TableBody>
+            {monthlyBalanceQuery?.result?.map((data, i) => (
+              <TableRow key={i}>
+                <TableCell>
+                  <Typography>{i + 1}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>{data?.memberId}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    fontSize='15px'
+                    fontWeight='500'>
+                    {getDateOnly(data?.updatedAt)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='h6'
+                    fontWeight='600'>
+                    {data?.memberName}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant='h6'>{data?.amount}</Typography>
+                </TableCell>{' '}
+                <TableCell>
+                  <Typography variant='h6'>{data?.total}</Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+            <TableRow>
+              <TableCell colSpan={4}>Total</TableCell>
+              <TableCell align='left'>{monthlySum}</TableCell>
+              <TableCell align='left'>{totalSum}</TableCell>
+            </TableRow>
 
-          {monthlyBalanceQuery?.result?.length === 0 && (
-            <Typography mt={2}>
-              No data found for {selectedMonthYear}{' '}
-            </Typography>
-          )}
-        </TableBody>
-      </Table>
+            {monthlyBalanceQuery?.result?.length === 0 && (
+              <Typography mt={2}>
+                No data found for {selectedMonthYear}{' '}
+              </Typography>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </Box>
   );
 };
