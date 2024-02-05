@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-const eventDataModal = ({ eventData }) => {
+const eventModal = ({ event }) => {
   return (
     <div>
       {/* Put this part before </body> tag */}
@@ -18,17 +18,17 @@ const eventDataModal = ({ eventData }) => {
             ✕
           </label>
           <Image
-            src={eventData?.image}
+            src={event?.image}
             width={600}
             height={600}
-            alt={eventData?.eventDataName}
+            alt={event?.eventName}
           />
-          <h3 className='text-lg font-bold mt-4'>{eventData?.eventDataName}</h3>
-          <p className='py-4'>{eventData?.description}</p>
+          <h3 className='text-lg font-bold mt-4'>{event?.eventName}</h3>
+          <p className='py-4'>{event?.description}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default eventDataModal;
+export default eventModal;
