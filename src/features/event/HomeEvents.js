@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { fetchEvents } from '@/slices/eventSlice'
-import { Box, Button, Stack } from '@mui/material'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import CardSkeleton from '../../../components/cardSkeleton'
-import EventsCard from './EventsCard'
+import { fetchEvents } from '@/slices/eventSlice';
+import { Box, Button, Stack } from '@mui/material';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import CardSkeleton from '../../../components/cardSkeleton';
+import EventsCard from './EventsCard';
 
 const HomeEvents = () => {
-  const [event, setEvent] = useState()
-  const { isLoading, events } = useSelector((state) => state.eventsReducer)
-  const dispatch = useDispatch()
+  const [event, setEvent] = useState();
+  const { isLoading, events } = useSelector((state) => state.eventsReducer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchEvents())
-  }, [dispatch])
+    dispatch(fetchEvents());
+  }, [dispatch]);
 
   return (
     <div className='mt-9 text-center'>
@@ -26,12 +26,17 @@ const HomeEvents = () => {
       {isLoading ? (
         <CardSkeleton />
       ) : (
-        <Box sx={{ boxShadow: 3 }} p={5} borderRadius={5}>
+        <Box
+          sx={{ boxShadow: 3 }}
+          p={5}
+          borderRadius={5}>
           {events && (
             <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
               {events.slice(0, 3)?.map((event) => (
                 <div key={event.id + '789'}>
-                  <EventsCard event={event} setEvent={setEvent}></EventsCard>
+                  <EventsCard
+                    event={event}
+                    setEvent={setEvent}></EventsCard>
                 </div>
               ))}
             </div>
@@ -42,14 +47,17 @@ const HomeEvents = () => {
             justifyContent={'end'}
             alignItems={'center'}
             my={5}>
-            <Link href='/event' passHref>
+            <Link
+              href='/event'
+              passHref>
               <Button variant='contained'>See All Events</Button>
             </Link>
           </Stack>
         </Box>
       )}
+      {event && <EventModal event={event}></EventModal>}
     </div>
-  )
-}
+  );
+};
 
-export default HomeEvents
+export default HomeEvents;

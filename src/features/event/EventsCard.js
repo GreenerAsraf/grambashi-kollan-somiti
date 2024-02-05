@@ -3,10 +3,10 @@ import Image from 'next/image';
 import EventModal from './EventModal';
 // import Image from 'next/image'
 
-const EventsCard = ({ event, setEventData }) => {
+const EventsCard = ({ event, setEvent }) => {
   console.log(event);
   const handleModal = (event) => {
-    setEventData(event);
+    setEvent(event);
   };
 
   return (
