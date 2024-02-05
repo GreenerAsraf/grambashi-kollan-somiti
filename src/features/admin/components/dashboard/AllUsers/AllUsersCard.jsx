@@ -43,7 +43,7 @@ const AllUsersCard = ({ searchUser, page }) => {
         <Box>No user found. Please add an user</Box>
       ) : (
         searchUser
-          .sort((a, b) => a.memberId - b.memberId)
+          ?.sort((a, b) => a.memberId - b.memberId)
           ?.slice((page - 1) * 9, page * 9)
           .map((user) => (
             <div

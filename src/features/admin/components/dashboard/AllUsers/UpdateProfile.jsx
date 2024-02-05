@@ -111,7 +111,7 @@ const UpdateProfile = ({ user }) => {
         nomineeName: nomineeName,
         nomineeMobile: nomineeMobile,
       };
-
+      console.log(formInfo);
       updateUser(formInfo);
     }
     // if user choose new img, new img will be upload
