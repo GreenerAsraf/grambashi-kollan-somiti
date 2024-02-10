@@ -1,11 +1,15 @@
-import Image from 'next/image'
-import React from 'react'
+import Image from 'next/image';
+import React from 'react';
 
-const EventModal = ({ event }) => {
+const eventModal = ({ event }) => {
   return (
     <div>
       {/* Put this part before </body> tag */}
-      <input type='checkbox' id='my-modal-3' className='modal-toggle' />
+      <input
+        type='checkbox'
+        id='my-modal-3'
+        className='modal-toggle'
+      />
       <div className='modal'>
         <div className='modal-box relative'>
           <label
@@ -24,7 +28,7 @@ const EventModal = ({ event }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EventModal
+export default eventModal;

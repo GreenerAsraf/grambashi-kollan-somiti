@@ -204,6 +204,7 @@ const AddNewUser = () => {
                     name='role'>
                     {subMemberList?.map((ar, i) => (
                       <MenuItem
+                        required
                         key={i}
                         value={ar.id}>
                         {ar.role}
