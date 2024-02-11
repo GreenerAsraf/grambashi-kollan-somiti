@@ -6,8 +6,8 @@ export const fetchMembers = createAsyncThunk(
   'members/fetchMembers',
   async () => {
     const res = await axios.get(
-      'https://grambasi-kollyan-somiti-server.vercel.app/all-users'
-      // 'http://localhost:8000/all-users'
+      // 'https://grambasi-kollyan-somiti-server.vercel.app/all-users'
+      'http://localhost:8000/all-users'
     );
     return res.data;
     // console.log(res)
