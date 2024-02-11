@@ -4,7 +4,7 @@ import EventModal from './EventModal';
 // import Image from 'next/image'
 
 const EventsCard = ({ event, setEvent }) => {
-  console.log(event);
+  // console.log(event);
   const handleModal = (event) => {
     setEvent(event);
   };
