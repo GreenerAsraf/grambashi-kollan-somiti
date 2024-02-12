@@ -1,27 +1,30 @@
-import { Button, Card, CardContent, Grid, Typography } from '@mui/material'
-import Image from 'next/image'
-import EventModal from './EventModal'
+import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
+import Image from 'next/image';
+import EventModal from './EventModal';
 // import Image from 'next/image'
 
 const EventsCard = ({ event, setEvent }) => {
+  // console.log(event);
   const handleModal = (event) => {
-    setEvent(event)
-  }
+    setEvent(event);
+  };
 
   return (
-    <Grid container className='flex justify-center'>
+    <Grid
+      container
+      className='flex justify-center'>
       <Grid
         item
         xs={12}
         lg={10}
         sx={{
           display: 'flex',
-          alignItems: 'center'
+          alignItems: 'center',
         }}>
         <Card
           sx={{
             p: 0,
-            width: '100%'
+            width: '100%',
           }}>
           <Image
             src={event?.image}
@@ -33,13 +36,13 @@ const EventsCard = ({ event, setEvent }) => {
           <CardContent
             sx={{
               paddingLeft: '30px',
-              paddingRight: '30px'
+              paddingRight: '30px',
             }}>
             <Typography
               className='text-start'
               sx={{
-                fontSize: 'h4.fontSize',
-                fontWeight: '500'
+                fontSize: 'h5.fontSize',
+                fontWeight: '500',
               }}>
               {event?.eventName}
             </Typography>
@@ -49,11 +52,13 @@ const EventsCard = ({ event, setEvent }) => {
               sx={{
                 fontSize: '14px',
                 fontWeight: '400',
-                mt: 1
+                mt: 1,
               }}>
               {event?.description.slice(0, 200)} ....
             </Typography>
-            <Button variant='contained' color={'primary'}>
+            <Button
+              variant='contained'
+              color={'primary'}>
               <label
                 className='cursor-pointer'
                 htmlFor='my-modal-3'
@@ -64,9 +69,9 @@ const EventsCard = ({ event, setEvent }) => {
           </CardContent>
         </Card>
       </Grid>
-      <EventModal event={event}></EventModal>
+      {/* <EventModal event={event}></EventModal> */}
     </Grid>
-  )
-}
+  );
+};
 
-export default EventsCard
+export default EventsCard;

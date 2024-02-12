@@ -135,7 +135,7 @@ const BalanceUpdate = ({ user }) => {
                 name='id'
                 value={user?.memberId}
               />
-              <span className='flex justify-between gap-5'>
+              <span className='flex flex-col md:flex-row md:justify-between gap-4 '>
                 <input
                   type='number'
                   placeholder='Enter correct amount'

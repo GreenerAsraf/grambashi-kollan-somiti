@@ -40,10 +40,11 @@ export default function DeleteDialogue({ user }) {
     const info = {
       ...user,
       memberId: user.memberId,
-      releaseStatus: true,
+      releaseStatus: user.releaseStatus ? !user.releaseStatus : true,
     };
     setOpen(false);
     updateUser(info);
+    // console.log(info);
   };
 
   const handleAgree = () => {
@@ -91,7 +92,7 @@ export default function DeleteDialogue({ user }) {
               onClick={handleClose}
               variant='contained'
               color='error'>
-              Realesed from post
+              {user.releaseStatus ? 'Unrealese from post' : 'Realese from post'}
             </Button>
             <Button
               onClick={handleAgree}

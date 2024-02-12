@@ -1,4 +1,4 @@
-import { useUpdateUserMutation } from '@/slices/api/apiSlice'
+import { useUpdateUserMutation } from '@/slices/api/apiSlice';
 import {
   Button,
   FormControlLabel,
@@ -11,17 +11,17 @@ import {
   Select,
   Stack,
   TextField,
-  Typography
-} from '@mui/material'
-import BaseCard from '../../baseCard/BaseCard'
+  Typography,
+} from '@mui/material';
+import BaseCard from '../../baseCard/BaseCard';
 // import AlertSuccess from "../.";
-import { useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
-import Loading from '../../../../../../components/Loading'
-import Image from 'next/image'
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import Loading from '../../../../../../components/Loading';
+import Image from 'next/image';
 
 const UpdateProfile = ({ user }) => {
-  const [img, setImg] = useState()
+  const [img, setImg] = useState();
   const {
     role,
     memberRole,
@@ -36,63 +36,63 @@ const UpdateProfile = ({ user }) => {
     nomineeMobile,
     nomineeName,
     image: currentImage,
-    _id
-  } = user
+    _id,
+  } = user;
 
   const [updateUser, { isLoading, isSuccess, isError }] =
-    useUpdateUserMutation()
+    useUpdateUserMutation();
   const [userData, setUserData] = useState({
     memberRole: {
       id: '',
-      role: ''
+      role: '',
     },
     role: {
       id: '',
-      role: ''
-    }
-  })
+      role: '',
+    },
+  });
 
   // convert image to base64
   const handleFileChange = (event) => {
-    const file = event.target.files[0]
+    const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onload = (e) => {
-        const base64 = e.target.result
-        setImg(base64)
-      }
-      reader.readAsDataURL(file)
+        const base64 = e.target.result;
+        setImg(base64);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   useEffect(() => {
     setUserData({
       memberRole: memberRole,
-      role: role
-    })
-  }, [user])
+      role: role,
+    });
+  }, [user]);
 
   const handleSubmit = (e, isSuccess, isLoading) => {
-    e.preventDefault()
-    const form = e.target
+    e.preventDefault();
+    const form = e.target;
 
-    const memberId = form.memberId.value
+    const memberId = form.memberId.value;
     // const memberRule = form.memberRule.value
     // const role = form.role.value
-    const name = form.name.value
-    const fatherName = form.fatherName.value
-    const motherName = form.motherName.value
-    const dateOfBirth = form.dateOfBirth.value
-    const mobile = form.mobile.value
-    const nomineeName = form.nomineeName.value
-    const nomineeMobile = form.nomineeMobile.value
-    const address = form.address.value
-    const gender = form.gender.value
-    const image = img ? form.image.files[0] : currentImage
-    const formData = new FormData()
+    const name = form.name.value;
+    const fatherName = form.fatherName.value;
+    const motherName = form.motherName.value;
+    const dateOfBirth = form.dateOfBirth.value;
+    const mobile = form.mobile.value;
+    const nomineeName = form.nomineeName.value;
+    const nomineeMobile = form.nomineeMobile.value;
+    const address = form.address.value;
+    const gender = form.gender.value;
+    const image = img ? form.image.files[0] : currentImage;
+    const formData = new FormData();
 
-    formData?.append('image', image)
-    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`
+    formData?.append('image', image);
+    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`;
 
     // if user not choose new img, existing will be updated
     if (!img) {
@@ -109,16 +109,16 @@ const UpdateProfile = ({ user }) => {
         address: address,
         gender: gender,
         nomineeName: nomineeName,
-        nomineeMobile: nomineeMobile
-      }
-
-      updateUser(formInfo)
+        nomineeMobile: nomineeMobile,
+      };
+      console.log(formInfo);
+      updateUser(formInfo);
     }
     // if user choose new img, new img will be upload
     else {
       fetch(url, {
         method: 'POST',
-        body: formData
+        body: formData,
       })
         .then((res) => res.json())
         .then((result) => {
@@ -136,20 +136,20 @@ const UpdateProfile = ({ user }) => {
               address: address,
               gender: gender,
               nomineeName: nomineeName,
-              nomineeMobile: nomineeMobile
-            }
+              nomineeMobile: nomineeMobile,
+            };
 
             // return console.log(formInfo)
             // user added using RTK query
-            updateUser(formInfo)
+            updateUser(formInfo);
           }
         })
         .catch((error) => {
-          console.error('Error:', error)
-        })
+          console.error('Error:', error);
+        });
     }
-    setImg()
-  }
+    setImg();
+  };
 
   const memberList = [
     { id: 1, role: 'সভাপতি' },
@@ -162,38 +162,53 @@ const UpdateProfile = ({ user }) => {
     { id: 8, role: 'সহ অর্থ সম্পাদক' },
     { id: 9, role: 'সাংগঠনিক সম্পাদক' },
     { id: 10, role: 'প্রবাসী কল্যাণ সম্পাদক' },
-    { id: 11, role: 'প্রচার সম্পাদক' }
-  ]
+    { id: 11, role: 'প্রচার সম্পাদক' },
+    { id: 12, role: 'সদস্য' },
+  ];
 
   const subMemberList = [
     { id: 1, role: 'সাধারণ সদস্য' },
     { id: 2, role: 'কার্যকরী কমিটি' },
-    { id: 3, role: 'উপদেষ্টা কমিটি' }
-  ]
+    { id: 3, role: 'উপদেষ্টা কমিটি' },
+  ];
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   if (isSuccess) {
-    toast.success('Updated')
+    toast.success('Updated');
   }
 
   return (
     <div>
       {/* The button to open modal */}
-      <label htmlFor={memberId} className='btn btn-xs btn-outline btn-info'>
+      <label
+        htmlFor={memberId}
+        disabled={user?.releaseStatus}
+        className='btn btn-xs btn-outline btn-info'>
         edit
       </label>
       {/* Put this part before </body> tag */}
-      <input type='checkbox' id={memberId} className='modal-toggle' />
-      <div className='modal' role='dialog'>
+      <input
+        type='checkbox'
+        id={memberId}
+        className='modal-toggle'
+      />
+      <div
+        className='modal'
+        role='dialog'>
         <div className='modal-box'>
-          <Grid container spacing={0}>
+          <Grid
+            container
+            spacing={0}>
             {/* {isSuccess && (
               <AlertSuccess message={"User Added"} setOpen={true} />
             )} */}
-            <Grid item xs={12} lg={12}>
+            <Grid
+              item
+              xs={12}
+              lg={12}>
               <div className='modal-action'>
                 <label
                   htmlFor={memberId}
@@ -207,16 +222,18 @@ const UpdateProfile = ({ user }) => {
                     <InputLabel>সদস্য পদ</InputLabel>
                     <Select
                       onChange={(e) => {
-                        const temp = userData
+                        const temp = userData;
                         const data = memberList.find(
                           (item) => item.id === parseInt(e.target.value)
-                        )
-                        setUserData({ ...temp, memberRole: data })
+                        );
+                        setUserData({ ...temp, memberRole: data });
                       }}
                       name='memberRole'
                       defaultValue={memberRole?.id}>
                       {memberList?.map(({ id, role }, i) => (
-                        <MenuItem key={i} value={id}>
+                        <MenuItem
+                          key={i}
+                          value={id}>
                           {role}
                         </MenuItem>
                       ))}
@@ -224,16 +241,18 @@ const UpdateProfile = ({ user }) => {
                     <InputLabel>উপ-সদস্য পদ</InputLabel>
                     <Select
                       onChange={(e) => {
-                        const temp = userData
+                        const temp = userData;
                         const data = subMemberList.find(
                           (item) => item.id === parseInt(e.target.value)
-                        )
-                        setUserData({ ...temp, role: data })
+                        );
+                        setUserData({ ...temp, role: data });
                       }}
                       name='role'
                       defaultValue={role?.id}>
                       {subMemberList?.map((ar, i) => (
-                        <MenuItem key={i} value={ar.id}>
+                        <MenuItem
+                          key={i}
+                          value={ar.id}>
                           {ar.role}
                         </MenuItem>
                       ))}
@@ -293,9 +312,13 @@ const UpdateProfile = ({ user }) => {
                       multiline
                       rows={4}
                     />
-                    <Stack direction='row' spacing={2}>
+                    <Stack
+                      direction='row'
+                      spacing={2}>
                       <Typography> ছবি আপলোড</Typography>
-                      <Button variant='contained' component='label'>
+                      <Button
+                        variant='contained'
+                        component='label'>
                         {/* <PhotoCameraIcon /> */}
                         <input
                           onChange={(e) => handleFileChange(e)}
@@ -349,7 +372,10 @@ const UpdateProfile = ({ user }) => {
                       defaultValue={nomineeMobile}
                       variant='outlined'
                     />
-                    <Button type='submit' variant='outlined' color='success'>
+                    <Button
+                      type='submit'
+                      variant='outlined'
+                      color='success'>
                       Submit
                     </Button>
                   </Stack>
@@ -360,7 +386,7 @@ const UpdateProfile = ({ user }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UpdateProfile
+export default UpdateProfile;
