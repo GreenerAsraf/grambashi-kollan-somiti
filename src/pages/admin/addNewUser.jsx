@@ -1,8 +1,8 @@
-import FullLayout from '@/features/admin/layouts/FullLayout';
-import { useAddUserMutation } from '@/slices/api/apiSlice';
-import { SendSharp } from '@mui/icons-material';
-import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
-import { LoadingButton } from '@mui/lab';
+import FullLayout from '@/features/admin/layouts/FullLayout'
+import { useAddUserMutation } from '@/slices/api/apiSlice'
+import { SendSharp } from '@mui/icons-material'
+import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined'
+import { LoadingButton } from '@mui/lab'
 import {
   Backdrop,
   Box,
@@ -19,32 +19,30 @@ import {
   Select,
   Stack,
   TextField,
-  Typography,
-} from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import AlertError from '../../../components/Alert/AlertError';
-import AlertSuccess from '../../../components/Alert/AlertSuccess';
-import BaseCard from '../../features/admin/components/baseCard/BaseCard';
-import theme from '../../features/admin/theme/theme';
+  Typography
+} from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import BaseCard from '../../features/admin/components/baseCard/BaseCard'
+import theme from '../../features/admin/theme/theme'
 
 const AddNewUser = () => {
-  const [img, setImg] = useState();
-  const [loading, setLoading] = useState(false);
+  const [img, setImg] = useState()
+  const [loading, setLoading] = useState(false)
   const [addUser, { isLoading, isSuccess, isError, error }] =
-    useAddUserMutation();
+    useAddUserMutation()
 
   const [userData, setUserData] = useState({
     memberRole: {
       id: '',
-      role: '',
+      role: ''
     },
     role: {
       id: '',
-      role: '',
-    },
-  });
+      role: ''
+    }
+  })
 
   if (isLoading) {
     return (
@@ -53,58 +51,58 @@ const AddNewUser = () => {
         open={true}>
         <CircularProgress color='inherit' />
       </Backdrop>
-    );
+    )
   }
 
   // convert image to base64
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = (e) => {
-        const base64 = e.target.result;
-        setImg(base64);
-      };
-      reader.readAsDataURL(file);
+        const base64 = e.target.result
+        setImg(base64)
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const handleSubmit = (e) => {
-    setLoading(true);
-    e.preventDefault();
-    const form = e.target;
-    const memberId = form.memberId.value;
-    // const memberRule = form.memberRule.value
-    // const role = form.role.value
-    const name = form.name.value;
-    const fatherName = form.fatherName.value;
-    const motherName = form.motherName.value;
-    const dateOfBirth = form.dateOfBirth.value;
-    const mobile = form.mobile.value;
-    const nomineeName = form.nomineeName.value;
-    const nomineeMobile = form.nomineeMobile.value;
-    const address = form.address.value;
-    const gender = form.gender.value;
+    e.preventDefault()
+    setLoading(true)
+    const form = e.target
+    const memberId = form.memberId.value
+    const name = form.name.value
+    const nameENG = form.nameENG.value
+    const fatherName = form.fatherName.value
+    const motherName = form.motherName.value
+    const dateOfBirth = form.dateOfBirth.value
+    const mobile = form.mobile.value
+    const nomineeName = form.nomineeName.value
+    const nomineeMobile = form.nomineeMobile.value
+    const address = form.address.value
+    const gender = form.gender.value
     const image =
       form.image.files[0] ||
-      'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png';
-    const formData = new FormData();
+      'https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png'
+    const formData = new FormData()
 
-    formData?.append('image', image);
-    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`;
+    formData?.append('image', image)
+    const url = `https://api.imgbb.com/1/upload?key=2a7b5753b7c734244aec7cb118d7b8df`
     fetch(url, {
       method: 'POST',
-      body: formData,
+      body: formData
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        console.log(result)
         if (result.success) {
           const formInfo = {
             memberId: memberId,
             memberRole: userData.memberRole,
             role: userData.role || 'সাধারণ সদস্য',
             name: name,
+            nameENG: nameENG,
             fatherName: fatherName,
             motherName: motherName,
             image: result.data.url,
@@ -114,25 +112,29 @@ const AddNewUser = () => {
             gender: gender,
             nomineeName: nomineeName,
             nomineeMobile: nomineeMobile,
-            releaseStatus: 'false',
-          };
+            releaseStatus: 'false'
+          }
 
           // console.log(formInfo);
           // user added using RTK query
-          addUser(formInfo);
-          setImg();
-          setLoading(false);
-          console.log(isSuccess, isError, error);
-          if (error) {
-            toast.error('Add new User Failed');
+          addUser(formInfo)
+          setImg()
+          setLoading(false)
+          console.log(isSuccess, isError, error)
+          if (isSuccess) {
+            toast.success('User Added')
+            form.reset()
+            // return <AlertSuccess message={'User Added'} setOpen={true} />
           }
-          // form.reset()
+          if (error) {
+            toast.error('Add new User Failed')
+          }
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
+        console.error('Error:', error)
+      })
+  }
 
   const memberList = [
     { id: 1, role: 'সভাপতি' },
@@ -146,49 +148,38 @@ const AddNewUser = () => {
     { id: 9, role: 'সাংগঠনিক সম্পাদক' },
     { id: 10, role: 'প্রবাসী কল্যাণ সম্পাদক' },
     { id: 11, role: 'প্রচার সম্পাদক' },
-    { id: 12, role: 'সদস্য' },
-  ];
+    { id: 12, role: 'সদস্য' }
+  ]
 
   const subMemberList = [
     { id: 1, role: 'সাধারণ সদস্য' },
     { id: 2, role: 'কার্যকরী কমিটি' },
-    { id: 3, role: 'উপদেষ্টা কমিটি' },
-  ];
+    { id: 3, role: 'উপদেষ্টা কমিটি' }
+  ]
 
   return (
     <ThemeProvider theme={theme}>
       <FullLayout>
-        <Grid
-          container
-          spacing={0}>
-          {isSuccess && (
-            <AlertSuccess
-              message={'User Added'}
-              setOpen={true}
-            />
-          )}
-          {error && <AlertError message={'Add new User Failed'} />}
-          <Grid
-            item
-            xs={12}
-            lg={12}>
+        <Grid container spacing={0}>
+          {/* {isSuccess && <AlertSuccess message={'User Added'} setOpen={true} />}
+          {error && <AlertError message={'Add new User Failed'} />} */}
+          <Grid item xs={12} lg={12}>
             <BaseCard title='নতুন সদস্য ফর্ম'>
               <form onSubmit={(e) => handleSubmit(e)}>
                 <Stack spacing={3}>
                   <InputLabel>সদস্য পদ</InputLabel>
                   <Select
                     onChange={(e) => {
-                      const temp = userData;
+                      const temp = userData
                       const data = memberList.find(
                         (item) => item.id === parseInt(e.target.value)
-                      );
-                      setUserData({ ...temp, memberRole: data });
+                      )
+                      setUserData({ ...temp, memberRole: data })
                     }}
+                    defaultValue={memberList[0]?.id}
                     name='memberRole'>
                     {memberList?.map(({ id, role }, i) => (
-                      <MenuItem
-                        key={i}
-                        value={id}>
+                      <MenuItem key={i} value={id}>
                         {role}
                       </MenuItem>
                     ))}
@@ -196,18 +187,15 @@ const AddNewUser = () => {
                   <InputLabel>উপ-সদস্য পদ</InputLabel>
                   <Select
                     onChange={(e) => {
-                      const temp = userData;
+                      const temp = userData
                       const data = subMemberList.find(
                         (item) => item.id === parseInt(e.target.value)
-                      );
-                      setUserData({ ...temp, role: data });
+                      )
+                      setUserData({ ...temp, role: data })
                     }}
                     name='role'>
                     {subMemberList?.map((ar, i) => (
-                      <MenuItem
-                        required
-                        key={i}
-                        value={ar.id}>
+                      <MenuItem required key={i} value={ar.id}>
                         {ar.role}
                       </MenuItem>
                     ))}
@@ -215,8 +203,15 @@ const AddNewUser = () => {
 
                   <TextField
                     required
+                    type='text'
                     name='name'
                     label='সদস্যের নাম'
+                  />
+                  <TextField
+                    required
+                    type='text'
+                    name='nameENG'
+                    label='সদস্যের নাম (ইংরেজীতে)'
                   />
                   <TextField
                     required
@@ -224,18 +219,9 @@ const AddNewUser = () => {
                     type='number'
                     label='সদস্য নাম্বার (অবশ্যই নতুন নাম্বার দিতে হবে)'
                   />
-                  <TextField
-                    name='fatherName'
-                    label='পিতার নাম'
-                  />
-                  <TextField
-                    name='motherName'
-                    label='মাতার নাম'
-                  />
-                  <TextField
-                    name='dateOfBirth'
-                    type='date'
-                  />
+                  <TextField name='fatherName' type='text' label='পিতার নাম' />
+                  <TextField name='motherName' type='text' label='মাতার নাম' />
+                  <TextField name='dateOfBirth' type='date' />
                   <TextField
                     required
                     name='mobile'
@@ -245,6 +231,7 @@ const AddNewUser = () => {
                   <TextField
                     name='address'
                     label='সদস্যের ঠিকানা'
+                    type='text'
                     multiline
                     rows={4}
                   />
@@ -258,9 +245,7 @@ const AddNewUser = () => {
                     spacing={2}>
                     <Box height={50}>
                       <Typography mb={2}> ছবি আপলোড</Typography>
-                      <Button
-                        variant='contained'
-                        component='label'>
+                      <Button variant='contained' component='label'>
                         {/* <PhotoCameraIcon /> */}
                         <input
                           onChange={(e) => handleFileChange(e)}
@@ -306,6 +291,7 @@ const AddNewUser = () => {
                   </RadioGroup>
                   <TextField
                     name='nomineeName'
+                    type='text'
                     label='নমিনির নাম '
                   />
                   <TextField
@@ -316,12 +302,7 @@ const AddNewUser = () => {
                   <Stack
                     direction='row'
                     justifyContent='center'
-                    divider={
-                      <Divider
-                        orientation='vertical'
-                        flexItem
-                      />
-                    }
+                    divider={<Divider orientation='vertical' flexItem />}
                     spacing={3}
                     alignItems='center'>
                     <Button
@@ -350,6 +331,6 @@ const AddNewUser = () => {
         </Grid>
       </FullLayout>
     </ThemeProvider>
-  );
-};
-export default AddNewUser;
+  )
+}
+export default AddNewUser
