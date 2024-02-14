@@ -1,38 +1,38 @@
-import { useAddBalanceMutation } from '@/slices/api/balanceApi';
-import { Box } from '@mui/material';
-import React from 'react';
-import { toast } from 'react-hot-toast';
-import Loading from '../../../../../../components/Loading';
-import BalanceUpdate from './BalanceUpdate';
-import DeleteDialogue from './DeleteDialogue';
-import UpdateProfile from './UpdateProfile';
-import UserActivities from './UserActivities';
+import { useAddBalanceMutation } from '@/slices/api/balanceApi'
+import { Box } from '@mui/material'
+import React from 'react'
+import { toast } from 'react-hot-toast'
+import Loading from '../../../../../../components/Loading'
+import BalanceUpdate from './BalanceUpdate'
+import DeleteDialogue from './DeleteDialogue'
+import UpdateProfile from './UpdateProfile'
+import UserActivities from './UserActivities'
 
 const AllUsersCard = ({ searchUser, page }) => {
   const [addBalance, { isSuccess, isLoading, data: response }] =
-    useAddBalanceMutation();
-  const [agree, setAgree] = React.useState(false);
+    useAddBalanceMutation()
+  const [agree, setAgree] = React.useState(false)
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const amount = +form.amount.value;
-    const memberName = form.name.value;
-    const memberId = +form.id.value;
+    event.preventDefault()
+    const form = event.target
+    const amount = +form.amount.value
+    const memberName = form.name.value
+    const memberId = +form.id.value
     const data = {
       amount,
       memberName,
-      memberId,
-    };
+      memberId
+    }
 
-    addBalance(data);
-  };
+    addBalance(data)
+  }
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading />
   }
   if (isSuccess === true) {
-    toast.success('Money added!');
+    toast.success('Money added!')
   }
 
   // console.log(searchUser);
@@ -110,10 +110,7 @@ const AllUsersCard = ({ searchUser, page }) => {
                     </p>
                   </div>
                 </div>
-                <UserActivities
-                  memberId={user?.memberId}
-                  name={user?.name}
-                />
+                <UserActivities memberId={user?.memberId} name={user?.name} />
                 <form
                   onSubmit={handleSubmit}
                   className='flex justify-between mt-3'>
@@ -151,7 +148,7 @@ const AllUsersCard = ({ searchUser, page }) => {
           ))
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AllUsersCard;
+export default AllUsersCard
