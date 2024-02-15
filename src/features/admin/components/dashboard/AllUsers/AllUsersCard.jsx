@@ -9,8 +9,7 @@ import UpdateProfile from './UpdateProfile'
 import UserActivities from './UserActivities'
 
 const AllUsersCard = ({ searchUser, page }) => {
-  const [addBalance, { isSuccess, isLoading, data: response }] =
-    useAddBalanceMutation()
+  const [addBalance, { isSuccess, isLoading }] = useAddBalanceMutation()
   const [agree, setAgree] = React.useState(false)
 
   const handleSubmit = (event) => {
@@ -18,10 +17,12 @@ const AllUsersCard = ({ searchUser, page }) => {
     const form = event.target
     const amount = +form.amount.value
     const memberName = form.name.value
+    const memberNameENG = form.nameENG.value
     const memberId = +form.id.value
     const data = {
       amount,
       memberName,
+      memberNameENG,
       memberId
     }
 
@@ -128,6 +129,13 @@ const AllUsersCard = ({ searchUser, page }) => {
                     type='text'
                     name='name'
                     value={user?.name}
+                  />
+                  <input
+                    readOnly
+                    hidden
+                    type='text'
+                    name='nameENG'
+                    value={user?.nameENG}
                   />
                   <input
                     readOnly
