@@ -218,7 +218,7 @@ const AllUserBalance = () => {
                 </TableCell>
                 <TableCell>
                   <Typography variant='h6' fontWeight='600'>
-                    {data?.memberNameENG}
+                    {data?.memberName}
                   </Typography>
                 </TableCell>
                 <TableCell>
