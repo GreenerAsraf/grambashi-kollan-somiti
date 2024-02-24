@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 
 const MembersCard = ({ member }) => {
-  // console.log(member);
+  console.log(member);
   return (
     <Grid
       container
@@ -53,7 +53,7 @@ const MembersCard = ({ member }) => {
               }}>
               {member.name}
             </Typography>
-            <Typography>{member.memberRole.role}</Typography>
+            <Typography>{member?.memberRole?.role}</Typography>
             <span>Total Balance: </span>
             <p
               className={`inline text-start text-lg py-2 ${
