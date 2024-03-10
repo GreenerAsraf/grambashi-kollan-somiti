@@ -1,38 +1,38 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const balanceApi = createApi({
   reducerPath: 'balanceApi',
   baseQuery: fetchBaseQuery({
-    // baseUrl: 'http://localhost:8000',
-    baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app',
+    // baseUrl: 'http://localhost:8000'
+    baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
   tagTypes: ['Balance'],
   endpoints: (builder) => ({
     getBalance: builder.query({
       query: () => ({
-        url: '/total-balance',
+        url: '/total-balance'
       }),
-      providesTags: ['Balance'],
+      providesTags: ['Balance']
     }),
     getMonthlyBalance: builder.query({
       query: ({ month, year }) => ({
-        url: `/monthly-balance?month=${month}&year=${year}`,
+        url: `/monthly-balance?month=${month}&year=${year}`
       }),
-      providesTags: ['Balance'],
+      providesTags: ['Balance']
     }),
     addBalance: builder.mutation({
       query: (data) => ({
         url: '/add-balance',
         method: 'post',
-        body: data,
+        body: data
       }),
-      invalidatesTags: ['Balance'],
-    }),
-  }),
-});
+      invalidatesTags: ['Balance']
+    })
+  })
+})
 
 export const {
   useAddBalanceMutation,
   useGetMonthlyBalanceQuery,
-  useGetBalanceQuery,
-} = balanceApi;
+  useGetBalanceQuery
+} = balanceApi
