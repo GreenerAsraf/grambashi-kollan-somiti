@@ -1,27 +1,29 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material'
-import Image from 'next/image'
+import { Card, CardContent, Grid, Typography } from '@mui/material';
+import Image from 'next/image';
 
 const MembersCard = ({ member }) => {
   // console.log(member);
   return (
-    <Grid container className='flex justify-center'>
+    <Grid
+      container
+      className='flex justify-center'>
       <Grid
         item
         xs={12}
         lg={10}
         sx={{
           display: 'flex',
-          alignItems: 'center'
+          alignItems: 'center',
         }}>
         <Card
           style={{
             backgroundColor: member?.releaseStatus
               ? 'rgba(125,125, 125, 0.2)'
-              : 'rgba(255, 255, 255, 1)'
+              : 'rgba(255, 255, 255, 1)',
           }}
           sx={{
             p: 0,
-            width: '100%'
+            width: '100%',
           }}>
           <span className='indicator'>
             {member?.releaseStatus ? (
@@ -42,12 +44,12 @@ const MembersCard = ({ member }) => {
           <CardContent
             sx={{
               paddingLeft: '30px',
-              paddingRight: '30px'
+              paddingRight: '30px',
             }}>
             <Typography
               sx={{
                 fontSize: '22px',
-                fontWeight: '600'
+                fontWeight: '600',
               }}>
               {member?.name}
             </Typography>
@@ -64,7 +66,7 @@ const MembersCard = ({ member }) => {
               sx={{
                 fontSize: '15px',
                 fontWeight: '600',
-                mt: 1
+                mt: 1,
               }}>
               {member?.title}
             </Typography>
@@ -72,7 +74,7 @@ const MembersCard = ({ member }) => {
         </Card>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default MembersCard
+export default MembersCard;
