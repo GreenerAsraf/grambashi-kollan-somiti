@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 
 const MembersCard = ({ member }) => {
-  console.log(member);
+  // console.log(member);
   return (
     <Grid
       container
@@ -26,14 +26,14 @@ const MembersCard = ({ member }) => {
             width: '100%',
           }}>
           <span className='indicator'>
-            {member.releaseStatus ? (
+            {member?.releaseStatus ? (
               <span className='indicator-item indicator-center indicator-middle badge badge-ghost  opacity-60 text-2xl w-56 h-56 rounded-full font-semibold'>
                 অব্যাহতি
               </span>
             ) : null}
             <Image
               className='w-[250px] h-[250px] rounded-full p-5 mx-auto'
-              src={member.image}
+              src={member?.image}
               width={'600'}
               height={'200'}
               alt={member?.title}
@@ -51,7 +51,7 @@ const MembersCard = ({ member }) => {
                 fontSize: '22px',
                 fontWeight: '600',
               }}>
-              {member.name}
+              {member?.name}
             </Typography>
             <Typography>{member?.memberRole?.role}</Typography>
             <span>Total Balance: </span>
@@ -68,7 +68,7 @@ const MembersCard = ({ member }) => {
                 fontWeight: '600',
                 mt: 1,
               }}>
-              {member.title}
+              {member?.title}
             </Typography>
           </CardContent>
         </Card>

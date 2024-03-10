@@ -1,7 +1,4 @@
-import {
-  useGetBalanceQuery,
-  useGetMonthlyBalanceQuery,
-} from '@/slices/api/balanceApi';
+import { useGetMonthlyBalanceQuery } from '@/slices/api/balanceApi';
 import {
   Box,
   Button,
@@ -19,7 +16,7 @@ import {
 } from '@mui/material';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getDateOnly } from '../../../../../../components/getDateOnly';
 
 const months = [
@@ -48,7 +45,7 @@ const AllUserBalance = () => {
     month: month,
     year: currentYear,
   });
-  // console.log('monthlyBalanceQuery: ', monthlyBalanceQuery?.result)
+  console.log('monthlyBalanceQuery: ', monthlyBalanceQuery?.result);
 
   // Generate a list of years for the past 5 years
   const pastYears = Array.from(
@@ -93,7 +90,7 @@ const AllUserBalance = () => {
   const balanceCol = [
     { title: 'Member ID', field: 'memberId' },
     { title: 'Date', field: 'updatedAt' },
-    { title: 'Name', field: 'memberName' },
+    { title: 'Name', field: 'memberNameENG' },
     { title: 'This month', field: 'amount' },
     { title: 'Total Balance', field: 'total' },
   ];
@@ -125,17 +122,18 @@ const AllUserBalance = () => {
     doc.save(`Balance History -${selectedMonthYear}.pdf`);
   };
 
-  const formatedDate = monthlyBalanceQuery?.result?.map((data) =>
-    getDateOnly(data?.updatedAt)
-  );
-  console.log(formatedDate);
+  // const formattedDate = monthlyBalanceQuery?.result?.map((data) =>
+  //   getDateOnly(data?.updatedAt)
+  // )
+  // console.log(formattedDate)
 
   return (
     <Box>
       <Stack
         flexDirection={'row'}
         gap={3}
-        flexWrap={'wrap'}>
+        flexWrap={'wrap'}
+        mb={2}>
         <Stack
           minWidth={'25%'}
           flexDirection={'row'}

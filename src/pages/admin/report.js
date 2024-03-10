@@ -31,7 +31,7 @@ const Report = () => {
   const { data: creditData } = useGetCreditQuery()
   const creditHist = creditData?.result
   const creditLnt = creditHist?.length
-  // console.log(creditHist);
+  // console.log(creditHist)
   // console.log(pre, next)
 
   const { data: debitData } = useGetDebitQuery()
@@ -106,21 +106,6 @@ const Report = () => {
     })
     doc.save('Debit History.pdf')
   }
-
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ]
 
   return (
     <ThemeProvider theme={theme}>
