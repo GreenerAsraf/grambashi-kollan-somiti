@@ -93,9 +93,12 @@ const MembersView = () => {
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center'>
                 {updatedData
                   ?.filter(
-                    (filterItem) => filterItem?.role?.role === 'কার্যকরী কমিটি'
+                    (filterItem) =>
+                      filterItem?.role?.role === 'কার্যকরী কমিটি' &&
+                      filterItem?.memberRole?.role
                   )
-                  ?.map((member) => (
+                  ?.sort((a, b) => a.memberRole.id - b.memberRole.id)
+                  .map((member) => (
                     <div key={member.id + '123'}>
                       <MembersCard member={member}></MembersCard>
                     </div>
@@ -112,16 +115,6 @@ const MembersView = () => {
               <Button variant='contained'>
                 <Link href={'/users'}>See All Members</Link>
               </Button>
-              {/* {totalCount > updatedData?.length && (
-                <LoadingButton
-                  onClick={() => setPageSize((pre) => pre + 10)}
-                  loading={isLoadingUser}
-                  loadingPosition='start'
-                  // startIcon={'loading'}
-                  variant='outlined'>
-                  <span>Load More</span>
-                </LoadingButton>
-              )} */}
             </Stack>
           </Box>
         )}
@@ -140,9 +133,12 @@ const MembersView = () => {
               <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-center '>
                 {updatedData
                   ?.filter(
-                    (filterItem) => filterItem?.role?.role === 'উপদেষ্টা কমিটি'
+                    (filterItem) =>
+                      filterItem?.role?.role === 'উপদেষ্টা কমিটি' &&
+                      filterItem?.memberRole?.role
                   )
-                  ?.map((member) => (
+                  ?.sort((a, b) => a.role.id - b.role.id)
+                  .map((member) => (
                     <div key={member.id + '456'}>
                       <MembersCard member={member}></MembersCard>
                     </div>
@@ -158,16 +154,6 @@ const MembersView = () => {
               <Button variant='contained'>
                 <Link href={'/users'}>See All Members</Link>
               </Button>
-              {/* {totalCount > updatedData?.length && (
-                <LoadingButton
-                  onClick={() => setPageSize((pre) => pre + 10)}
-                  loading={isLoadingUser}
-                  loadingPosition='start'
-                  startIcon={'Loading'}
-                  variant='outlined'>
-                  <span>Load More</span>
-                </LoadingButton>
-              )} */}
             </Stack>
           </Box>
         )}

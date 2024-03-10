@@ -1,8 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
+
     // baseUrl: 'http://localhost:8000'
     baseUrl: 'https://grambasi-kollyan-somiti-server.vercel.app'
   }),
@@ -10,46 +11,46 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: ({ page, pageSize }) => ({
-        url: `/all-users?page=${page}&pageSize=${pageSize}`
+        url: `/all-users?page=${page}&pageSize=${pageSize}`,
       }),
-      providesTags: ['Users']
+      providesTags: ['Users'],
     }),
     getHomepageUsers: builder.query({
       query: ({ page, pageSize }) => ({
-        url: `/all-users-homepage`
+        url: `/all-users-homepage`,
       }),
-      providesTags: ['Users']
+      providesTags: ['Users'],
     }),
     addUser: builder.mutation({
       query: (data) => ({
         url: '/add-user',
         method: 'POST',
-        body: data
+        body: data,
       }),
-      invalidatesTags: ['Users']
+      invalidatesTags: ['Users'],
     }),
     updateUser: builder.mutation({
       query: (data) => ({
         url: `/update-user`,
         method: 'PUT',
-        body: data
+        body: data,
       }),
-      invalidatesTags: ['Users']
+      invalidatesTags: ['Users'],
     }),
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/delete-user?id=${id}`,
-        method: 'delete'
+        method: 'delete',
       }),
-      invalidatesTags: ['Users']
-    })
-  })
-})
+      invalidatesTags: ['Users'],
+    }),
+  }),
+});
 
 export const {
   useGetUsersQuery,
   useGetHomepageUsersQuery,
   useAddUserMutation,
   useDeleteUserMutation,
-  useUpdateUserMutation
-} = userApi
+  useUpdateUserMutation,
+} = userApi;
